@@ -1,6 +1,6 @@
 // YouTube API Configuration
-export const YOUTUBE_API_KEY = 'AIzaSyCqMSmu2DDeSGfSnv6XNZP6aLsK0cQ2nLs';
-export const PLAYLIST_ID = 'PLJJYFbfGL4wjaA5rn0cSIttFhOPdtXJ4l';
+export const YOUTUBE_API_KEY = import.meta.env.VITE_YOUTUBE_API_KEY;
+export const PLAYLIST_ID = import.meta.env.VITE_PLAYLIST_ID;
 export const YOUTUBE_API_BASE_URL = 'https://www.googleapis.com/youtube/v3';
 
 // Note: The API key has a daily quota limit
