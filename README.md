@@ -77,7 +77,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 👤 Author
 
-Your Name - [@yourtwitter](https://twitter.com/yourtwitter) - email@example.com
+Rial Parmar - rialparmar007@gmail.com
 
 ## 🙏 Acknowledgments
 
