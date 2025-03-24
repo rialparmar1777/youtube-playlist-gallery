@@ -84,3 +84,5 @@ Your Name - [@yourtwitter](https://twitter.com/yourtwitter) - email@example.com
 - YouTube Data API
 - Material-UI team
 - React community
+
+Made with ❤️ by Rial Parmar
