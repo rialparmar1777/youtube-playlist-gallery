@@ -24,6 +24,10 @@ import {
 } from '@mui/icons-material';
 import { useState, useRef, KeyboardEvent } from 'react';
 
+interface NavbarProps {
+  onMenuClick: () => void;
+}
+
 // Styled search component for better visual appearance
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -67,7 +71,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-export const Navbar = () => {
+export const Navbar = ({ onMenuClick }: NavbarProps) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [mobileMenuAnchor, setMobileMenuAnchor] = useState<null | HTMLElement>(null);
   const [searchQuery, setSearchQuery] = useState('');
@@ -122,7 +126,7 @@ export const Navbar = () => {
             edge="start"
             color="inherit"
             aria-label="open drawer"
-            onClick={handleMobileMenuOpen}
+            onClick={onMenuClick}
             sx={{ display: { sm: 'none' } }}
           >
             <MenuIcon />

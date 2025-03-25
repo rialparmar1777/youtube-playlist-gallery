@@ -13,7 +13,8 @@ import {
   Menu,
   MenuItem,
   Stack,
-  LinearProgress
+  LinearProgress,
+  keyframes
 } from '@mui/material';
 import YouTube, { YouTubeProps, YouTubePlayer } from 'react-youtube';
 import { VideoItem } from '../services/youtubeService';
@@ -30,11 +31,36 @@ import {
   ExpandMore,
   ExpandLess,
   Comment,
-  AddReaction
+  AddReaction,
+  PlayCircle
 } from '@mui/icons-material';
 import { useState, useRef, useEffect } from 'react';
 import { formatDistanceToNow } from 'date-fns';
 import { VideoCard } from './VideoCard';
+
+// Define animations
+const fadeIn = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`;
+
+const pulse = keyframes`
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+`;
 
 interface VideoPlayerProps {
   video: VideoItem | null;
@@ -55,7 +81,17 @@ export const VideoPlayer = ({
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
+  const [showWelcome, setShowWelcome] = useState(true);
   const progressInterval = useRef<ReturnType<typeof setInterval> | undefined>(undefined);
+
+  // Add welcome screen timeout
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowWelcome(false);
+    }, 3000); // Show welcome screen for 3 seconds
+
+    return () => clearTimeout(timer);
+  }, []);
 
   const onPlayerReady: YouTubeProps['onReady'] = (event) => {
     const player = event.target;
@@ -129,6 +165,56 @@ export const VideoPlayer = ({
       }
     };
   }, []);
+
+  if (showWelcome) {
+    return (
+      <Box
+        sx={{
+          height: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          bgcolor: 'background.paper',
+          borderRadius: 1,
+          p: 3,
+          animation: `${fadeIn} 0.5s ease-out`,
+        }}
+      >
+        <PlayCircle
+          sx={{
+            fontSize: 80,
+            color: 'primary.main',
+            mb: 2,
+            animation: `${pulse} 2s infinite ease-in-out`,
+          }}
+        />
+        <Typography
+          variant="h4"
+          component="h1"
+          gutterBottom
+          sx={{
+            fontWeight: 600,
+            textAlign: 'center',
+            animation: `${fadeIn} 0.5s ease-out 0.2s both`,
+          }}
+        >
+          Welcome to Video Gallery
+        </Typography>
+        <Typography
+          variant="body1"
+          color="text.secondary"
+          sx={{
+            textAlign: 'center',
+            maxWidth: 400,
+            animation: `${fadeIn} 0.5s ease-out 0.4s both`,
+          }}
+        >
+          Select a video to start watching or explore our collection of amazing content
+        </Typography>
+      </Box>
+    );
+  }
 
   if (loading) {
     return (
