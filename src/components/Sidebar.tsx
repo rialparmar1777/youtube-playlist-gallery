@@ -3,192 +3,127 @@ import {
   Drawer,
   List,
   ListItem,
-  ListItemButton,
   ListItemIcon,
   ListItemText,
-  Divider,
+  ListItemButton,
   Box,
-  IconButton,
   Typography,
-  Avatar,
-  Tooltip,
+  Divider,
   Collapse,
+  useTheme,
+  useMediaQuery,
+  Avatar,
   ButtonBase,
 } from '@mui/material';
 import {
-  Home as HomeIcon,
-  Explore as ExploreIcon,
-  Subscriptions as SubscriptionsIcon,
-  VideoLibrary as VideoLibraryIcon,
-  History as HistoryIcon,
-  PlayCircle as PlayCircleIcon,
-  ThumbUp as ThumbUpIcon,
-  LocalFireDepartment as LocalFireDepartmentIcon,
-  MusicNote as MusicNoteIcon,
-  EmojiEvents as EmojiEventsIcon,
-  SportsEsports as SportsEsportsIcon,
-  Lightbulb as LightbulbIcon,
-  Podcasts as PodcastsIcon,
-  Settings as SettingsIcon,
-  Flag as FlagIcon,
-  Help as HelpIcon,
-  Feedback as FeedbackIcon,
-  Menu as MenuIcon,
-  YouTube as YouTubeIcon,
-  ChevronLeft as ChevronLeftIcon,
-  ChevronRight as ChevronRightIcon,
+  Home,
+  Explore,
+  Subscriptions,
+  VideoLibrary,
+  History,
+  ThumbUp,
+  WatchLater,
+  PlaylistPlay,
+  ChevronLeft,
+  ChevronRight,
+  Settings,
+  Flag,
+  Help,
+  Feedback,
 } from '@mui/icons-material';
-import { useTheme } from '@mui/material/styles';
 
 interface SidebarProps {
-  mobileOpen: boolean;
-  handleDrawerToggle: () => void;
-  drawerWidth: number;
   isOpen: boolean;
+  drawerWidth: number;
+  collapsedWidth: number;
+  onClose: () => void;
 }
 
-export const Sidebar = ({ 
-  mobileOpen, 
-  handleDrawerToggle, 
-  drawerWidth,
-  isOpen
-}: SidebarProps) => {
-  const [selectedItem, setSelectedItem] = useState('home');
-
+export const Sidebar = ({ isOpen, drawerWidth, collapsedWidth, onClose }: SidebarProps) => {
   const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const [selectedItem, setSelectedItem] = useState('Home');
 
-  const mainMenuItems = [
-    { text: 'Home', icon: <HomeIcon />, id: 'home' },
-    { text: 'Shorts', icon: <PlayCircleIcon />, id: 'shorts' },
-    { text: 'Subscriptions', icon: <SubscriptionsIcon />, id: 'subscriptions' },
+  const primaryMenuItems = [
+    { icon: <Home />, text: 'Home' },
+    { icon: <Explore />, text: 'Explore' },
+    { icon: <Subscriptions />, text: 'Subscriptions' },
   ];
 
-  const exploreMenuItems = [
-    { text: 'Explore', icon: <ExploreIcon />, id: 'explore' },
-    { text: 'Trending', icon: <LocalFireDepartmentIcon />, id: 'trending' },
-    { text: 'Music', icon: <MusicNoteIcon />, id: 'music' },
-    { text: 'Gaming', icon: <SportsEsportsIcon />, id: 'gaming' },
-    { text: 'Sports', icon: <EmojiEventsIcon />, id: 'sports' },
-    { text: 'Learning', icon: <LightbulbIcon />, id: 'learning' },
-    { text: 'Podcasts', icon: <PodcastsIcon />, id: 'podcasts' },
+  const secondaryMenuItems = [
+    { icon: <VideoLibrary />, text: 'Library' },
+    { icon: <History />, text: 'History' },
+    { icon: <ThumbUp />, text: 'Liked videos' },
+    { icon: <WatchLater />, text: 'Watch later' },
+    { icon: <PlaylistPlay />, text: 'Playlists' },
   ];
 
-  const libraryMenuItems = [
-    { text: 'Library', icon: <VideoLibraryIcon />, id: 'library' },
-    { text: 'History', icon: <HistoryIcon />, id: 'history' },
-    { text: 'Your videos', icon: <PlayCircleIcon />, id: 'your-videos' },
-    { text: 'Watch later', icon: <PlayCircleIcon />, id: 'watch-later' },
-    { text: 'Liked videos', icon: <ThumbUpIcon />, id: 'liked-videos' },
+  const settingsMenuItems = [
+    { icon: <Settings />, text: 'Settings' },
+    { icon: <Flag />, text: 'Report history' },
+    { icon: <Help />, text: 'Help' },
+    { icon: <Feedback />, text: 'Send feedback' },
   ];
 
-  const subscriptionMenuItems = [
-    { text: 'Your channel', icon: <Avatar sx={{ width: 24, height: 24, bgcolor: 'primary.main' }}>Y</Avatar>, id: 'your-channel' },
-    { text: 'Channel 1', icon: <Avatar sx={{ width: 24, height: 24, bgcolor: 'secondary.main' }}>C1</Avatar>, id: 'channel1' },
-    { text: 'Channel 2', icon: <Avatar sx={{ width: 24, height: 24, bgcolor: 'error.main' }}>C2</Avatar>, id: 'channel2' },
-    { text: 'Channel 3', icon: <Avatar sx={{ width: 24, height: 24, bgcolor: 'success.main' }}>C3</Avatar>, id: 'channel3' },
-  ];
+  const handleItemClick = (text: string) => {
+    setSelectedItem(text);
+    if (isMobile) {
+      onClose();
+    }
+  };
 
-  const moreMenuItems = [
-    { text: 'Settings', icon: <SettingsIcon />, id: 'settings' },
-    { text: 'Report history', icon: <FlagIcon />, id: 'report-history' },
-    { text: 'Help', icon: <HelpIcon />, id: 'help' },
-    { text: 'Send feedback', icon: <FeedbackIcon />, id: 'feedback' },
-  ];
-
-  const renderMenuItems = (items: typeof mainMenuItems) => (
-    <List>
-      {items.map((item) => (
-        <ListItem key={item.id} disablePadding>
-          <ListItemButton
-            selected={selectedItem === item.id}
-            onClick={() => setSelectedItem(item.id)}
-            sx={{
-              '&.Mui-selected': {
-                backgroundColor: 'rgba(0, 0, 0, 0.08)',
-                '&:hover': {
-                  backgroundColor: 'rgba(0, 0, 0, 0.12)',
-                },
-              },
-              '&:hover': {
-                backgroundColor: 'rgba(0, 0, 0, 0.04)',
-              },
-              minHeight: 40,
-              px: 2.5,
-            }}
-          >
-            <ListItemIcon 
-              sx={{ 
-                minWidth: 40,
-                color: selectedItem === item.id ? 'primary.main' : 'inherit',
-                mr: isOpen ? 3 : 0,
-              }}
-            >
-              {item.icon}
-            </ListItemIcon>
-            <Collapse in={isOpen} orientation="horizontal">
-              <ListItemText 
-                primary={item.text}
-                primaryTypographyProps={{
-                  sx: {
-                    fontWeight: selectedItem === item.id ? 'bold' : 'normal',
-                  }
-                }}
-              />
-            </Collapse>
-          </ListItemButton>
-        </ListItem>
-      ))}
-    </List>
-  );
-
-  const drawer = (
-    <Box sx={{ 
-      width: isOpen ? drawerWidth : 70,
-      transition: theme.transitions.create('width', {
-        easing: theme.transitions.easing.sharp,
-        duration: theme.transitions.duration.enteringScreen,
-      }),
-      height: '100%',
-      display: 'flex',
-      flexDirection: 'column',
-      overflowX: 'hidden',
-      bgcolor: 'background.paper',
-      backdropFilter: 'blur(8px)',
-      borderRight: '1px solid',
-      borderColor: 'divider',
-      boxShadow: '0 0 20px rgba(0,0,0,0.1)',
-    }}>
+  return (
+    <Drawer
+      variant={isMobile ? 'temporary' : 'persistent'}
+      anchor="left"
+      open={isOpen}
+      onClose={onClose}
+      sx={{
+        width: isOpen ? drawerWidth : collapsedWidth,
+        flexShrink: 0,
+        '& .MuiDrawer-paper': {
+          width: isOpen ? drawerWidth : collapsedWidth,
+          boxSizing: 'border-box',
+          borderRight: 'none',
+          bgcolor: 'background.paper',
+          transition: theme.transitions.create('width', {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.enteringScreen,
+          }),
+          overflowX: 'hidden',
+        },
+      }}
+    >
       <Box sx={{ 
-        p: 2, 
-        display: 'flex', 
-        alignItems: 'center', 
-        gap: 1,
-        justifyContent: isOpen ? 'flex-start' : 'center',
-        borderBottom: '1px solid',
-        borderColor: 'divider',
+        height: '56px',
+        display: 'flex',
+        alignItems: 'center',
+        px: 2,
       }}>
-        <IconButton onClick={handleDrawerToggle} sx={{ display: { sm: 'none' } }}>
-          <MenuIcon />
-        </IconButton>
-        <Box sx={{ 
-          display: 'flex', 
-          alignItems: 'center', 
-          gap: 1, 
-          cursor: 'pointer',
-          width: '100%',
-          justifyContent: isOpen ? 'flex-start' : 'center',
-        }}>
-          <YouTubeIcon sx={{ color: 'red', fontSize: 30 }} />
-          <Collapse in={isOpen} orientation="horizontal">
-            <Typography variant="h6" sx={{ fontWeight: 'bold', fontSize: '1.2rem', letterSpacing: '-1px' }}>
+        <Collapse in={isOpen} orientation="horizontal">
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+            <ButtonBase sx={{ borderRadius: '50%' }}>
+              <Avatar 
+                sx={{ 
+                  width: 24, 
+                  height: 24,
+                  bgcolor: 'error.main',
+                  color: 'white',
+                  fontSize: '0.875rem',
+                }}
+              >
+                Y
+              </Avatar>
+            </ButtonBase>
+            <Typography variant="h6" sx={{ fontWeight: 500, fontSize: '1.1rem' }}>
               YouTube
             </Typography>
-          </Collapse>
-        </Box>
+          </Box>
+        </Collapse>
       </Box>
 
       <Box sx={{ 
-        flex: 1, 
+        height: 'calc(100vh - 56px)',
         overflowY: 'auto',
         '&::-webkit-scrollbar': {
           width: '6px',
@@ -201,71 +136,147 @@ export const Sidebar = ({
           borderRadius: '3px',
         },
       }}>
-        {renderMenuItems(mainMenuItems)}
-        <Divider />
-        {renderMenuItems(exploreMenuItems)}
-        <Divider />
-        {renderMenuItems(libraryMenuItems)}
-        <Divider />
-        {renderMenuItems(subscriptionMenuItems)}
-        <Divider />
-        {renderMenuItems(moreMenuItems)}
-      </Box>
-    </Box>
-  );
+        <List sx={{ py: 1 }}>
+          {primaryMenuItems.map((item) => (
+            <ListItem key={item.text} disablePadding>
+              <ListItemButton
+                selected={selectedItem === item.text}
+                onClick={() => handleItemClick(item.text)}
+                sx={{
+                  minHeight: 40,
+                  px: 2,
+                  '&:hover': {
+                    bgcolor: 'action.hover',
+                  },
+                  '&.Mui-selected': {
+                    bgcolor: 'action.selected',
+                    '&:hover': {
+                      bgcolor: 'action.selected',
+                    },
+                  },
+                }}
+              >
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: isOpen ? 3 : 'auto',
+                    justifyContent: 'center',
+                    color: selectedItem === item.text ? 'error.main' : 'inherit',
+                  }}
+                >
+                  {item.icon}
+                </ListItemIcon>
+                <Collapse in={isOpen} orientation="horizontal">
+                  <ListItemText 
+                    primary={item.text}
+                    primaryTypographyProps={{
+                      fontSize: '0.875rem',
+                      fontWeight: selectedItem === item.text ? 500 : 400,
+                    }}
+                  />
+                </Collapse>
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
 
-  return (
-    <Box
-      component="nav"
-      sx={{ 
-        width: { sm: isOpen ? drawerWidth : 70 },
-        flexShrink: { sm: 0 },
-        transition: theme.transitions.create('width', {
-          easing: theme.transitions.easing.sharp,
-          duration: theme.transitions.duration.enteringScreen,
-        }),
-        position: 'relative',
-        zIndex: (theme) => theme.zIndex.drawer,
-      }}
-    >
-      <Drawer
-        variant="temporary"
-        open={mobileOpen}
-        onClose={handleDrawerToggle}
-        ModalProps={{
-          keepMounted: true,
-        }}
-        sx={{
-          display: { xs: 'block', sm: 'none' },
-          '& .MuiDrawer-paper': { 
-            boxSizing: 'border-box', 
-            width: drawerWidth,
-            borderRight: 'none',
-            boxShadow: '0 0 20px rgba(0,0,0,0.1)',
-          },
-        }}
-      >
-        {drawer}
-      </Drawer>
-      <Drawer
-        variant="permanent"
-        sx={{
-          display: { xs: 'none', sm: 'block' },
-          '& .MuiDrawer-paper': { 
-            boxSizing: 'border-box', 
-            width: isOpen ? drawerWidth : 70,
-            borderRight: 'none',
-            boxShadow: '0 0 20px rgba(0,0,0,0.1)',
-            transition: theme.transitions.create('width', {
-              easing: theme.transitions.easing.sharp,
-              duration: theme.transitions.duration.enteringScreen,
-            }),
-          },
-        }}
-        open
-      >
-        {drawer}
-      </Drawer>
-    </Box>
+        <Divider sx={{ my: 1 }} />
+
+        <List sx={{ py: 1 }}>
+          {secondaryMenuItems.map((item) => (
+            <ListItem key={item.text} disablePadding>
+              <ListItemButton
+                selected={selectedItem === item.text}
+                onClick={() => handleItemClick(item.text)}
+                sx={{
+                  minHeight: 40,
+                  px: 2,
+                  '&:hover': {
+                    bgcolor: 'action.hover',
+                  },
+                  '&.Mui-selected': {
+                    bgcolor: 'action.selected',
+                    '&:hover': {
+                      bgcolor: 'action.selected',
+                    },
+                  },
+                }}
+              >
+                <ListItemIcon
+                  sx={{
+                    minWidth: 0,
+                    mr: isOpen ? 3 : 'auto',
+                    justifyContent: 'center',
+                    color: selectedItem === item.text ? 'error.main' : 'inherit',
+                  }}
+                >
+                  {item.icon}
+                </ListItemIcon>
+                <Collapse in={isOpen} orientation="horizontal">
+                  <ListItemText 
+                    primary={item.text}
+                    primaryTypographyProps={{
+                      fontSize: '0.875rem',
+                      fontWeight: selectedItem === item.text ? 500 : 400,
+                    }}
+                  />
+                </Collapse>
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+
+        <Divider sx={{ my: 1 }} />
+
+        {isOpen && (
+          <Box sx={{ px: 2, py: 1 }}>
+            <Typography variant="subtitle2" color="text.secondary" sx={{ px: 1, mb: 1 }}>
+              More from YouTube
+            </Typography>
+            <List sx={{ py: 0 }}>
+              {settingsMenuItems.map((item) => (
+                <ListItem key={item.text} disablePadding>
+                  <ListItemButton
+                    sx={{
+                      minHeight: 40,
+                      px: 1,
+                      '&:hover': {
+                        bgcolor: 'action.hover',
+                      },
+                    }}
+                  >
+                    <ListItemIcon
+                      sx={{
+                        minWidth: 0,
+                        mr: 3,
+                        justifyContent: 'center',
+                      }}
+                    >
+                      {item.icon}
+                    </ListItemIcon>
+                    <ListItemText 
+                      primary={item.text}
+                      primaryTypographyProps={{
+                        fontSize: '0.875rem',
+                      }}
+                    />
+                  </ListItemButton>
+                </ListItem>
+              ))}
+            </List>
+          </Box>
+        )}
+
+        <Divider sx={{ my: 1 }} />
+
+        {isOpen && (
+          <Box sx={{ px: 2, py: 1 }}>
+            <Typography variant="body2" color="text.secondary" sx={{ fontSize: '0.75rem', px: 1 }}>
+              © 2023 Google LLC
+            </Typography>
+          </Box>
+        )}
+      </Box>
+    </Drawer>
   );
 };

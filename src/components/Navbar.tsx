@@ -9,8 +9,9 @@ import {
   Avatar,
   Menu,
   MenuItem,
-  Badge,
   Tooltip,
+  useTheme,
+  useMediaQuery,
 } from '@mui/material';
 import {
   Menu as MenuIcon,
@@ -18,32 +19,23 @@ import {
   Mic as MicIcon,
   VideoCall as VideoCallIcon,
   Notifications as NotificationsIcon,
-  AccountCircle as AccountCircleIcon,
 } from '@mui/icons-material';
 
 interface NavbarProps {
-  onMenuClick: () => void;
   onSidebarToggle: () => void;
   isSidebarOpen: boolean;
 }
 
-export const Navbar = ({ onMenuClick, onSidebarToggle, isSidebarOpen }: NavbarProps) => {
+export const Navbar = ({ onSidebarToggle, isSidebarOpen }: NavbarProps) => {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const [mobileMenuAnchor, setMobileMenuAnchor] = useState<null | HTMLElement>(null);
 
-  const handleMenuClick = (event: React.MouseEvent<HTMLElement>) => {
-    setMobileMenuAnchor(event.currentTarget);
-  };
-
-  const handleMenuClose = () => {
-    setMobileMenuAnchor(null);
-  };
-
-  const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
+  const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleProfileMenuClose = () => {
+  const handleClose = () => {
     setAnchorEl(null);
   };
 
@@ -51,112 +43,115 @@ export const Navbar = ({ onMenuClick, onSidebarToggle, isSidebarOpen }: NavbarPr
     <AppBar 
       position="fixed" 
       sx={{ 
+        zIndex: (theme) => theme.zIndex.drawer + 1,
         bgcolor: 'background.paper',
-        color: 'text.primary',
-        boxShadow: 'none',
         borderBottom: '1px solid',
         borderColor: 'divider',
-        zIndex: (theme) => theme.zIndex.drawer + 1,
       }}
     >
-      <Toolbar sx={{ minHeight: '64px !important' }}>
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-          <IconButton
-            edge="start"
-            color="inherit"
-            aria-label="open drawer"
-            onClick={onMenuClick}
-            sx={{ display: { sm: 'none' } }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <IconButton
-            edge="start"
-            color="inherit"
-            aria-label="toggle sidebar"
-            onClick={onSidebarToggle}
-            sx={{ display: { xs: 'none', sm: 'block' } }}
-          >
-            <MenuIcon />
-          </IconButton>
-        </Box>
+      <Toolbar sx={{ height: '64px', px: { xs: 1, sm: 2 } }}>
+        <IconButton
+          color="inherit"
+          edge="start"
+          onClick={onSidebarToggle}
+          sx={{ 
+            mr: 2,
+            display: { sm: 'block' },
+            color: 'text.primary',
+          }}
+        >
+          <MenuIcon />
+        </IconButton>
 
-        <Box sx={{ display: 'flex', alignItems: 'center', ml: 2 }}>
-          <img
-            src="/youtube-logo.png"
-            alt="YouTube"
-            style={{ height: 20, marginRight: 4 }}
-          />
-          <Typography
-            variant="h6"
-            noWrap
-            component="div"
-            sx={{
-              display: { xs: 'none', sm: 'block' },
-              fontWeight: 'bold',
-              fontSize: '1.2rem',
-              letterSpacing: '-1px',
-            }}
-          >
+        <Box sx={{ 
+          display: 'flex', 
+          alignItems: 'center', 
+          gap: 1,
+          color: 'red',
+          cursor: 'pointer',
+          textDecoration: 'none',
+        }}>
+          <Typography variant="h6" sx={{ fontWeight: 'bold', letterSpacing: '-1px' }}>
             YouTube
           </Typography>
         </Box>
 
-        <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center', maxWidth: '600px', mx: 'auto' }}>
-          <Box
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              width: '100%',
-              bgcolor: 'background.paper',
-              border: '1px solid',
-              borderColor: 'divider',
-              borderRadius: '40px',
-              overflow: 'hidden',
-              '&:focus-within': {
-                borderColor: 'primary.main',
-                boxShadow: '0 0 0 1px',
-              },
-            }}
-          >
+        <Box sx={{ 
+          flex: 1,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          maxWidth: { sm: '600px' },
+          mx: 'auto',
+        }}>
+          <Box sx={{ 
+            display: 'flex',
+            alignItems: 'center',
+            width: '100%',
+            maxWidth: '600px',
+            bgcolor: 'background.paper',
+            border: '1px solid',
+            borderColor: 'divider',
+            borderRadius: '40px',
+            overflow: 'hidden',
+            '&:hover': {
+              borderColor: 'primary.main',
+            },
+          }}>
             <InputBase
               placeholder="Search"
-              sx={{ ml: 2, flex: 1 }}
-              inputProps={{ 'aria-label': 'search' }}
+              sx={{ 
+                ml: 2, 
+                flex: 1,
+                '& input': {
+                  p: 1,
+                },
+              }}
             />
-            <IconButton sx={{ p: '10px' }} aria-label="search">
+            <IconButton sx={{ p: 1, color: 'text.primary' }}>
               <SearchIcon />
             </IconButton>
           </Box>
           <Tooltip title="Search with your voice">
-            <IconButton sx={{ ml: 1 }}>
+            <IconButton sx={{ ml: 1, color: 'text.primary' }}>
               <MicIcon />
             </IconButton>
           </Tooltip>
         </Box>
 
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+        <Box sx={{ 
+          display: 'flex', 
+          alignItems: 'center', 
+          gap: 1,
+          ml: 2,
+        }}>
           <Tooltip title="Create">
-            <IconButton>
+            <IconButton color="inherit" sx={{ color: 'text.primary' }}>
               <VideoCallIcon />
             </IconButton>
           </Tooltip>
           <Tooltip title="YouTube notifications">
-            <IconButton>
-              <Badge badgeContent={3} color="error">
-                <NotificationsIcon />
-              </Badge>
+            <IconButton color="inherit" sx={{ color: 'text.primary' }}>
+              <NotificationsIcon />
             </IconButton>
           </Tooltip>
-          <Tooltip title="Your profile">
+          <Tooltip title="Google Account">
             <IconButton
-              edge="end"
-              aria-label="account of current user"
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-              color="inherit"
+              onClick={handleMenu}
+              sx={{ 
+                p: 0,
+                '&:hover': {
+                  opacity: 0.8,
+                },
+              }}
             >
-              <Avatar sx={{ width: 32, height: 32, bgcolor: 'primary.main' }}>Y</Avatar>
+              <Avatar 
+                sx={{ 
+                  width: 32, 
+                  height: 32,
+                  cursor: 'pointer',
+                }}
+              />
             </IconButton>
           </Tooltip>
         </Box>
@@ -164,7 +159,7 @@ export const Navbar = ({ onMenuClick, onSidebarToggle, isSidebarOpen }: NavbarPr
         <Menu
           anchorEl={anchorEl}
           open={Boolean(anchorEl)}
-          onClose={handleProfileMenuClose}
+          onClose={handleClose}
           PaperProps={{
             sx: {
               mt: 1.5,
@@ -174,17 +169,20 @@ export const Navbar = ({ onMenuClick, onSidebarToggle, isSidebarOpen }: NavbarPr
             },
           }}
         >
-          <MenuItem onClick={handleProfileMenuClose}>
-            <Avatar sx={{ width: 32, height: 32, mr: 2 }}>Y</Avatar>
+          <MenuItem onClick={handleClose}>
+            <Avatar sx={{ width: 32, height: 32, mr: 2 }} />
             <Box>
-              <Typography variant="body2" sx={{ fontWeight: 500 }}>Your Name</Typography>
-              <Typography variant="body2" color="text.secondary">@yourchannel</Typography>
+              <Typography variant="body2" sx={{ fontWeight: 500 }}>
+                User Name
+              </Typography>
+              <Typography variant="body2" color="text.secondary" sx={{ fontSize: '0.8rem' }}>
+                user@example.com
+              </Typography>
             </Box>
           </MenuItem>
-          <MenuItem onClick={handleProfileMenuClose}>Your channel</MenuItem>
-          <MenuItem onClick={handleProfileMenuClose}>Studio</MenuItem>
-          <MenuItem onClick={handleProfileMenuClose}>Switch account</MenuItem>
-          <MenuItem onClick={handleProfileMenuClose}>Sign out</MenuItem>
+          <MenuItem onClick={handleClose}>Your channel</MenuItem>
+          <MenuItem onClick={handleClose}>YouTube Studio</MenuItem>
+          <MenuItem onClick={handleClose}>Sign out</MenuItem>
         </Menu>
       </Toolbar>
     </AppBar>

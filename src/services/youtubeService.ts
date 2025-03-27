@@ -5,14 +5,14 @@ export interface VideoItem {
   id: string;
   title: string;
   description: string;
-  thumbnail: string;
+  thumbnailUrl: string;
   channelTitle: string;
-  channelId: string;
   channelThumbnail: string;
+  viewCount: string;
   publishedAt: string;
-  duration: string;
-  viewCount: number;
-  views: number;
+  likeCount?: string;
+  subscriberCount?: string;
+  duration?: string;
 }
 
 export const youtubeService = {
@@ -60,14 +60,14 @@ export const youtubeService = {
           id: item.id.videoId,
           title: item.snippet.title,
           description: item.snippet.description,
-          thumbnail: item.snippet.thumbnails.high.url,
+          thumbnailUrl: item.snippet.thumbnails.high.url,
           channelTitle: item.snippet.channelTitle,
-          channelId: item.snippet.channelId,
           channelThumbnail: item.snippet.thumbnails.default.url,
+          viewCount: videoStats?.statistics?.viewCount || '0',
           publishedAt: item.snippet.publishedAt,
-          duration: videoStats?.contentDetails?.duration || 'PT0S',
-          viewCount: parseInt(videoStats?.statistics?.viewCount || '0'),
-          views: parseInt(videoStats?.statistics?.viewCount || '0'),
+          likeCount: videoStats?.statistics?.likeCount,
+          subscriberCount: videoStats?.statistics?.subscriberCount,
+          duration: videoStats?.contentDetails?.duration,
         };
       });
     } catch (error: any) {
@@ -103,14 +103,13 @@ export const youtubeService = {
         id: item.id.videoId,
         title: item.snippet.title,
         description: item.snippet.description,
-        thumbnail: item.snippet.thumbnails.high.url,
-        publishedAt: item.snippet.publishedAt,
+        thumbnailUrl: item.snippet.thumbnails.high.url,
         channelTitle: item.snippet.channelTitle,
-        channelId: item.snippet.channelId,
         channelThumbnail: item.snippet.channelThumbnails?.default?.url || '',
-        viewCount: Math.floor(Math.random() * 1000000), // Mock data
-        views: Math.floor(Math.random() * 1000000), // Mock data
-        duration: 'PT10M30S', // Mock data
+        viewCount: Math.floor(Math.random() * 1000000).toString(), // Mock data
+        publishedAt: item.snippet.publishedAt,
+        likeCount: Math.floor(Math.random() * 1000000).toString(), // Mock data
+        subscriberCount: Math.floor(Math.random() * 1000000).toString(), // Mock data
       }));
     } catch (error) {
       console.error('Error fetching related videos:', error);

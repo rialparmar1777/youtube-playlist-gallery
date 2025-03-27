@@ -1,4 +1,4 @@
-import { useState, useCallback, memo } from 'react';
+import { useState } from 'react';
 import {
   Card,
   CardContent,
@@ -12,8 +12,7 @@ import {
   Tooltip,
   Divider,
   Stack,
-  ButtonBase,
-  Skeleton
+  ButtonBase
 } from '@mui/material';
 import {
   MoreVert,
@@ -26,75 +25,40 @@ import {
   NotificationsActiveOutlined
 } from '@mui/icons-material';
 import { formatDistanceToNow } from 'date-fns';
-import { VideoItem, youtubeService } from '../services/youtubeService';
+import { VideoItem } from '../services/youtubeService';
+import { youtubeService } from '../services/youtubeService';
 
 interface VideoCardProps {
   video: VideoItem;
   onSelect: (video: VideoItem) => void;
   variant?: 'default' | 'compact';
-  loading?: boolean;
 }
 
-export const VideoCard = memo(({ 
-  video, 
-  onSelect, 
-  variant = 'default',
-  loading = false 
-}: VideoCardProps) => {
+export const VideoCard = ({ video, onSelect, variant = 'default' }: VideoCardProps) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [isHovered, setIsHovered] = useState(false);
-  const [imageError, setImageError] = useState(false);
 
-  const handleMenuClick = useCallback((event: React.MouseEvent<HTMLElement>) => {
+  const handleMenuClick = (event: React.MouseEvent<HTMLElement>) => {
     event.stopPropagation();
     setAnchorEl(event.currentTarget);
-  }, []);
+  };
 
-  const handleMenuClose = useCallback(() => {
+  const handleMenuClose = () => {
     setAnchorEl(null);
-  }, []);
+  };
 
-  const handleCardClick = useCallback(() => {
+  const handleCardClick = () => {
     onSelect(video);
-  }, [onSelect, video]);
+  };
 
-  const handleChannelClick = useCallback((event: React.MouseEvent<HTMLElement>) => {
+  const handleChannelClick = (event: React.MouseEvent<HTMLElement>) => {
     event.stopPropagation();
     console.log('Channel clicked:', video.channelTitle);
-  }, [video.channelTitle]);
+  };
 
-  const formatDate = useCallback((dateString: string) => {
-    try {
-      return formatDistanceToNow(new Date(dateString), { addSuffix: true });
-    } catch (error) {
-      console.error('Error formatting date:', error);
-      return 'Unknown date';
-    }
-  }, []);
-
-  const handleImageError = useCallback(() => {
-    setImageError(true);
-  }, []);
-
-  if (loading) {
-    return (
-      <Card elevation={0} sx={{ width: '100%', bgcolor: 'transparent' }}>
-        <Box sx={{ position: 'relative', width: '100%', paddingTop: '56.25%' }}>
-          <Skeleton variant="rectangular" sx={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0 }} />
-        </Box>
-        <CardContent sx={{ p: 1, pt: 1.5, pb: 0 }}>
-          <Box sx={{ display: 'flex', gap: 1 }}>
-            <Skeleton variant="circular" width={36} height={36} />
-            <Box sx={{ flex: 1 }}>
-              <Skeleton variant="text" width="80%" height={20} />
-              <Skeleton variant="text" width="60%" height={16} />
-              <Skeleton variant="text" width="40%" height={16} />
-            </Box>
-          </Box>
-        </CardContent>
-      </Card>
-    );
-  }
+  const formatDate = (dateString: string) => {
+    return formatDistanceToNow(new Date(dateString), { addSuffix: true });
+  };
 
   if (variant === 'compact') {
     return (
@@ -115,15 +79,17 @@ export const VideoCard = memo(({
           <Box sx={{ position: 'relative', width: 168, height: 94, flexShrink: 0 }}>
             <CardMedia
               component="img"
-              image={imageError ? '/placeholder-thumbnail.jpg' : video.thumbnail}
+              image={video.thumbnailUrl}
               alt={video.title}
-              onError={handleImageError}
               sx={{
                 width: '100%',
                 height: '100%',
                 objectFit: 'cover',
                 borderRadius: 1,
+                transition: 'transform 0.2s ease-in-out',
               }}
+              onMouseEnter={() => setIsHovered(true)}
+              onMouseLeave={() => setIsHovered(false)}
             />
             <Typography
               variant="caption"
@@ -139,7 +105,7 @@ export const VideoCard = memo(({
                 fontWeight: 500,
               }}
             >
-              {youtubeService.formatDuration(video.duration)}
+              {video.duration || '0:00'}
             </Typography>
           </Box>
           <Box sx={{ flex: 1, minWidth: 0, py: 0.5 }}>
@@ -171,7 +137,7 @@ export const VideoCard = memo(({
               color="text.secondary"
               sx={{ fontSize: '0.8rem', display: 'flex', alignItems: 'center', gap: 0.5 }}
             >
-              {video.views.toLocaleString()} views • {formatDate(video.publishedAt)}
+              {youtubeService.formatViewCount(video.viewCount)} views • {formatDate(video.publishedAt)}
             </Typography>
           </Box>
         </Box>
@@ -203,9 +169,8 @@ export const VideoCard = memo(({
         <Box sx={{ position: 'relative', width: '100%', paddingTop: '56.25%' }}>
           <CardMedia
             component="img"
-            image={imageError ? '/placeholder-thumbnail.jpg' : video.thumbnail}
+            image={video.thumbnailUrl}
             alt={video.title}
-            onError={handleImageError}
             sx={{
               position: 'absolute',
               top: 0,
@@ -231,7 +196,7 @@ export const VideoCard = memo(({
               fontWeight: 500,
             }}
           >
-            {youtubeService.formatDuration(video.duration)}
+            {video.duration || '0:00'}
           </Typography>
         </Box>
       </ButtonBase>
@@ -241,7 +206,6 @@ export const VideoCard = memo(({
             <Avatar
               src={video.channelThumbnail}
               alt={video.channelTitle}
-              onError={handleImageError}
               sx={{ 
                 width: 36, 
                 height: 36, 
@@ -294,7 +258,7 @@ export const VideoCard = memo(({
                 gap: 0.5
               }}
             >
-              {video.views.toLocaleString()} views • {formatDate(video.publishedAt)}
+              {youtubeService.formatViewCount(video.viewCount)} views • {formatDate(video.publishedAt)}
             </Typography>
           </Box>
           <IconButton
@@ -363,6 +327,4 @@ export const VideoCard = memo(({
       </Menu>
     </Card>
   );
-});
-
-VideoCard.displayName = 'VideoCard';
+};

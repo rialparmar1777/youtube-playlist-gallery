@@ -16,7 +16,7 @@ import {
   ButtonBase,
   Paper
 } from '@mui/material';
-import YouTube, { YouTubeProps, YouTubePlayer } from 'react-youtube';
+import YouTube, { YouTubeProps } from 'react-youtube';
 import { VideoItem } from '../services/youtubeService';
 import { youtubeService } from '../services/youtubeService';
 import { 
@@ -28,28 +28,29 @@ import {
   WatchLaterOutlined,
   NotificationsNoneOutlined,
   NotificationsActiveOutlined,
-  ExpandMore,
+  SubscriptionsOutlined,
+  ArrowBack,
   ExpandLess,
-  SubscriptionsOutlined
+  ExpandMore
 } from '@mui/icons-material';
 import { useState, useRef, useEffect } from 'react';
 import { formatDistanceToNow } from 'date-fns';
 import { VideoCard } from './VideoCard';
 
 interface VideoPlayerProps {
-  video: VideoItem | null;
-  loading?: boolean;
-  relatedVideos?: VideoItem[];
-  onVideoSelect?: (video: VideoItem) => void;
+  video: VideoItem;
+  relatedVideos: VideoItem[];
+  onVideoSelect: (video: VideoItem) => void;
+  onBack: () => void;
 }
 
 export const VideoPlayer = ({ 
   video, 
-  loading = false, 
-  relatedVideos = [],
-  onVideoSelect
+  relatedVideos,
+  onVideoSelect,
+  onBack
 }: VideoPlayerProps) => {
-  const [player, setPlayer] = useState<YouTubePlayer | null>(null);
+  const [player, setPlayer] = useState<any>(null);
   const [isSubscribed, setIsSubscribed] = useState(false);
   const [showDescription, setShowDescription] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -58,16 +59,10 @@ export const VideoPlayer = ({
   const progressInterval = useRef<ReturnType<typeof setInterval> | undefined>(undefined);
 
   const onPlayerReady: YouTubeProps['onReady'] = (event) => {
-    const player = event.target as YouTubePlayer;
+    const player = event.target;
     setPlayer(player);
     setDuration(player.getDuration());
     
-    // Clear any existing interval
-    if (progressInterval.current) {
-      clearInterval(progressInterval.current);
-    }
-    
-    // Set up new interval
     progressInterval.current = setInterval(() => {
       setCurrentTime(player.getCurrentTime());
     }, 1000);
@@ -122,72 +117,23 @@ export const VideoPlayer = ({
     },
   };
 
-  // Cleanup interval on unmount or when video changes
   useEffect(() => {
     return () => {
       if (progressInterval.current) {
         clearInterval(progressInterval.current);
       }
     };
-  }, [video?.id]); // Add video.id as dependency to reset interval when video changes
-
-  if (loading) {
-    return (
-      <Box sx={{ height: '100%', display: 'flex', flexDirection: 'column', gap: 2 }}>
-        <Box sx={{ position: 'relative', width: '100%', pt: '56.25%' }}>
-          <Skeleton variant="rectangular" sx={{ 
-            position: 'absolute', 
-            top: 0, 
-            left: 0, 
-            right: 0, 
-            bottom: 0 
-          }} />
-        </Box>
-        
-        <Box sx={{ px: 2 }}>
-          <Skeleton variant="text" width="80%" height={40} />
-          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, my: 2 }}>
-            <Skeleton variant="circular" width={40} height={40} />
-            <Box sx={{ flex: 1 }}>
-              <Skeleton variant="text" width="60%" />
-              <Skeleton variant="text" width="40%" />
-            </Box>
-            <Skeleton variant="rectangular" width={100} height={36} />
-          </Box>
-          <Skeleton variant="rectangular" height={120} sx={{ mb: 2 }} />
-          <Box sx={{ display: 'flex', gap: 1 }}>
-            <Skeleton variant="rectangular" width={100} height={36} />
-            <Skeleton variant="rectangular" width={40} height={36} />
-            <Skeleton variant="rectangular" width={80} height={36} sx={{ ml: 'auto' }} />
-            <Skeleton variant="rectangular" width={40} height={36} />
-          </Box>
-        </Box>
-      </Box>
-    );
-  }
-
-  if (!video) {
-    return (
-      <Box
-        sx={{
-          height: '100%',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          bgcolor: 'background.paper',
-          borderRadius: 1,
-          p: 3,
-        }}
-      >
-        <Typography variant="h6" color="text.secondary">
-          Select a video to play
-        </Typography>
-      </Box>
-    );
-  }
+  }, []);
 
   return (
     <Box sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+      {/* Back button for mobile */}
+      <Box sx={{ display: { xs: 'flex', sm: 'none' }, alignItems: 'center', p: 1 }}>
+        <IconButton onClick={onBack}>
+          <ArrowBack />
+        </IconButton>
+      </Box>
+
       {/* Video Player */}
       <Box sx={{ position: 'relative', width: '100%', pt: '56.25%' }}>
         <Box sx={{ 
@@ -247,7 +193,7 @@ export const VideoPlayer = ({
                   }
                 }}
               >
-                {youtubeService.formatViewCount(video.viewCount.toString())}
+                {youtubeService.formatViewCount(video.likeCount?.toString() || '0')}
               </Button>
             </Tooltip>
             
@@ -358,7 +304,7 @@ export const VideoPlayer = ({
                 {video.channelTitle}
               </Typography>
               <Typography variant="body2" color="text.secondary" sx={{ fontSize: '0.8rem' }}>
-                {youtubeService.formatViewCount(video.viewCount.toString())} subscribers
+                {youtubeService.formatViewCount(video.subscriberCount?.toString() || '0')} subscribers
               </Typography>
             </Box>
           </Box>
