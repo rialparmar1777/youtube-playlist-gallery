@@ -12,6 +12,7 @@ import {
   Typography,
   Avatar,
   Tooltip,
+  Collapse,
 } from '@mui/material';
 import {
   Home as HomeIcon,
@@ -33,6 +34,8 @@ import {
   Feedback as FeedbackIcon,
   Menu as MenuIcon,
   YouTube as YouTubeIcon,
+  ChevronLeft as ChevronLeftIcon,
+  ChevronRight as ChevronRightIcon,
 } from '@mui/icons-material';
 
 interface SidebarProps {
@@ -42,6 +45,7 @@ interface SidebarProps {
 
 export const Sidebar = ({ mobileOpen, handleDrawerToggle }: SidebarProps) => {
   const [selectedItem, setSelectedItem] = useState('home');
+  const [isCollapsed, setIsCollapsed] = useState(false);
 
   const mainMenuItems = [
     { text: 'Home', icon: <HomeIcon />, id: 'home' },
@@ -81,209 +85,123 @@ export const Sidebar = ({ mobileOpen, handleDrawerToggle }: SidebarProps) => {
     { text: 'Send feedback', icon: <FeedbackIcon />, id: 'feedback' },
   ];
 
+  const renderMenuItems = (items: typeof mainMenuItems) => (
+    <List>
+      {items.map((item) => (
+        <ListItem key={item.id} disablePadding>
+          <ListItemButton
+            selected={selectedItem === item.id}
+            onClick={() => setSelectedItem(item.id)}
+            sx={{
+              '&.Mui-selected': {
+                backgroundColor: 'rgba(0, 0, 0, 0.08)',
+                '&:hover': {
+                  backgroundColor: 'rgba(0, 0, 0, 0.12)',
+                },
+              },
+              '&:hover': {
+                backgroundColor: 'rgba(0, 0, 0, 0.04)',
+              },
+              minHeight: 40,
+              px: 2.5,
+            }}
+          >
+            <ListItemIcon 
+              sx={{ 
+                minWidth: 40,
+                color: selectedItem === item.id ? 'primary.main' : 'inherit',
+                mr: isCollapsed ? 0 : 3,
+              }}
+            >
+              {item.icon}
+            </ListItemIcon>
+            <Collapse in={!isCollapsed} orientation="horizontal">
+              <ListItemText 
+                primary={item.text}
+                primaryTypographyProps={{
+                  sx: {
+                    fontWeight: selectedItem === item.id ? 'bold' : 'normal',
+                  }
+                }}
+              />
+            </Collapse>
+          </ListItemButton>
+        </ListItem>
+      ))}
+    </List>
+  );
+
   const drawer = (
-    <Box sx={{ width: 240 }}>
-      <Box sx={{ p: 2, display: 'flex', alignItems: 'center', gap: 1 }}>
+    <Box sx={{ 
+      width: isCollapsed ? 70 : 240,
+      transition: 'width 0.2s ease-in-out',
+      height: '100%',
+      display: 'flex',
+      flexDirection: 'column',
+    }}>
+      <Box sx={{ 
+        p: 2, 
+        display: 'flex', 
+        alignItems: 'center', 
+        gap: 1,
+        justifyContent: isCollapsed ? 'center' : 'flex-start',
+      }}>
         <IconButton onClick={handleDrawerToggle} sx={{ display: { sm: 'none' } }}>
           <MenuIcon />
         </IconButton>
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, cursor: 'pointer' }}>
+        <Box sx={{ 
+          display: 'flex', 
+          alignItems: 'center', 
+          gap: 1, 
+          cursor: 'pointer',
+          width: '100%',
+          justifyContent: isCollapsed ? 'center' : 'flex-start',
+        }}>
           <YouTubeIcon sx={{ color: 'red', fontSize: 30 }} />
-          <Typography variant="h6" sx={{ fontWeight: 'bold', fontSize: '1.2rem', letterSpacing: '-1px' }}>
-            YouTube
-          </Typography>
+          <Collapse in={!isCollapsed} orientation="horizontal">
+            <Typography variant="h6" sx={{ fontWeight: 'bold', fontSize: '1.2rem', letterSpacing: '-1px' }}>
+              YouTube
+            </Typography>
+          </Collapse>
         </Box>
       </Box>
       <Divider />
-      <List>
-        {mainMenuItems.map((item) => (
-          <ListItem key={item.id} disablePadding>
-            <ListItemButton
-              selected={selectedItem === item.id}
-              onClick={() => setSelectedItem(item.id)}
-              sx={{
-                '&.Mui-selected': {
-                  backgroundColor: 'rgba(0, 0, 0, 0.08)',
-                  '&:hover': {
-                    backgroundColor: 'rgba(0, 0, 0, 0.12)',
-                  },
-                },
-                '&:hover': {
-                  backgroundColor: 'rgba(0, 0, 0, 0.04)',
-                },
-              }}
-            >
-              <ListItemIcon sx={{ minWidth: 40, color: selectedItem === item.id ? 'primary.main' : 'inherit' }}>
-                {item.icon}
-              </ListItemIcon>
-              <ListItemText 
-                primary={item.text}
-                primaryTypographyProps={{
-                  sx: {
-                    fontWeight: selectedItem === item.id ? 'bold' : 'normal',
-                  }
-                }}
-              />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
+      {renderMenuItems(mainMenuItems)}
       <Divider />
-      <List>
-        {exploreMenuItems.map((item) => (
-          <ListItem key={item.id} disablePadding>
-            <ListItemButton
-              selected={selectedItem === item.id}
-              onClick={() => setSelectedItem(item.id)}
-              sx={{
-                '&.Mui-selected': {
-                  backgroundColor: 'rgba(0, 0, 0, 0.08)',
-                  '&:hover': {
-                    backgroundColor: 'rgba(0, 0, 0, 0.12)',
-                  },
-                },
-                '&:hover': {
-                  backgroundColor: 'rgba(0, 0, 0, 0.04)',
-                },
-              }}
-            >
-              <ListItemIcon sx={{ minWidth: 40, color: selectedItem === item.id ? 'primary.main' : 'inherit' }}>
-                {item.icon}
-              </ListItemIcon>
-              <ListItemText 
-                primary={item.text}
-                primaryTypographyProps={{
-                  sx: {
-                    fontWeight: selectedItem === item.id ? 'bold' : 'normal',
-                  }
-                }}
-              />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
+      {renderMenuItems(exploreMenuItems)}
       <Divider />
-      <List>
-        {libraryMenuItems.map((item) => (
-          <ListItem key={item.id} disablePadding>
-            <ListItemButton
-              selected={selectedItem === item.id}
-              onClick={() => setSelectedItem(item.id)}
-              sx={{
-                '&.Mui-selected': {
-                  backgroundColor: 'rgba(0, 0, 0, 0.08)',
-                  '&:hover': {
-                    backgroundColor: 'rgba(0, 0, 0, 0.12)',
-                  },
-                },
-                '&:hover': {
-                  backgroundColor: 'rgba(0, 0, 0, 0.04)',
-                },
-              }}
-            >
-              <ListItemIcon sx={{ minWidth: 40, color: selectedItem === item.id ? 'primary.main' : 'inherit' }}>
-                {item.icon}
-              </ListItemIcon>
-              <ListItemText 
-                primary={item.text}
-                primaryTypographyProps={{
-                  sx: {
-                    fontWeight: selectedItem === item.id ? 'bold' : 'normal',
-                  }
-                }}
-              />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
+      {renderMenuItems(libraryMenuItems)}
       <Divider />
-      <List>
-        {subscriptionMenuItems.map((item) => (
-          <ListItem key={item.id} disablePadding>
-            <ListItemButton
-              selected={selectedItem === item.id}
-              onClick={() => setSelectedItem(item.id)}
-              sx={{
-                '&.Mui-selected': {
-                  backgroundColor: 'rgba(0, 0, 0, 0.08)',
-                  '&:hover': {
-                    backgroundColor: 'rgba(0, 0, 0, 0.12)',
-                  },
-                },
-                '&:hover': {
-                  backgroundColor: 'rgba(0, 0, 0, 0.04)',
-                },
-              }}
-            >
-              <ListItemIcon sx={{ minWidth: 40 }}>
-                {item.icon}
-              </ListItemIcon>
-              <ListItemText 
-                primary={item.text}
-                primaryTypographyProps={{
-                  sx: {
-                    fontWeight: selectedItem === item.id ? 'bold' : 'normal',
-                  }
-                }}
-              />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
+      {renderMenuItems(subscriptionMenuItems)}
       <Divider />
-      <List>
-        {moreMenuItems.map((item) => (
-          <ListItem key={item.id} disablePadding>
-            <ListItemButton
-              selected={selectedItem === item.id}
-              onClick={() => setSelectedItem(item.id)}
-              sx={{
-                '&.Mui-selected': {
-                  backgroundColor: 'rgba(0, 0, 0, 0.08)',
-                  '&:hover': {
-                    backgroundColor: 'rgba(0, 0, 0, 0.12)',
-                  },
-                },
-                '&:hover': {
-                  backgroundColor: 'rgba(0, 0, 0, 0.04)',
-                },
-              }}
-            >
-              <ListItemIcon sx={{ minWidth: 40, color: selectedItem === item.id ? 'primary.main' : 'inherit' }}>
-                {item.icon}
-              </ListItemIcon>
-              <ListItemText 
-                primary={item.text}
-                primaryTypographyProps={{
-                  sx: {
-                    fontWeight: selectedItem === item.id ? 'bold' : 'normal',
-                  }
-                }}
-              />
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
+      {renderMenuItems(moreMenuItems)}
+      <Box sx={{ flexGrow: 1 }} />
+      <Divider />
+      <Box sx={{ p: 1, display: 'flex', justifyContent: isCollapsed ? 'center' : 'flex-end' }}>
+        <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
+          {isCollapsed ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+        </IconButton>
+      </Box>
     </Box>
   );
 
   return (
     <Box
       component="nav"
-      sx={{ width: { sm: 240 }, flexShrink: { sm: 0 } }}
+      sx={{ width: { sm: isCollapsed ? 70 : 240 }, flexShrink: { sm: 0 } }}
     >
       <Drawer
         variant="temporary"
         open={mobileOpen}
         onClose={handleDrawerToggle}
         ModalProps={{
-          keepMounted: true, // Better open performance on mobile.
+          keepMounted: true,
         }}
         sx={{
           display: { xs: 'block', sm: 'none' },
           '& .MuiDrawer-paper': { 
             boxSizing: 'border-box', 
-            width: 240,
+            width: isCollapsed ? 70 : 240,
             borderRight: 'none',
             boxShadow: '0 0 10px rgba(0,0,0,0.1)',
           },
@@ -297,7 +215,7 @@ export const Sidebar = ({ mobileOpen, handleDrawerToggle }: SidebarProps) => {
           display: { xs: 'none', sm: 'block' },
           '& .MuiDrawer-paper': { 
             boxSizing: 'border-box', 
-            width: 240,
+            width: isCollapsed ? 70 : 240,
             borderRight: 'none',
             boxShadow: '0 0 10px rgba(0,0,0,0.1)',
           },

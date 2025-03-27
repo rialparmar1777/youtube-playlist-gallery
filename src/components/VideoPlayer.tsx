@@ -361,7 +361,7 @@ export const VideoPlayer = ({
             <Box>
               <Typography variant="subtitle2">{video.channelTitle}</Typography>
               <Typography variant="caption" color="text.secondary">
-                {youtubeService.formatViewCount(video.subscriberCount || '0')} subscribers
+                {youtubeService.formatViewCount(video.viewCount.toString())} subscribers
               </Typography>
             </Box>
           </Box>
@@ -389,7 +389,7 @@ export const VideoPlayer = ({
             flexWrap: 'wrap'
           }}>
             <Typography variant="body2" color="text.secondary">
-              {youtubeService.formatViewCount(video.viewCount)} views
+              {youtubeService.formatViewCount(video.viewCount.toString())} views
             </Typography>
             <Typography variant="body2" color="text.secondary">
               •
@@ -435,7 +435,7 @@ export const VideoPlayer = ({
               variant="outlined"
               sx={{ borderRadius: '20px' }}
             >
-              {youtubeService.formatViewCount(video.likeCount || '0')}
+              {youtubeService.formatViewCount(video.viewCount.toString())}
             </Button>
           </Tooltip>
           
@@ -500,12 +500,8 @@ export const VideoPlayer = ({
 
         {/* Categories */}
         <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap', mb: 3 }}>
-          <Chip label={video.category || 'Uncategorized'} color="primary" />
           <Chip label="All" />
           <Chip label="Related" />
-          {video.tags?.slice(0, 3).map((tag) => (
-            <Chip key={tag} label={tag} />
-          ))}
         </Box>
 
         {/* Related Videos */}
@@ -521,7 +517,7 @@ export const VideoPlayer = ({
                   onClick={() => handleVideoSelect(relatedVideo)}
                   sx={{ cursor: 'pointer' }}
                 >
-                  <VideoCard video={relatedVideo} />
+                  <VideoCard video={relatedVideo} onSelect={handleVideoSelect} />
                 </Box>
               ))}
             </Box>

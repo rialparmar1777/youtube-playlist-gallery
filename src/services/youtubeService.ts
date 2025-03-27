@@ -4,16 +4,15 @@ import { YOUTUBE_API_KEY, YOUTUBE_API_BASE_URL, VIDEO_CATEGORIES, SEARCH_PARAMS 
 export interface VideoItem {
   id: string;
   title: string;
-  thumbnail: string;
   description: string;
-  category: string;
-  viewCount: string;
+  thumbnail: string;
+  channelTitle: string;
+  channelId: string;
+  channelThumbnail: string;
   publishedAt: string;
   duration: string;
-  channelTitle: string;
-  subscriberCount?: string;
-  likeCount?: string;
-  tags?: string[];
+  viewCount: number;
+  views: number;
 }
 
 export const youtubeService = {
@@ -60,13 +59,15 @@ export const youtubeService = {
         return {
           id: item.id.videoId,
           title: item.snippet.title,
-          thumbnail: item.snippet.thumbnails.high.url,
           description: item.snippet.description,
-          category: randomCategory,
-          viewCount: videoStats?.statistics?.viewCount || '0',
+          thumbnail: item.snippet.thumbnails.high.url,
+          channelTitle: item.snippet.channelTitle,
+          channelId: item.snippet.channelId,
+          channelThumbnail: item.snippet.thumbnails.default.url,
           publishedAt: item.snippet.publishedAt,
           duration: videoStats?.contentDetails?.duration || 'PT0S',
-          channelTitle: item.snippet.channelTitle,
+          viewCount: parseInt(videoStats?.statistics?.viewCount || '0'),
+          views: parseInt(videoStats?.statistics?.viewCount || '0'),
         };
       });
     } catch (error: any) {

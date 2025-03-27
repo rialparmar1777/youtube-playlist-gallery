@@ -1,43 +1,40 @@
-import { 
-  Card, 
-  CardContent, 
-  CardMedia, 
-  Typography, 
-  CardActionArea, 
-  Box, 
-  Avatar,
+import { useState } from 'react';
+import {
+  Card,
+  CardContent,
+  CardMedia,
+  Typography,
+  Box,
   IconButton,
   Menu,
   MenuItem,
+  Avatar,
   Tooltip,
-  Skeleton,
-  Divider
+  Divider,
 } from '@mui/material';
-import { VideoItem } from '../services/youtubeService';
-import { youtubeService } from '../services/youtubeService';
-import { 
-  MoreVert, 
-  WatchLater, 
-  PlaylistAdd, 
-  Share,
-  NotificationsActive,
-  NotificationsOff
+import {
+  MoreVert as MoreVertIcon,
+  ThumbUp as ThumbUpIcon,
+  ThumbDown as ThumbDownIcon,
+  Share as ShareIcon,
+  PlaylistAdd as PlaylistAddIcon,
+  WatchLater as WatchLaterIcon,
+  Notifications as NotificationsIcon,
+  NotificationsOff as NotificationsOffIcon,
 } from '@mui/icons-material';
-import { useState } from 'react';
 import { formatDistanceToNow } from 'date-fns';
+import { VideoItem } from '../services/youtubeService';
 
 interface VideoCardProps {
   video: VideoItem;
-  onSelect?: (video: VideoItem) => void;
-  loading?: boolean;
+  onSelect: (video: VideoItem) => void;
 }
 
-export const VideoCard = ({ video, onSelect, loading = false }: VideoCardProps) => {
+export const VideoCard = ({ video, onSelect }: VideoCardProps) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const [isHovered, setIsHovered] = useState(false);
   const [isSubscribed, setIsSubscribed] = useState(false);
 
-  const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
+  const handleMenuClick = (event: React.MouseEvent<HTMLElement>) => {
     event.stopPropagation();
     setAnchorEl(event.currentTarget);
   };
@@ -47,217 +44,159 @@ export const VideoCard = ({ video, onSelect, loading = false }: VideoCardProps) 
   };
 
   const handleCardClick = () => {
-    if (onSelect) {
-      onSelect(video);
-    } else {
-      // For now, just log the video selection
-      console.log('Selected video:', video.id);
-    }
+    onSelect(video);
   };
 
-  const handleChannelClick = (event: React.MouseEvent) => {
+  const handleChannelClick = (event: React.MouseEvent<HTMLElement>) => {
     event.stopPropagation();
-    // For now, just log the channel click
-    console.log('Clicked channel:', video.channelTitle);
+    console.log('Channel clicked:', video.channelTitle);
   };
 
   const formatDate = (dateString: string) => {
     return formatDistanceToNow(new Date(dateString), { addSuffix: true });
   };
 
-  if (loading) {
-    return (
-      <Card sx={{ 
-        height: '100%', 
-        display: 'flex', 
-        flexDirection: 'column',
-        bgcolor: 'transparent',
-        boxShadow: 'none',
-      }}>
-        <Skeleton variant="rectangular" height={180} sx={{ borderRadius: 1 }} />
-        <CardContent sx={{ flexGrow: 1, p: 1 }}>
-          <Box sx={{ display: 'flex', gap: 1 }}>
-            <Skeleton variant="circular" width={36} height={36} />
-            <Box sx={{ flex: 1 }}>
-              <Skeleton variant="text" width="90%" height={24} />
-              <Skeleton variant="text" width="70%" height={20} />
-              <Box sx={{ display: 'flex', gap: 1, mt: 1 }}>
-                <Skeleton variant="text" width="40%" height={16} />
-                <Skeleton variant="text" width="40%" height={16} />
-              </Box>
-            </Box>
-          </Box>
-        </CardContent>
-      </Card>
-    );
-  }
-
   return (
     <Card 
       sx={{ 
-        height: '100%', 
-        display: 'flex', 
-        flexDirection: 'column',
-        bgcolor: 'transparent',
-        boxShadow: 'none',
+        cursor: 'pointer',
         '&:hover': {
-          cursor: 'pointer',
-        }
+          '& .MuiCardMedia-root': {
+            transform: 'scale(1.02)',
+          },
+        },
       }}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
+      onClick={handleCardClick}
     >
-      <CardActionArea onClick={handleCardClick}>
-        <Box sx={{ position: 'relative' }}>
-          <CardMedia
-            component="img"
-            height="180"
-            image={video.thumbnail}
-            alt={video.title}
-            sx={{ 
-              objectFit: 'cover',
-              borderRadius: 1,
-              transition: 'all 0.3s ease',
-            }}
-          />
-          <Typography
-            variant="caption"
-            sx={{
-              position: 'absolute',
-              bottom: 8,
-              right: 8,
-              bgcolor: 'rgba(0, 0, 0, 0.8)',
-              color: 'white',
-              px: 1,
-              py: 0.5,
-              borderRadius: 1,
-              fontSize: '0.75rem',
-              fontWeight: 500,
-            }}
-          >
-            {youtubeService.formatDuration(video.duration)}
-          </Typography>
-        </Box>
-      </CardActionArea>
-      <CardContent sx={{ flexGrow: 1, p: 1 }}>
+      <Box sx={{ position: 'relative', paddingTop: '56.25%' }}>
+        <CardMedia
+          component="img"
+          image={video.thumbnail}
+          alt={video.title}
+          sx={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            transition: 'transform 0.2s ease-in-out',
+          }}
+        />
+        <Typography
+          variant="caption"
+          sx={{
+            position: 'absolute',
+            bottom: 8,
+            right: 8,
+            bgcolor: 'rgba(0, 0, 0, 0.8)',
+            color: 'white',
+            px: 1,
+            py: 0.5,
+            borderRadius: 1,
+          }}
+        >
+          {video.duration}
+        </Typography>
+      </Box>
+      <CardContent sx={{ p: 1.5 }}>
         <Box sx={{ display: 'flex', gap: 1 }}>
-          <Tooltip title={video.channelTitle} placement="top">
-            <Avatar 
-              onClick={handleChannelClick}
-              sx={{ 
-                width: 36, 
-                height: 36, 
-                mt: 0.5,
-                bgcolor: 'primary.main',
-                fontSize: '0.875rem',
-                cursor: 'pointer',
-                '&:hover': {
-                  opacity: 0.9,
-                }
-              }}
-            >
-              {video.channelTitle?.[0]?.toUpperCase() || 'C'}
-            </Avatar>
-          </Tooltip>
-          <Box sx={{ flex: 1 }}>
-            <Typography 
-              variant="subtitle1" 
-              component="div" 
-              sx={{ 
+          <Avatar
+            src={video.channelThumbnail}
+            alt={video.channelTitle}
+            sx={{ width: 36, height: 36, cursor: 'pointer' }}
+            onClick={handleChannelClick}
+          />
+          <Box sx={{ flex: 1, minWidth: 0 }}>
+            <Typography
+              variant="subtitle1"
+              sx={{
                 fontWeight: 500,
+                mb: 0.5,
                 display: '-webkit-box',
                 WebkitLineClamp: 2,
                 WebkitBoxOrient: 'vertical',
                 overflow: 'hidden',
-                mb: 0.5,
-                lineHeight: 1.4,
-                fontSize: '0.95rem'
+                textOverflow: 'ellipsis',
               }}
             >
               {video.title}
             </Typography>
-            <Tooltip title={video.channelTitle} placement="top">
-              <Typography 
-                variant="body2" 
-                color="text.secondary"
-                sx={{ 
-                  mb: 0.5,
-                  '&:hover': {
-                    color: 'text.primary',
-                  }
-                }}
-                onClick={handleChannelClick}
-              >
-                {video.channelTitle}
-              </Typography>
-            </Tooltip>
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-              <Typography variant="body2" color="text.secondary" sx={{ fontSize: '0.75rem' }}>
-                {youtubeService.formatViewCount(video.viewCount)} views
-              </Typography>
-              <Typography variant="body2" color="text.secondary" sx={{ fontSize: '0.75rem' }}>
-                •
-              </Typography>
-              <Typography variant="body2" color="text.secondary" sx={{ fontSize: '0.75rem' }}>
-                {formatDate(video.publishedAt)}
-              </Typography>
-            </Box>
+            <Typography
+              variant="body2"
+              color="text.secondary"
+              sx={{ mb: 0.5 }}
+            >
+              {video.channelTitle}
+            </Typography>
+            <Typography
+              variant="body2"
+              color="text.secondary"
+              sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}
+            >
+              {video.views.toLocaleString()} views • {formatDate(video.publishedAt)}
+            </Typography>
           </Box>
-          <IconButton 
-            size="small" 
+          <IconButton
+            size="small"
+            onClick={handleMenuClick}
             sx={{ 
               alignSelf: 'flex-start',
-              visibility: isHovered ? 'visible' : 'hidden'
+              '&:hover': {
+                bgcolor: 'action.hover',
+              },
             }}
-            onClick={handleMenuOpen}
           >
-            <MoreVert fontSize="small" />
+            <MoreVertIcon />
           </IconButton>
-
-          <Menu
-            anchorEl={anchorEl}
-            open={Boolean(anchorEl)}
-            onClose={handleMenuClose}
-            onClick={(e) => e.stopPropagation()}
-            PaperProps={{
-              elevation: 4,
-              sx: {
-                minWidth: 200,
-              }
-            }}
-          >
-            <MenuItem onClick={handleMenuClose}>
-              <WatchLater fontSize="small" sx={{ mr: 1.5 }} />
-              Save to Watch later
-            </MenuItem>
-            <MenuItem onClick={handleMenuClose}>
-              <PlaylistAdd fontSize="small" sx={{ mr: 1.5 }} />
-              Save to playlist
-            </MenuItem>
-            <MenuItem onClick={handleMenuClose}>
-              <Share fontSize="small" sx={{ mr: 1.5 }} />
-              Share
-            </MenuItem>
-            <Divider />
-            <MenuItem onClick={() => {
-              setIsSubscribed(!isSubscribed);
-              handleMenuClose();
-            }}>
-              {isSubscribed ? (
-                <>
-                  <NotificationsOff fontSize="small" sx={{ mr: 1.5 }} />
-                  Unsubscribe
-                </>
-              ) : (
-                <>
-                  <NotificationsActive fontSize="small" sx={{ mr: 1.5 }} />
-                  Subscribe
-                </>
-              )}
-            </MenuItem>
-          </Menu>
         </Box>
       </CardContent>
+
+      <Menu
+        anchorEl={anchorEl}
+        open={Boolean(anchorEl)}
+        onClose={handleMenuClose}
+        onClick={(e) => e.stopPropagation()}
+        PaperProps={{
+          sx: {
+            mt: 1.5,
+            minWidth: 200,
+            boxShadow: '0 2px 10px rgba(0,0,0,0.1)',
+          },
+        }}
+      >
+        <MenuItem onClick={handleMenuClose}>
+          <ThumbUpIcon sx={{ mr: 1 }} /> Like
+        </MenuItem>
+        <MenuItem onClick={handleMenuClose}>
+          <ThumbDownIcon sx={{ mr: 1 }} /> Dislike
+        </MenuItem>
+        <MenuItem onClick={handleMenuClose}>
+          <ShareIcon sx={{ mr: 1 }} /> Share
+        </MenuItem>
+        <Divider />
+        <MenuItem onClick={handleMenuClose}>
+          <PlaylistAddIcon sx={{ mr: 1 }} /> Add to playlist
+        </MenuItem>
+        <MenuItem onClick={handleMenuClose}>
+          <WatchLaterIcon sx={{ mr: 1 }} /> Save to watch later
+        </MenuItem>
+        <Divider />
+        <MenuItem onClick={() => {
+          setIsSubscribed(!isSubscribed);
+          handleMenuClose();
+        }}>
+          {isSubscribed ? (
+            <>
+              <NotificationsOffIcon sx={{ mr: 1 }} /> Unsubscribe
+            </>
+          ) : (
+            <>
+              <NotificationsIcon sx={{ mr: 1 }} /> Subscribe
+            </>
+          )}
+        </MenuItem>
+      </Menu>
     </Card>
   );
 };

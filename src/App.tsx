@@ -1,5 +1,18 @@
 import { useState, useEffect } from 'react';
-import { Box, CssBaseline, Container, Grid, Typography, CircularProgress, Alert, Button } from '@mui/material';
+import { 
+  Box, 
+  CssBaseline, 
+  Container, 
+  Grid, 
+  Typography, 
+  CircularProgress, 
+  Alert, 
+  Button,
+  Chip,
+  Stack,
+  IconButton,
+  Tooltip,
+} from '@mui/material';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import { VideoCard } from './components/VideoCard';
 import { VideoPlayer } from './components/VideoPlayer';
@@ -9,12 +22,28 @@ import { youtubeService, VideoItem } from './services/youtubeService';
 
 const drawerWidth = 240;
 
+const categories = [
+  'All',
+  'Music',
+  'Gaming',
+  'Live',
+  'News',
+  'Sports',
+  'Technology',
+  'Education',
+  'Entertainment',
+  'Comedy',
+  'Fashion',
+  'Travel',
+];
+
 function App() {
   const [videos, setVideos] = useState<VideoItem[]>([]);
   const [selectedVideo, setSelectedVideo] = useState<VideoItem | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState('All');
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -89,7 +118,7 @@ function App() {
           p: 3,
           width: { sm: `calc(100% - ${drawerWidth}px)` },
           ml: { sm: `${drawerWidth}px` },
-          mt: '64px', // Height of the navbar
+          mt: '56px', // Height of the navbar
         }}
       >
         <Container maxWidth="xl">
@@ -123,16 +152,53 @@ function App() {
             </Grid>
           ) : (
             <>
-              <Box sx={{ mb: 4, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <Typography variant="h4">Recommended Videos</Typography>
-                <Button
-                  variant="contained"
-                  startIcon={<RefreshIcon />}
-                  onClick={fetchVideos}
+              {/* Categories */}
+              <Box sx={{ 
+                position: 'sticky', 
+                top: '56px', 
+                bgcolor: 'background.paper',
+                zIndex: 1,
+                py: 1,
+                borderBottom: '1px solid',
+                borderColor: 'divider',
+                mb: 2,
+              }}>
+                <Stack 
+                  direction="row" 
+                  spacing={1} 
+                  sx={{ 
+                    overflowX: 'auto',
+                    pb: 1,
+                    '&::-webkit-scrollbar': {
+                      height: '4px',
+                    },
+                    '&::-webkit-scrollbar-track': {
+                      background: 'transparent',
+                    },
+                    '&::-webkit-scrollbar-thumb': {
+                      background: 'rgba(0, 0, 0, 0.2)',
+                      borderRadius: '4px',
+                    },
+                  }}
                 >
-                  Get New Videos
-                </Button>
+                  {categories.map((category) => (
+                    <Chip
+                      key={category}
+                      label={category}
+                      onClick={() => setSelectedCategory(category)}
+                      sx={{
+                        bgcolor: selectedCategory === category ? 'text.primary' : 'action.hover',
+                        color: selectedCategory === category ? 'background.paper' : 'text.primary',
+                        '&:hover': {
+                          bgcolor: selectedCategory === category ? 'text.primary' : 'action.selected',
+                        },
+                      }}
+                    />
+                  ))}
+                </Stack>
               </Box>
+
+              {/* Video Grid */}
               <Grid container spacing={3}>
                 {videos.map((video) => (
                   <Grid item xs={12} sm={6} md={4} lg={3} key={video.id}>
@@ -140,6 +206,26 @@ function App() {
                   </Grid>
                 ))}
               </Grid>
+
+              {/* Load More Button */}
+              <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
+                <Button
+                  variant="outlined"
+                  startIcon={<RefreshIcon />}
+                  onClick={fetchVideos}
+                  sx={{ 
+                    px: 4,
+                    py: 1,
+                    borderRadius: '20px',
+                    textTransform: 'none',
+                    '&:hover': {
+                      bgcolor: 'action.hover',
+                    },
+                  }}
+                >
+                  Load More
+                </Button>
+              </Box>
             </>
           )}
         </Container>
