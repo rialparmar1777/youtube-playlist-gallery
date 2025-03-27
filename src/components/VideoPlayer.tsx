@@ -1,6 +1,5 @@
 import { 
   Box, 
-  Paper, 
   Typography, 
   IconButton, 
   Button, 
@@ -14,53 +13,28 @@ import {
   MenuItem,
   Stack,
   LinearProgress,
-  keyframes
+  ButtonBase,
+  Paper
 } from '@mui/material';
 import YouTube, { YouTubeProps, YouTubePlayer } from 'react-youtube';
 import { VideoItem } from '../services/youtubeService';
 import { youtubeService } from '../services/youtubeService';
 import { 
-  ThumbUp, 
-  ThumbDown, 
-  Share, 
+  ThumbUpOutlined, 
+  ThumbDownOutlined, 
+  ShareOutlined, 
   MoreHoriz,
-  PlaylistAdd,
-  WatchLater,
-  Notifications,
-  NotificationsActive,
+  PlaylistAddOutlined,
+  WatchLaterOutlined,
+  NotificationsNoneOutlined,
+  NotificationsActiveOutlined,
   ExpandMore,
   ExpandLess,
-  Comment,
-  AddReaction,
-  PlayCircle
+  SubscriptionsOutlined
 } from '@mui/icons-material';
 import { useState, useRef, useEffect } from 'react';
 import { formatDistanceToNow } from 'date-fns';
 import { VideoCard } from './VideoCard';
-
-// Define animations
-const fadeIn = keyframes`
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-`;
-
-const pulse = keyframes`
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(1.05);
-  }
-  100% {
-    transform: scale(1);
-  }
-`;
 
 interface VideoPlayerProps {
   video: VideoItem | null;
@@ -81,24 +55,19 @@ export const VideoPlayer = ({
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
-  const [showWelcome, setShowWelcome] = useState(true);
   const progressInterval = useRef<ReturnType<typeof setInterval> | undefined>(undefined);
 
-  // Add welcome screen timeout
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowWelcome(false);
-    }, 3000); // Show welcome screen for 3 seconds
-
-    return () => clearTimeout(timer);
-  }, []);
-
   const onPlayerReady: YouTubeProps['onReady'] = (event) => {
-    const player = event.target;
+    const player = event.target as YouTubePlayer;
     setPlayer(player);
     setDuration(player.getDuration());
     
-    // Set up progress tracking
+    // Clear any existing interval
+    if (progressInterval.current) {
+      clearInterval(progressInterval.current);
+    }
+    
+    // Set up new interval
     progressInterval.current = setInterval(() => {
       setCurrentTime(player.getCurrentTime());
     }, 1000);
@@ -110,10 +79,6 @@ export const VideoPlayer = ({
 
   const handleMenuClose = () => {
     setAnchorEl(null);
-  };
-
-  const handleMenuItemClick = () => {
-    handleMenuClose();
   };
 
   const handleSubscribe = () => {
@@ -130,7 +95,6 @@ export const VideoPlayer = ({
     const date = new Date(0);
     date.setSeconds(seconds);
     const timeString = date.toISOString().substr(11, 8);
-    // Remove leading zeros for hours if needed
     return timeString.startsWith('00:') ? timeString.substr(3) : timeString;
   };
 
@@ -158,63 +122,14 @@ export const VideoPlayer = ({
     },
   };
 
+  // Cleanup interval on unmount or when video changes
   useEffect(() => {
     return () => {
       if (progressInterval.current) {
         clearInterval(progressInterval.current);
       }
     };
-  }, []);
-
-  if (showWelcome) {
-    return (
-      <Box
-        sx={{
-          height: '100%',
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          bgcolor: 'background.paper',
-          borderRadius: 1,
-          p: 3,
-          animation: `${fadeIn} 0.5s ease-out`,
-        }}
-      >
-        <PlayCircle
-          sx={{
-            fontSize: 80,
-            color: 'primary.main',
-            mb: 2,
-            animation: `${pulse} 2s infinite ease-in-out`,
-          }}
-        />
-        <Typography
-          variant="h4"
-          component="h1"
-          gutterBottom
-          sx={{
-            fontWeight: 600,
-            textAlign: 'center',
-            animation: `${fadeIn} 0.5s ease-out 0.2s both`,
-          }}
-        >
-          Welcome to Video Gallery
-        </Typography>
-        <Typography
-          variant="body1"
-          color="text.secondary"
-          sx={{
-            textAlign: 'center',
-            maxWidth: 400,
-            animation: `${fadeIn} 0.5s ease-out 0.4s both`,
-          }}
-        >
-          Select a video to start watching or explore our collection of amazing content
-        </Typography>
-      </Box>
-    );
-  }
+  }, [video?.id]); // Add video.id as dependency to reset interval when video changes
 
   if (loading) {
     return (
@@ -272,7 +187,7 @@ export const VideoPlayer = ({
   }
 
   return (
-    <Box sx={{ height: '100%', display: 'flex', flexDirection: 'column', gap: 2 }}>
+    <Box sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
       {/* Video Player */}
       <Box sx={{ position: 'relative', width: '100%', pt: '56.25%' }}>
         <Box sx={{ 
@@ -282,7 +197,6 @@ export const VideoPlayer = ({
           right: 0, 
           bottom: 0,
           bgcolor: 'black',
-          borderRadius: 1,
           overflow: 'hidden'
         }}>
           <YouTube
@@ -295,92 +209,182 @@ export const VideoPlayer = ({
         </Box>
       </Box>
 
-      {/* Progress bar */}
-      <Box sx={{ width: '100%', px: 2 }}>
-        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-          <Typography variant="caption" color="text.secondary">
-            {formatTime(Math.floor(currentTime))}
-          </Typography>
-          <Box 
-            sx={{ 
-              flex: 1, 
-              height: 4,
-              bgcolor: 'action.hover',
-              borderRadius: 2,
-              cursor: 'pointer',
-              position: 'relative'
-            }}
-            onClick={handleProgressClick}
-          >
-            <LinearProgress 
-              variant="determinate" 
-              value={duration > 0 ? (currentTime / duration) * 100 : 0} 
-              sx={{ 
-                height: '100%',
-                borderRadius: 2,
-                '& .MuiLinearProgress-bar': {
-                  borderRadius: 2,
-                }
-              }}
-            />
-          </Box>
-          <Typography variant="caption" color="text.secondary">
-            {formatTime(Math.floor(duration))}
-          </Typography>
-        </Box>
-      </Box>
-
       {/* Video Info */}
-      <Box sx={{ px: 2 }}>
-        <Typography variant="h5" gutterBottom sx={{ fontWeight: 500 }}>
+      <Box sx={{ px: { xs: 1.5, sm: 2 }, pt: 2 }}>
+        <Typography variant="h6" sx={{ fontWeight: 500, mb: 1 }}>
           {video.title}
         </Typography>
+
+        {/* Video Actions */}
+        <Box sx={{ 
+          display: 'flex', 
+          alignItems: 'center', 
+          gap: 1,
+          mb: 2,
+          flexWrap: 'wrap'
+        }}>
+          <Typography variant="body2" color="text.secondary">
+            {youtubeService.formatViewCount(video.viewCount.toString())} views
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            •
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            {formatDistanceToNow(new Date(video.publishedAt), { addSuffix: true })}
+          </Typography>
+          
+          <Box sx={{ display: 'flex', gap: 1, ml: 'auto' }}>
+            <Tooltip title="Like">
+              <Button
+                startIcon={<ThumbUpOutlined />}
+                variant="text"
+                size="small"
+                sx={{ 
+                  borderRadius: '18px',
+                  color: 'text.primary',
+                  '& .MuiButton-startIcon': {
+                    mr: 0.5
+                  }
+                }}
+              >
+                {youtubeService.formatViewCount(video.viewCount.toString())}
+              </Button>
+            </Tooltip>
+            
+            <Tooltip title="Dislike">
+              <Button
+                startIcon={<ThumbDownOutlined />}
+                variant="text"
+                size="small"
+                sx={{ 
+                  borderRadius: '18px',
+                  color: 'text.primary',
+                  '& .MuiButton-startIcon': {
+                    mr: 0.5
+                  }
+                }}
+              >
+              </Button>
+            </Tooltip>
+            
+            <Tooltip title="Share">
+              <Button
+                startIcon={<ShareOutlined />}
+                variant="text"
+                size="small"
+                sx={{ 
+                  borderRadius: '18px',
+                  color: 'text.primary',
+                  '& .MuiButton-startIcon': {
+                    mr: 0.5
+                  }
+                }}
+              >
+                Share
+              </Button>
+            </Tooltip>
+            
+            <Tooltip title="More actions">
+              <IconButton 
+                size="small"
+                onClick={handleMenuOpen}
+                sx={{ 
+                  color: 'text.primary',
+                }}
+              >
+                <MoreHoriz />
+              </IconButton>
+            </Tooltip>
+
+            <Menu
+              anchorEl={anchorEl}
+              open={Boolean(anchorEl)}
+              onClose={handleMenuClose}
+              PaperProps={{
+                sx: {
+                  mt: 1,
+                  minWidth: 240,
+                  boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
+                  borderRadius: 2,
+                  overflow: 'hidden',
+                },
+              }}
+              transformOrigin={{
+                vertical: 'top',
+                horizontal: 'right',
+              }}
+              anchorOrigin={{
+                vertical: 'bottom',
+                horizontal: 'right',
+              }}
+            >
+              <MenuItem onClick={handleMenuClose} sx={{ py: 1 }}>
+                <PlaylistAddOutlined sx={{ mr: 1.5, fontSize: '1.2rem' }} />
+                <Typography variant="body2">Save to playlist</Typography>
+              </MenuItem>
+              <MenuItem onClick={handleMenuClose} sx={{ py: 1 }}>
+                <WatchLaterOutlined sx={{ mr: 1.5, fontSize: '1.2rem' }} />
+                <Typography variant="body2">Save to Watch later</Typography>
+              </MenuItem>
+            </Menu>
+          </Box>
+        </Box>
 
         {/* Channel Info */}
         <Box sx={{ 
           display: 'flex', 
           alignItems: 'center', 
           gap: 2, 
-          mb: 2,
-          flexWrap: 'wrap'
+          py: 1.5,
+          borderTop: '1px solid',
+          borderBottom: '1px solid',
+          borderColor: 'divider'
         }}>
-          <Box 
-            sx={{ 
-              display: 'flex', 
-              alignItems: 'center', 
-              gap: 1,
-              cursor: 'pointer',
-              '&:hover': {
-                opacity: 0.8
-              }
-            }}
-          >
-            <Avatar sx={{ bgcolor: 'primary.main' }}>
-              {video.channelTitle?.[0]?.toUpperCase() ?? 'C'}
-            </Avatar>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+            <ButtonBase 
+              sx={{ borderRadius: '50%' }}
+              onClick={() => console.log('Channel clicked')}
+            >
+              <Avatar 
+                src={video.channelThumbnail}
+                sx={{ 
+                  width: 48, 
+                  height: 48,
+                }}
+              />
+            </ButtonBase>
             <Box>
-              <Typography variant="subtitle2">{video.channelTitle}</Typography>
-              <Typography variant="caption" color="text.secondary">
+              <Typography variant="subtitle1" sx={{ fontWeight: 500 }}>
+                {video.channelTitle}
+              </Typography>
+              <Typography variant="body2" color="text.secondary" sx={{ fontSize: '0.8rem' }}>
                 {youtubeService.formatViewCount(video.viewCount.toString())} subscribers
               </Typography>
             </Box>
           </Box>
           
-          <Stack direction="row" spacing={1} sx={{ ml: 'auto' }}>
-            <Button 
-              variant="contained" 
-              color={isSubscribed ? 'inherit' : 'error'}
-              startIcon={isSubscribed ? <NotificationsActive /> : <Notifications />}
-              onClick={handleSubscribe}
-              sx={{ borderRadius: '20px' }}
-            >
-              {isSubscribed ? 'Subscribed' : 'Subscribe'}
-            </Button>
-          </Stack>
+          <Button 
+            variant={isSubscribed ? 'outlined' : 'contained'}
+            color={isSubscribed ? 'inherit' : 'error'}
+            startIcon={isSubscribed ? <NotificationsActiveOutlined /> : <SubscriptionsOutlined />}
+            onClick={handleSubscribe}
+            sx={{ 
+              borderRadius: '18px',
+              ml: 'auto',
+              px: 2,
+              textTransform: 'none',
+              fontWeight: 500,
+              '&:hover': {
+                bgcolor: isSubscribed ? 'action.hover' : 'error.dark'
+              }
+            }}
+          >
+            {isSubscribed ? 'Subscribed' : 'Subscribe'}
+          </Button>
         </Box>
 
-        {/* Video Stats and Description */}
-        <Paper sx={{ p: 2, mb: 2, borderRadius: 2 }}>
+        {/* Video Description */}
+        <Paper elevation={0} sx={{ my: 2, p: 2, borderRadius: 2, bgcolor: 'background.default' }}>
           <Box sx={{ 
             display: 'flex', 
             alignItems: 'center', 
@@ -388,7 +392,7 @@ export const VideoPlayer = ({
             mb: 1,
             flexWrap: 'wrap'
           }}>
-            <Typography variant="body2" color="text.secondary">
+            <Typography variant="body2" sx={{ fontWeight: 500 }}>
               {youtubeService.formatViewCount(video.viewCount.toString())} views
             </Typography>
             <Typography variant="body2" color="text.secondary">
@@ -399,12 +403,13 @@ export const VideoPlayer = ({
             </Typography>
           </Box>
           
-          <Collapse in={showDescription} collapsedSize={60}>
+          <Collapse in={showDescription} collapsedSize={72}>
             <Typography 
               variant="body2" 
               sx={{ 
                 whiteSpace: 'pre-line',
-                lineHeight: 1.6
+                lineHeight: 1.6,
+                fontSize: '0.9rem'
               }}
             >
               {video.description || 'No description available'}
@@ -415,109 +420,49 @@ export const VideoPlayer = ({
             size="small"
             startIcon={showDescription ? <ExpandLess /> : <ExpandMore />}
             onClick={() => setShowDescription(!showDescription)}
-            sx={{ mt: 1 }}
+            sx={{ 
+              mt: 1,
+              color: 'text.primary',
+              fontWeight: 500,
+              textTransform: 'none'
+            }}
           >
             {showDescription ? 'Show less' : 'Show more'}
           </Button>
         </Paper>
 
-        {/* Action Buttons */}
-        <Box sx={{ 
-          display: 'flex', 
-          alignItems: 'center', 
-          gap: 1, 
-          mb: 2,
-          flexWrap: 'wrap'
-        }}>
-          <Tooltip title="Like">
-            <Button
-              startIcon={<ThumbUp />}
-              variant="outlined"
-              sx={{ borderRadius: '20px' }}
-            >
-              {youtubeService.formatViewCount(video.viewCount.toString())}
-            </Button>
-          </Tooltip>
-          
-          <Tooltip title="Dislike">
-            <IconButton sx={{ borderRadius: '8px' }}>
-              <ThumbDown />
-            </IconButton>
-          </Tooltip>
-          
-          <Tooltip title="Share">
-            <Button
-              startIcon={<Share />}
-              variant="outlined"
-              sx={{ borderRadius: '20px' }}
-            >
-              Share
-            </Button>
-          </Tooltip>
-          
-          <Tooltip title="More actions">
-            <IconButton 
-              sx={{ borderRadius: '8px', ml: 'auto' }}
-              onClick={handleMenuOpen}
-            >
-              <MoreHoriz />
-            </IconButton>
-          </Tooltip>
-
-          <Menu
-            anchorEl={anchorEl}
-            open={Boolean(anchorEl)}
-            onClose={handleMenuClose}
-            anchorOrigin={{
-              vertical: 'bottom',
-              horizontal: 'right',
-            }}
-            transformOrigin={{
-              vertical: 'top',
-              horizontal: 'right',
-            }}
-          >
-            <MenuItem onClick={handleMenuItemClick}>
-              <WatchLater sx={{ mr: 1.5 }} fontSize="small" />
-              Save to Watch later
-            </MenuItem>
-            <MenuItem onClick={handleMenuItemClick}>
-              <PlaylistAdd sx={{ mr: 1.5 }} fontSize="small" />
-              Save to playlist
-            </MenuItem>
-            <MenuItem onClick={handleMenuItemClick}>
-              <Comment sx={{ mr: 1.5 }} fontSize="small" />
-              Add comment
-            </MenuItem>
-            <MenuItem onClick={handleMenuItemClick}>
-              <AddReaction sx={{ mr: 1.5 }} fontSize="small" />
-              Add reaction
-            </MenuItem>
-          </Menu>
-        </Box>
-
-        <Divider sx={{ my: 2 }} />
-
-        {/* Categories */}
-        <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap', mb: 3 }}>
-          <Chip label="All" />
-          <Chip label="Related" />
+        {/* Comments Section Placeholder */}
+        <Box sx={{ mt: 3 }}>
+          <Typography variant="h6" sx={{ mb: 2, fontWeight: 500 }}>
+            Comments
+          </Typography>
+          <Box sx={{ 
+            display: 'flex', 
+            alignItems: 'center', 
+            gap: 2,
+            mb: 3
+          }}>
+            <Avatar sx={{ width: 40, height: 40 }} />
+            <Typography variant="body2" color="text.secondary">
+              Comments are turned off. Learn more
+            </Typography>
+          </Box>
         </Box>
 
         {/* Related Videos */}
         {relatedVideos.length > 0 && (
           <Box sx={{ mt: 3 }}>
-            <Typography variant="h6" gutterBottom>
+            <Typography variant="h6" sx={{ mb: 2, fontWeight: 500 }}>
               Related Videos
             </Typography>
-            <Box sx={{ display: 'grid', gap: 2, gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))' }}>
+            <Box sx={{ display: 'grid', gap: 2 }}>
               {relatedVideos.map((relatedVideo) => (
                 <Box 
                   key={relatedVideo.id}
                   onClick={() => handleVideoSelect(relatedVideo)}
                   sx={{ cursor: 'pointer' }}
                 >
-                  <VideoCard video={relatedVideo} onSelect={handleVideoSelect} />
+                  <VideoCard video={relatedVideo} onSelect={handleVideoSelect} variant="compact" />
                 </Box>
               ))}
             </Box>

@@ -1,234 +1,161 @@
 import { useState, useEffect } from 'react';
-import { 
-  Box, 
-  CssBaseline, 
-  Container, 
-  Grid, 
-  Typography, 
-  CircularProgress, 
-  Alert, 
-  Button,
-  Chip,
-  Stack,
-  IconButton,
-  Tooltip,
-} from '@mui/material';
-import RefreshIcon from '@mui/icons-material/Refresh';
-import { VideoCard } from './components/VideoCard';
-import { VideoPlayer } from './components/VideoPlayer';
+import { Box, CssBaseline, useTheme, useMediaQuery, Backdrop } from '@mui/material';
 import { Navbar } from './components/Navbar';
 import { Sidebar } from './components/Sidebar';
-import { youtubeService, VideoItem } from './services/youtubeService';
-
-const drawerWidth = 240;
-
-const categories = [
-  'All',
-  'Music',
-  'Gaming',
-  'Live',
-  'News',
-  'Sports',
-  'Technology',
-  'Education',
-  'Entertainment',
-  'Comedy',
-  'Fashion',
-  'Travel',
-];
+import { VideoPlayer } from './components/VideoPlayer';
+import { VideoCard } from './components/VideoCard';
+import { CategoryCarousel } from './components/CategoryCarousel';
+import { youtubeService } from './services/youtubeService';
+import { VideoItem } from './services/youtubeService';
 
 function App() {
-  const [videos, setVideos] = useState<VideoItem[]>([]);
-  const [selectedVideo, setSelectedVideo] = useState<VideoItem | null>(null);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [selectedVideo, setSelectedVideo] = useState<VideoItem | null>(null);
+  const [videos, setVideos] = useState<VideoItem[]>([]);
+  const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState('All');
+  const [relatedVideos, setRelatedVideos] = useState<VideoItem[]>([]);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
 
-  const fetchVideos = async () => {
+  const handleSidebarToggle = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
+
+  const handleVideoSelect = async (video: VideoItem) => {
+    setSelectedVideo(video);
+    setLoading(true);
     try {
-      setLoading(true);
-      setError(null);
-      const data = await youtubeService.getRandomVideos();
-      setVideos(data);
-      setSelectedVideo(null);
-    } catch (err: any) {
-      console.error('Error fetching videos:', err);
-      setError(err.message);
-    } finally {
-      setLoading(false);
+      const related = await youtubeService.getRelatedVideos(video.id);
+      setRelatedVideos(related);
+    } catch (error) {
+      console.error('Error fetching related videos:', error);
     }
+    setLoading(false);
+  };
+
+  const loadVideos = async () => {
+    setLoading(true);
+    try {
+      const fetchedVideos = await youtubeService.getRandomVideos();
+      setVideos(fetchedVideos);
+    } catch (error) {
+      console.error('Error fetching videos:', error);
+    }
+    setLoading(false);
   };
 
   useEffect(() => {
-    fetchVideos();
+    loadVideos();
   }, []);
 
-  const handleVideoSelect = (video: VideoItem) => {
-    setSelectedVideo(video);
-  };
-
-  if (loading) {
-    return (
-      <Box display="flex" justifyContent="center" alignItems="center" minHeight="100vh">
-        <CircularProgress />
-      </Box>
-    );
-  }
-
-  if (error) {
-    return (
-      <Container maxWidth="md" sx={{ mt: 4 }}>
-        <Alert severity="error" sx={{ mb: 2 }}>
-          {error}
-        </Alert>
-        <Typography variant="body1" paragraph>
-          Troubleshooting steps:
-        </Typography>
-        <ul>
-          <li>Check your internet connection</li>
-          <li>Verify your API key is valid and has not exceeded its quota</li>
-          <li>Try refreshing the page</li>
-        </ul>
-        <Button
-          variant="contained"
-          startIcon={<RefreshIcon />}
-          onClick={fetchVideos}
-          sx={{ mt: 2 }}
-        >
-          Try Again
-        </Button>
-      </Container>
-    );
-  }
+  const drawerWidth = 240;
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ display: 'flex', minHeight: '100vh' }}>
       <CssBaseline />
-      <Navbar onMenuClick={handleDrawerToggle} />
-      <Sidebar mobileOpen={mobileOpen} handleDrawerToggle={handleDrawerToggle} />
+      <Navbar 
+        onMenuClick={handleDrawerToggle} 
+        onSidebarToggle={handleSidebarToggle}
+        isSidebarOpen={isSidebarOpen}
+      />
+      <Sidebar
+        mobileOpen={mobileOpen}
+        handleDrawerToggle={handleDrawerToggle}
+        drawerWidth={drawerWidth}
+        isOpen={isSidebarOpen}
+      />
       <Box
         component="main"
         sx={{
           flexGrow: 1,
-          p: 3,
-          width: { sm: `calc(100% - ${drawerWidth}px)` },
-          ml: { sm: `${drawerWidth}px` },
-          mt: '56px', // Height of the navbar
+          p: { xs: 1, sm: 2 },
+          width: { sm: `calc(100% - ${isSidebarOpen ? drawerWidth : 0}px)` },
+          ml: { sm: `${isSidebarOpen ? drawerWidth : 0}px` },
+          mt: '64px',
+          height: 'calc(100vh - 64px)',
+          overflow: 'hidden',
+          display: 'flex',
+          flexDirection: 'column',
+          transition: theme.transitions.create(['margin', 'width'], {
+            easing: theme.transitions.easing.sharp,
+            duration: theme.transitions.duration.leavingScreen,
+          }),
+          position: 'relative',
         }}
       >
-        <Container maxWidth="xl">
-          {selectedVideo ? (
-            <Grid container spacing={3}>
-              <Grid item xs={12} lg={8}>
-                <VideoPlayer video={selectedVideo} />
-              </Grid>
-              <Grid item xs={12} lg={4}>
-                <Box sx={{ mb: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                  <Typography variant="h6">Up next</Typography>
-                  <Button
-                    variant="outlined"
-                    startIcon={<RefreshIcon />}
-                    onClick={fetchVideos}
-                    size="small"
-                  >
-                    Get New Videos
-                  </Button>
-                </Box>
-                <Grid container spacing={2}>
-                  {videos
-                    .filter(video => video.id !== selectedVideo.id)
-                    .map((video) => (
-                      <Grid item xs={12} key={video.id}>
-                        <VideoCard video={video} onSelect={handleVideoSelect} />
-                      </Grid>
-                    ))}
-                </Grid>
-              </Grid>
-            </Grid>
-          ) : (
-            <>
-              {/* Categories */}
-              <Box sx={{ 
-                position: 'sticky', 
-                top: '56px', 
-                bgcolor: 'background.paper',
-                zIndex: 1,
-                py: 1,
-                borderBottom: '1px solid',
-                borderColor: 'divider',
-                mb: 2,
-              }}>
-                <Stack 
-                  direction="row" 
-                  spacing={1} 
-                  sx={{ 
-                    overflowX: 'auto',
-                    pb: 1,
-                    '&::-webkit-scrollbar': {
-                      height: '4px',
-                    },
-                    '&::-webkit-scrollbar-track': {
-                      background: 'transparent',
-                    },
-                    '&::-webkit-scrollbar-thumb': {
-                      background: 'rgba(0, 0, 0, 0.2)',
-                      borderRadius: '4px',
-                    },
-                  }}
-                >
-                  {categories.map((category) => (
-                    <Chip
-                      key={category}
-                      label={category}
-                      onClick={() => setSelectedCategory(category)}
-                      sx={{
-                        bgcolor: selectedCategory === category ? 'text.primary' : 'action.hover',
-                        color: selectedCategory === category ? 'background.paper' : 'text.primary',
-                        '&:hover': {
-                          bgcolor: selectedCategory === category ? 'text.primary' : 'action.selected',
-                        },
-                      }}
-                    />
-                  ))}
-                </Stack>
-              </Box>
+        {/* Glass Effect Overlay */}
+        {isSidebarOpen && (
+          <Backdrop
+            sx={{
+              position: 'fixed',
+              top: 64,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              bgcolor: 'rgba(0, 0, 0, 0.2)',
+              backdropFilter: 'blur(4px)',
+              zIndex: (theme) => theme.zIndex.drawer - 1,
+              display: { xs: 'none', sm: 'block' },
+            }}
+            open={isSidebarOpen}
+            onClick={handleSidebarToggle}
+          />
+        )}
 
-              {/* Video Grid */}
-              <Grid container spacing={3}>
-                {videos.map((video) => (
-                  <Grid item xs={12} sm={6} md={4} lg={3} key={video.id}>
-                    <VideoCard video={video} onSelect={handleVideoSelect} />
-                  </Grid>
-                ))}
-              </Grid>
+        {selectedVideo ? (
+          <Box sx={{ flex: 1, overflow: 'auto' }}>
+            <VideoPlayer
+              video={selectedVideo}
+              loading={loading}
+              relatedVideos={relatedVideos}
+              onVideoSelect={handleVideoSelect}
+            />
+          </Box>
+        ) : (
+          <Box sx={{ flex: 1, overflow: 'auto' }}>
+            {/* Category Carousel */}
+            <CategoryCarousel
+              selectedCategory={selectedCategory}
+              onCategorySelect={setSelectedCategory}
+            />
 
-              {/* Load More Button */}
-              <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
-                <Button
-                  variant="outlined"
-                  startIcon={<RefreshIcon />}
-                  onClick={fetchVideos}
-                  sx={{ 
-                    px: 4,
-                    py: 1,
-                    borderRadius: '20px',
-                    textTransform: 'none',
-                    '&:hover': {
-                      bgcolor: 'action.hover',
-                    },
-                  }}
-                >
-                  Load More
-                </Button>
-              </Box>
-            </>
-          )}
-        </Container>
+            {/* Video Grid */}
+            <Box
+              sx={{
+                display: 'grid',
+                gridTemplateColumns: {
+                  xs: '1fr',
+                  sm: 'repeat(2, 1fr)',
+                  md: 'repeat(3, 1fr)',
+                  lg: 'repeat(4, 1fr)',
+                  xl: 'repeat(5, 1fr)'
+                },
+                gap: { xs: 1, sm: 2 },
+                p: { xs: 0.5, sm: 1 },
+                transition: theme.transitions.create('margin', {
+                  easing: theme.transitions.easing.sharp,
+                  duration: theme.transitions.duration.leavingScreen,
+                }),
+                ml: { sm: isSidebarOpen ? 0 : -drawerWidth },
+              }}
+            >
+              {videos.map((video) => (
+                <VideoCard
+                  key={video.id}
+                  video={video}
+                  onSelect={handleVideoSelect}
+                  loading={loading}
+                />
+              ))}
+            </Box>
+          </Box>
+        )}
       </Box>
     </Box>
   );

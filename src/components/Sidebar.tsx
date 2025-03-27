@@ -13,6 +13,7 @@ import {
   Avatar,
   Tooltip,
   Collapse,
+  ButtonBase,
 } from '@mui/material';
 import {
   Home as HomeIcon,
@@ -37,15 +38,24 @@ import {
   ChevronLeft as ChevronLeftIcon,
   ChevronRight as ChevronRightIcon,
 } from '@mui/icons-material';
+import { useTheme } from '@mui/material/styles';
 
 interface SidebarProps {
   mobileOpen: boolean;
   handleDrawerToggle: () => void;
+  drawerWidth: number;
+  isOpen: boolean;
 }
 
-export const Sidebar = ({ mobileOpen, handleDrawerToggle }: SidebarProps) => {
+export const Sidebar = ({ 
+  mobileOpen, 
+  handleDrawerToggle, 
+  drawerWidth,
+  isOpen
+}: SidebarProps) => {
   const [selectedItem, setSelectedItem] = useState('home');
-  const [isCollapsed, setIsCollapsed] = useState(false);
+
+  const theme = useTheme();
 
   const mainMenuItems = [
     { text: 'Home', icon: <HomeIcon />, id: 'home' },
@@ -110,12 +120,12 @@ export const Sidebar = ({ mobileOpen, handleDrawerToggle }: SidebarProps) => {
               sx={{ 
                 minWidth: 40,
                 color: selectedItem === item.id ? 'primary.main' : 'inherit',
-                mr: isCollapsed ? 0 : 3,
+                mr: isOpen ? 3 : 0,
               }}
             >
               {item.icon}
             </ListItemIcon>
-            <Collapse in={!isCollapsed} orientation="horizontal">
+            <Collapse in={isOpen} orientation="horizontal">
               <ListItemText 
                 primary={item.text}
                 primaryTypographyProps={{
@@ -133,18 +143,29 @@ export const Sidebar = ({ mobileOpen, handleDrawerToggle }: SidebarProps) => {
 
   const drawer = (
     <Box sx={{ 
-      width: isCollapsed ? 70 : 240,
-      transition: 'width 0.2s ease-in-out',
+      width: isOpen ? drawerWidth : 70,
+      transition: theme.transitions.create('width', {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.enteringScreen,
+      }),
       height: '100%',
       display: 'flex',
       flexDirection: 'column',
+      overflowX: 'hidden',
+      bgcolor: 'background.paper',
+      backdropFilter: 'blur(8px)',
+      borderRight: '1px solid',
+      borderColor: 'divider',
+      boxShadow: '0 0 20px rgba(0,0,0,0.1)',
     }}>
       <Box sx={{ 
         p: 2, 
         display: 'flex', 
         alignItems: 'center', 
         gap: 1,
-        justifyContent: isCollapsed ? 'center' : 'flex-start',
+        justifyContent: isOpen ? 'flex-start' : 'center',
+        borderBottom: '1px solid',
+        borderColor: 'divider',
       }}>
         <IconButton onClick={handleDrawerToggle} sx={{ display: { sm: 'none' } }}>
           <MenuIcon />
@@ -155,32 +176,40 @@ export const Sidebar = ({ mobileOpen, handleDrawerToggle }: SidebarProps) => {
           gap: 1, 
           cursor: 'pointer',
           width: '100%',
-          justifyContent: isCollapsed ? 'center' : 'flex-start',
+          justifyContent: isOpen ? 'flex-start' : 'center',
         }}>
           <YouTubeIcon sx={{ color: 'red', fontSize: 30 }} />
-          <Collapse in={!isCollapsed} orientation="horizontal">
+          <Collapse in={isOpen} orientation="horizontal">
             <Typography variant="h6" sx={{ fontWeight: 'bold', fontSize: '1.2rem', letterSpacing: '-1px' }}>
               YouTube
             </Typography>
           </Collapse>
         </Box>
       </Box>
-      <Divider />
-      {renderMenuItems(mainMenuItems)}
-      <Divider />
-      {renderMenuItems(exploreMenuItems)}
-      <Divider />
-      {renderMenuItems(libraryMenuItems)}
-      <Divider />
-      {renderMenuItems(subscriptionMenuItems)}
-      <Divider />
-      {renderMenuItems(moreMenuItems)}
-      <Box sx={{ flexGrow: 1 }} />
-      <Divider />
-      <Box sx={{ p: 1, display: 'flex', justifyContent: isCollapsed ? 'center' : 'flex-end' }}>
-        <IconButton onClick={() => setIsCollapsed(!isCollapsed)}>
-          {isCollapsed ? <ChevronRightIcon /> : <ChevronLeftIcon />}
-        </IconButton>
+
+      <Box sx={{ 
+        flex: 1, 
+        overflowY: 'auto',
+        '&::-webkit-scrollbar': {
+          width: '6px',
+        },
+        '&::-webkit-scrollbar-track': {
+          background: 'transparent',
+        },
+        '&::-webkit-scrollbar-thumb': {
+          background: 'rgba(0, 0, 0, 0.2)',
+          borderRadius: '3px',
+        },
+      }}>
+        {renderMenuItems(mainMenuItems)}
+        <Divider />
+        {renderMenuItems(exploreMenuItems)}
+        <Divider />
+        {renderMenuItems(libraryMenuItems)}
+        <Divider />
+        {renderMenuItems(subscriptionMenuItems)}
+        <Divider />
+        {renderMenuItems(moreMenuItems)}
       </Box>
     </Box>
   );
@@ -188,7 +217,16 @@ export const Sidebar = ({ mobileOpen, handleDrawerToggle }: SidebarProps) => {
   return (
     <Box
       component="nav"
-      sx={{ width: { sm: isCollapsed ? 70 : 240 }, flexShrink: { sm: 0 } }}
+      sx={{ 
+        width: { sm: isOpen ? drawerWidth : 70 },
+        flexShrink: { sm: 0 },
+        transition: theme.transitions.create('width', {
+          easing: theme.transitions.easing.sharp,
+          duration: theme.transitions.duration.enteringScreen,
+        }),
+        position: 'relative',
+        zIndex: (theme) => theme.zIndex.drawer,
+      }}
     >
       <Drawer
         variant="temporary"
@@ -201,9 +239,9 @@ export const Sidebar = ({ mobileOpen, handleDrawerToggle }: SidebarProps) => {
           display: { xs: 'block', sm: 'none' },
           '& .MuiDrawer-paper': { 
             boxSizing: 'border-box', 
-            width: isCollapsed ? 70 : 240,
+            width: drawerWidth,
             borderRight: 'none',
-            boxShadow: '0 0 10px rgba(0,0,0,0.1)',
+            boxShadow: '0 0 20px rgba(0,0,0,0.1)',
           },
         }}
       >
@@ -215,9 +253,13 @@ export const Sidebar = ({ mobileOpen, handleDrawerToggle }: SidebarProps) => {
           display: { xs: 'none', sm: 'block' },
           '& .MuiDrawer-paper': { 
             boxSizing: 'border-box', 
-            width: isCollapsed ? 70 : 240,
+            width: isOpen ? drawerWidth : 70,
             borderRight: 'none',
-            boxShadow: '0 0 10px rgba(0,0,0,0.1)',
+            boxShadow: '0 0 20px rgba(0,0,0,0.1)',
+            transition: theme.transitions.create('width', {
+              easing: theme.transitions.easing.sharp,
+              duration: theme.transitions.duration.enteringScreen,
+            }),
           },
         }}
         open

@@ -88,6 +88,36 @@ export const youtubeService = {
     }
   },
 
+  async getRelatedVideos(videoId: string): Promise<VideoItem[]> {
+    try {
+      const response = await fetch(
+        `https://www.googleapis.com/youtube/v3/search?part=snippet&relatedToVideoId=${videoId}&type=video&maxResults=20&key=${YOUTUBE_API_KEY}`
+      );
+      const data = await response.json();
+
+      if (!data.items) {
+        return [];
+      }
+
+      return data.items.map((item: any) => ({
+        id: item.id.videoId,
+        title: item.snippet.title,
+        description: item.snippet.description,
+        thumbnail: item.snippet.thumbnails.high.url,
+        publishedAt: item.snippet.publishedAt,
+        channelTitle: item.snippet.channelTitle,
+        channelId: item.snippet.channelId,
+        channelThumbnail: item.snippet.channelThumbnails?.default?.url || '',
+        viewCount: Math.floor(Math.random() * 1000000), // Mock data
+        views: Math.floor(Math.random() * 1000000), // Mock data
+        duration: 'PT10M30S', // Mock data
+      }));
+    } catch (error) {
+      console.error('Error fetching related videos:', error);
+      return [];
+    }
+  },
+
   // Helper function to format view count
   formatViewCount(count: string): string {
     const num = parseInt(count);
