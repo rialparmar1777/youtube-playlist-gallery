@@ -1,127 +1,131 @@
-import { useState, useEffect, useCallback } from 'react';
-import { Box, CssBaseline, useTheme, useMediaQuery } from '@mui/material';
+import { Box, CssBaseline, ThemeProvider, createTheme } from '@mui/material';
+import { useState, useEffect } from 'react';
 import { Navbar } from './components/Navbar';
 import { Sidebar } from './components/Sidebar';
 import { CategoryCarousel } from './components/CategoryCarousel';
 import { VideoGrid } from './components/VideoGrid';
-import { VideoPlayer } from './components/VideoPlayer';
-import { VideoItem, youtubeService } from './services/youtubeService';
+import { youtubeService, VideoItem } from './services/youtubeService';
 
-const DRAWER_WIDTH = 240;
-const COLLAPSED_DRAWER_WIDTH = 72;
+const theme = createTheme({
+  palette: {
+    mode: 'dark',
+    background: {
+      default: '#0f0f0f',
+      paper: '#0f0f0f',
+    },
+  },
+  components: {
+    MuiCssBaseline: {
+      styleOverrides: {
+        '*': {
+          boxSizing: 'border-box',
+          margin: 0,
+          padding: 0,
+        },
+        'html, body': {
+          height: '100%',
+          margin: 0,
+          padding: 0,
+        },
+        '#root': {
+          height: '100%',
+        },
+      },
+    },
+  },
+});
 
 const App = () => {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-  const [isSidebarOpen, setIsSidebarOpen] = useState(!isMobile);
-  const [selectedVideo, setSelectedVideo] = useState<VideoItem | null>(null);
-  const [videos, setVideos] = useState<VideoItem[]>([]);
-  const [relatedVideos, setRelatedVideos] = useState<VideoItem[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState('All');
-  const [isScrolled, setIsScrolled] = useState(false);
+  const [videos, setVideos] = useState<VideoItem[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [selectedVideo, setSelectedVideo] = useState<VideoItem | null>(null);
 
-  const fetchVideos = useCallback(async () => {
-    setLoading(true);
-    try {
-      const fetchedVideos = await youtubeService.getRandomVideos();
-      setVideos(fetchedVideos);
-    } catch (error) {
-      console.error('Error fetching videos:', error);
-    } finally {
-      setLoading(false);
-    }
-  }, []);
-
-  const fetchRelatedVideos = useCallback(async () => {
-    if (selectedVideo) {
+  useEffect(() => {
+    const fetchVideos = async () => {
+      setLoading(true);
       try {
-        const related = await youtubeService.getRelatedVideos(selectedVideo.id);
-        setRelatedVideos(related);
+        const fetchedVideos = await youtubeService.getRandomVideos();
+        setVideos(fetchedVideos);
       } catch (error) {
-        console.error('Error fetching related videos:', error);
+        console.error('Error fetching videos:', error);
+      } finally {
+        setLoading(false);
       }
-    }
-  }, [selectedVideo]);
+    };
 
-  useEffect(() => {
     fetchVideos();
-  }, [fetchVideos]);
+  }, [selectedCategory]);
 
-  useEffect(() => {
-    fetchRelatedVideos();
-  }, [fetchRelatedVideos]);
+  const handleSidebarToggle = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
+
+  const handleCategorySelect = (category: string) => {
+    setSelectedCategory(category);
+  };
 
   const handleVideoSelect = (video: VideoItem) => {
     setSelectedVideo(video);
-    if (isMobile) {
-      setIsSidebarOpen(false);
-    }
   };
 
-  const handleSidebarToggle = useCallback(() => {
-    setIsSidebarOpen(!isSidebarOpen);
-  }, [isSidebarOpen]);
-
-  const handleScroll = useCallback(() => {
-    setIsScrolled(window.scrollY > 0);
-  }, []);
-
-  useEffect(() => {
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [handleScroll]);
-
   return (
-    <Box sx={{ display: 'flex', minHeight: '100vh', bgcolor: 'background.default' }}>
+    <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Navbar 
-        onSidebarToggle={handleSidebarToggle}
-        isSidebarOpen={isSidebarOpen}
-      />
-      <Sidebar 
-        isOpen={isSidebarOpen}
-        drawerWidth={DRAWER_WIDTH}
-        collapsedWidth={COLLAPSED_DRAWER_WIDTH}
-        onClose={() => setIsSidebarOpen(false)}
-      />
-      <Box
-        component="main"
-        sx={{
-          flexGrow: 1,
-          width: { sm: `calc(100% - ${isSidebarOpen ? DRAWER_WIDTH : COLLAPSED_DRAWER_WIDTH}px)` },
-          ml: { sm: `${isSidebarOpen ? DRAWER_WIDTH : COLLAPSED_DRAWER_WIDTH}px` },
-          mt: '56px',
-          transition: theme.transitions.create(['margin', 'width'], {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen,
-          }),
-          minHeight: 'calc(100vh - 56px)',
-          bgcolor: 'background.default',
-        }}
-      >
-        {selectedVideo ? (
-          <VideoPlayer
-            video={selectedVideo}
-            relatedVideos={relatedVideos}
-            onVideoSelect={handleVideoSelect}
-            onBack={() => setSelectedVideo(null)}
-          />
-        ) : (
-          <>
+      <Box sx={{ display: 'flex', height: '100%' }}>
+        <Navbar 
+          onSidebarToggle={() => setIsSidebarOpen(!isSidebarOpen)}
+          isSidebarOpen={isSidebarOpen}
+        />
+        <Sidebar 
+          isOpen={isSidebarOpen}
+          onClose={() => setIsSidebarOpen(false)}
+        />
+        <Box
+          component="main"
+          sx={{
+            flexGrow: 1,
+            height: '100%',
+            overflow: 'auto',
+            transition: theme.transitions.create('margin', {
+              easing: theme.transitions.easing.sharp,
+              duration: theme.transitions.duration.leavingScreen,
+            }),
+            '&::-webkit-scrollbar': {
+              width: '8px',
+            },
+            '&::-webkit-scrollbar-track': {
+              background: 'transparent',
+            },
+            '&::-webkit-scrollbar-thumb': {
+              background: '#888',
+              borderRadius: '4px',
+              '&:hover': {
+                background: '#555',
+              },
+            },
+          }}
+        >
+          <Box sx={{ 
+            display: 'flex', 
+            flexDirection: 'column', 
+            height: '100%',
+            pt: '56px', // Account for navbar height
+          }}>
             <CategoryCarousel
               selectedCategory={selectedCategory}
-              onCategorySelect={setSelectedCategory}
+              onCategorySelect={handleCategorySelect}
             />
-            <VideoGrid
-              videos={videos}
-              loading={loading}
+            <VideoGrid 
+              videos={videos} 
+              loading={loading} 
               onVideoSelect={handleVideoSelect}
             />
-          </>
-        )}
+          </Box>
+        </Box>
       </Box>
-    </Box>
+    </ThemeProvider>
   );
 };
 

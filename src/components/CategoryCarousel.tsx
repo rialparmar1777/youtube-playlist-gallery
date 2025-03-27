@@ -1,16 +1,6 @@
-import { useState, useRef } from 'react';
-import {
-  Box,
-  Button,
-  IconButton,
-  Typography,
-  useTheme,
-  useMediaQuery,
-} from '@mui/material';
-import {
-  ChevronLeft as ChevronLeftIcon,
-  ChevronRight as ChevronRightIcon,
-} from '@mui/icons-material';
+import { Box, Button, IconButton, useTheme } from '@mui/material';
+import { ChevronLeft, ChevronRight } from '@mui/icons-material';
+import { useState, useRef, useEffect } from 'react';
 
 interface CategoryCarouselProps {
   selectedCategory: string;
@@ -26,142 +16,189 @@ const categories = [
   'Sports',
   'Education',
   'Entertainment',
-  'Science',
   'Technology',
+  'Science',
   'Travel',
   'Food',
   'Fashion',
   'Art',
   'Comedy',
+  'Fitness',
+  'Business',
+  'Politics'
 ];
 
 export const CategoryCarousel = ({ selectedCategory, onCategorySelect }: CategoryCarouselProps) => {
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [showLeftArrow, setShowLeftArrow] = useState(false);
   const [showRightArrow, setShowRightArrow] = useState(true);
 
-  const handleScroll = () => {
-    const container = scrollContainerRef.current;
-    if (container) {
-      setShowLeftArrow(container.scrollLeft > 0);
-      setShowRightArrow(
-        container.scrollLeft < container.scrollWidth - container.clientWidth - 10
-      );
-    }
+  const checkScrollButtons = () => {
+    if (!scrollContainerRef.current) return;
+    
+    const { scrollLeft, scrollWidth, clientWidth } = scrollContainerRef.current;
+    setShowLeftArrow(scrollLeft > 0);
+    setShowRightArrow(scrollLeft < scrollWidth - clientWidth - 10);
   };
 
-  const scroll = (direction: 'left' | 'right') => {
-    const container = scrollContainerRef.current;
-    if (container) {
-      const scrollAmount = direction === 'left' ? -200 : 200;
-      container.scrollBy({
-        left: scrollAmount,
-        behavior: 'smooth',
-      });
+  useEffect(() => {
+    const scrollContainer = scrollContainerRef.current;
+    if (scrollContainer) {
+      scrollContainer.addEventListener('scroll', checkScrollButtons);
+      window.addEventListener('resize', checkScrollButtons);
+      checkScrollButtons(); // Initial check
     }
+
+    return () => {
+      if (scrollContainer) {
+        scrollContainer.removeEventListener('scroll', checkScrollButtons);
+        window.removeEventListener('resize', checkScrollButtons);
+      }
+    };
+  }, []);
+
+  const scroll = (direction: 'left' | 'right') => {
+    if (!scrollContainerRef.current) return;
+    
+    const scrollAmount = scrollContainerRef.current.clientWidth * 0.75;
+    const newScrollLeft = scrollContainerRef.current.scrollLeft + 
+      (direction === 'left' ? -scrollAmount : scrollAmount);
+    
+    scrollContainerRef.current.scrollTo({
+      left: newScrollLeft,
+      behavior: 'smooth'
+    });
   };
 
   return (
     <Box sx={{ 
       position: 'sticky',
-      top: '64px',
+      top: '56px',
       zIndex: 100,
-      bgcolor: 'background.paper',
+      bgcolor: 'background.default',
       borderBottom: '1px solid',
       borderColor: 'divider',
-      py: 1,
-      px: { xs: 1, sm: 2 }
+      py: 0.75,
+      px: { xs: 2, sm: 3 },
+      display: 'flex',
+      alignItems: 'center',
+      gap: 1
     }}>
-      <Box sx={{ position: 'relative' }}>
-        {showLeftArrow && (
-          <IconButton
-            onClick={() => scroll('left')}
-            sx={{
-              position: 'absolute',
-              left: 0,
-              top: '50%',
-              transform: 'translateY(-50%)',
-              zIndex: 2,
-              bgcolor: 'background.paper',
-              boxShadow: 1,
-              '&:hover': {
-                bgcolor: 'background.paper',
-              },
-            }}
-          >
-            <ChevronLeftIcon />
-          </IconButton>
-        )}
-        
+      {showLeftArrow && (
         <Box
-          ref={scrollContainerRef}
-          onScroll={handleScroll}
           sx={{
-            display: 'flex',
-            gap: 1,
-            overflowX: 'auto',
-            scrollbarWidth: 'none',
-            msOverflowStyle: 'none',
-            '&::-webkit-scrollbar': {
-              display: 'none',
-            },
-            px: { xs: 0, sm: 1 },
+            position: 'relative',
+            '&::after': {
+              content: '""',
+              position: 'absolute',
+              top: 0,
+              right: -24,
+              width: 24,
+              height: '100%',
+              background: 'linear-gradient(to right, rgba(255,255,255,1), rgba(255,255,255,0))',
+              pointerEvents: 'none',
+            }
           }}
         >
-          {categories.map((category) => (
-            <Button
-              key={category}
-              variant={selectedCategory === category ? 'contained' : 'outlined'}
-              onClick={() => onCategorySelect(category)}
-              sx={{
-                borderRadius: '20px',
-                textTransform: 'none',
-                whiteSpace: 'nowrap',
-                px: 2,
-                minWidth: 'auto',
-                '&.MuiButton-contained': {
-                  bgcolor: 'text.primary',
-                  color: 'background.paper',
-                  '&:hover': {
-                    bgcolor: 'text.primary',
-                  },
-                },
-                '&.MuiButton-outlined': {
-                  borderColor: 'divider',
-                  color: 'text.primary',
-                  '&:hover': {
-                    borderColor: 'text.primary',
-                  },
-                },
-              }}
-            >
-              {category}
-            </Button>
-          ))}
-        </Box>
-
-        {showRightArrow && (
           <IconButton
-            onClick={() => scroll('right')}
+            onClick={() => scroll('left')}
+            size="small"
             sx={{
-              position: 'absolute',
-              right: 0,
-              top: '50%',
-              transform: 'translateY(-50%)',
-              zIndex: 2,
-              bgcolor: 'background.paper',
-              boxShadow: 1,
+              color: 'text.primary',
               '&:hover': {
-                bgcolor: 'background.paper',
+                bgcolor: 'action.hover',
               },
             }}
           >
-            <ChevronRightIcon />
+            <ChevronLeft />
           </IconButton>
-        )}
+        </Box>
+      )}
+      
+      <Box
+        ref={scrollContainerRef}
+        sx={{
+          display: 'flex',
+          gap: 1.5,
+          overflowX: 'auto',
+          scrollbarWidth: 'none',
+          msOverflowStyle: 'none',
+          '&::-webkit-scrollbar': {
+            display: 'none',
+          },
+          flex: 1,
+        }}
+      >
+        {categories.map((category) => (
+          <Button
+            key={category}
+            variant={selectedCategory === category ? 'contained' : 'outlined'}
+            onClick={() => onCategorySelect(category)}
+            sx={{
+              borderRadius: '8px',
+              textTransform: 'none',
+              whiteSpace: 'nowrap',
+              minWidth: 'auto',
+              px: 1.5,
+              py: 0.75,
+              fontSize: '0.875rem',
+              fontWeight: 400,
+              lineHeight: 1.43,
+              '&.MuiButton-contained': {
+                bgcolor: 'text.primary',
+                color: 'background.paper',
+                '&:hover': {
+                  bgcolor: 'text.primary',
+                  opacity: 0.9,
+                },
+              },
+              '&.MuiButton-outlined': {
+                bgcolor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.05)' : 'rgba(0, 0, 0, 0.05)',
+                borderColor: 'transparent',
+                color: 'text.primary',
+                '&:hover': {
+                  bgcolor: theme.palette.mode === 'dark' ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)',
+                  borderColor: 'transparent',
+                },
+              },
+            }}
+          >
+            {category}
+          </Button>
+        ))}
       </Box>
+
+      {showRightArrow && (
+        <Box
+          sx={{
+            position: 'relative',
+            '&::before': {
+              content: '""',
+              position: 'absolute',
+              top: 0,
+              left: -24,
+              width: 24,
+              height: '100%',
+              background: 'linear-gradient(to left, rgba(255,255,255,1), rgba(255,255,255,0))',
+              pointerEvents: 'none',
+            }
+          }}
+        >
+          <IconButton
+            onClick={() => scroll('right')}
+            size="small"
+            sx={{
+              color: 'text.primary',
+              '&:hover': {
+                bgcolor: 'action.hover',
+              },
+            }}
+          >
+            <ChevronRight />
+          </IconButton>
+        </Box>
+      )}
     </Box>
   );
 }; 
