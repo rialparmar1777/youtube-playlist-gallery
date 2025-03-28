@@ -1,178 +1,158 @@
-import { useState } from 'react';
 import {
   AppBar,
   Toolbar,
   IconButton,
   Typography,
-  InputBase,
   Box,
   Avatar,
   Menu,
   MenuItem,
-  Tooltip,
-  useTheme,
-  useMediaQuery,
-  Badge,
-  Divider,
+  Button,
 } from '@mui/material';
 import {
   Menu as MenuIcon,
+  YouTube as YouTubeIcon,
   Search as SearchIcon,
   Mic as MicIcon,
   VideoCall as VideoCallIcon,
   Notifications as NotificationsIcon,
-  Apps as AppsIcon,
-  Settings as SettingsIcon,
-  Help as HelpIcon,
-  Feedback as FeedbackIcon,
-  Logout as LogoutIcon,
 } from '@mui/icons-material';
+import { useState } from 'react';
+import { useAuth } from '../contexts/AuthContext';
+import { useNavigate } from 'react-router-dom';
 
 interface NavbarProps {
   onSidebarToggle: () => void;
   isSidebarOpen: boolean;
+  user: any;
 }
 
-export const Navbar = ({ onSidebarToggle, isSidebarOpen }: NavbarProps) => {
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+export const Navbar = ({ onSidebarToggle, isSidebarOpen, user }: NavbarProps) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const [appsAnchorEl, setAppsAnchorEl] = useState<null | HTMLElement>(null);
+  const { logout } = useAuth();
+  const navigate = useNavigate();
 
   const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
 
-  const handleAppsMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAppsAnchorEl(event.currentTarget);
-  };
-
   const handleClose = () => {
     setAnchorEl(null);
-    setAppsAnchorEl(null);
+  };
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      navigate('/login');
+    } catch (error) {
+      console.error('Error logging out:', error);
+    }
+    handleClose();
+  };
+
+  const handleProfile = () => {
+    navigate('/channel');
+    handleClose();
   };
 
   return (
-    <AppBar 
-      position="fixed" 
-      sx={{ 
-        bgcolor: 'background.paper',
-        borderBottom: '1px solid',
-        borderColor: 'divider',
-        zIndex: theme.zIndex.drawer + 1,
-      }}
-    >
-      <Toolbar sx={{ minHeight: '56px !important' }}>
+    <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
+      <Toolbar>
         <IconButton
-          edge="start"
           color="inherit"
           aria-label="open drawer"
+          edge="start"
           onClick={onSidebarToggle}
-          sx={{ mr: 2, color: 'text.primary' }}
+          sx={{ mr: 2 }}
         >
           <MenuIcon />
         </IconButton>
 
-        <Box sx={{ display: 'flex', alignItems: 'center', mr: 2 }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }} onClick={() => navigate('/')}>
+          <YouTubeIcon sx={{ color: 'red', fontSize: 30, mr: 1 }} />
           <Typography
             variant="h6"
+            noWrap
             component="div"
-            sx={{
-              display: 'flex',
-              alignItems: 'center',
-              color: 'text.primary',
-              fontWeight: 700,
-              fontSize: '1.5rem',
-              letterSpacing: '-1px',
-            }}
+            sx={{ display: { xs: 'none', sm: 'block' } }}
           >
-            <span style={{ color: '#FF0000' }}>You</span>Tube
+            YouTube
           </Typography>
         </Box>
 
-        <Box
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            bgcolor: 'background.default',
-            borderRadius: '40px',
-            px: 2,
-            py: 0.5,
-            flexGrow: 1,
-            maxWidth: { xs: '100%', sm: '600px' },
-            ml: { xs: 1, sm: 2 },
-          }}
-        >
-          <SearchIcon sx={{ color: 'text.secondary', mr: 1 }} />
-          <InputBase
-            placeholder="Search"
-            sx={{ flexGrow: 1, color: 'text.primary' }}
-          />
-          <IconButton sx={{ color: 'text.primary' }}>
+        <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center', ml: 2 }}>
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              bgcolor: 'background.paper',
+              borderRadius: 2,
+              px: 2,
+              py: 1,
+              width: '100%',
+              maxWidth: 600,
+            }}
+          >
+            <SearchIcon sx={{ color: 'text.secondary', mr: 1 }} />
+            <Typography variant="body2" color="text.secondary">
+              Search
+            </Typography>
+          </Box>
+          <IconButton sx={{ ml: 1 }}>
             <MicIcon />
           </IconButton>
         </Box>
 
-        <Box sx={{ display: 'flex', alignItems: 'center', ml: 'auto' }}>
-          <IconButton sx={{ color: 'text.primary' }}>
+        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+          <IconButton>
             <VideoCallIcon />
           </IconButton>
-          <IconButton sx={{ color: 'text.primary' }}>
-            <Badge badgeContent={3} color="error">
-              <NotificationsIcon />
-            </Badge>
+          <IconButton>
+            <NotificationsIcon />
           </IconButton>
-          <IconButton 
-            sx={{ color: 'text.primary' }}
-            onClick={handleAppsMenu}
-          >
-            <AppsIcon />
-          </IconButton>
-          <Avatar 
-            sx={{ 
-              width: 32, 
-              height: 32, 
-              ml: 1,
-              cursor: 'pointer'
-            }}
+          <IconButton
             onClick={handleMenu}
-          />
+            size="small"
+            sx={{ ml: 2 }}
+          >
+            <Avatar
+              alt={user?.displayName || 'User'}
+              src={user?.photoURL}
+              sx={{ width: 32, height: 32 }}
+            />
+          </IconButton>
+          <Menu
+            anchorEl={anchorEl}
+            open={Boolean(anchorEl)}
+            onClose={handleClose}
+            PaperProps={{
+              sx: {
+                mt: 1.5,
+                minWidth: 200,
+                boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
+                borderRadius: 2,
+              },
+            }}
+          >
+            <MenuItem onClick={handleProfile}>
+              <Avatar
+                alt={user?.displayName || 'User'}
+                src={user?.photoURL}
+                sx={{ width: 32, height: 32, mr: 2 }}
+              />
+              <Box>
+                <Typography variant="body2">{user?.displayName}</Typography>
+                <Typography variant="caption" color="text.secondary">
+                  {user?.email}
+                </Typography>
+              </Box>
+            </MenuItem>
+            <MenuItem onClick={handleClose}>Your channel</MenuItem>
+            <MenuItem onClick={handleClose}>YouTube Studio</MenuItem>
+            <MenuItem onClick={handleClose}>Settings</MenuItem>
+            <MenuItem onClick={handleLogout}>Sign out</MenuItem>
+          </Menu>
         </Box>
-
-        <Menu
-          anchorEl={anchorEl}
-          open={Boolean(anchorEl)}
-          onClose={handleClose}
-          PaperProps={{
-            sx: {
-              mt: 1.5,
-              minWidth: 200,
-              boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.1)',
-            },
-          }}
-        >
-          <MenuItem onClick={handleClose}>Profile</MenuItem>
-          <MenuItem onClick={handleClose}>Settings</MenuItem>
-          <Divider />
-          <MenuItem onClick={handleClose}>Sign out</MenuItem>
-        </Menu>
-
-        <Menu
-          anchorEl={appsAnchorEl}
-          open={Boolean(appsAnchorEl)}
-          onClose={handleClose}
-          PaperProps={{
-            sx: {
-              mt: 1.5,
-              minWidth: 300,
-              boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.1)',
-            },
-          }}
-        >
-          <MenuItem onClick={handleClose}>YouTube TV</MenuItem>
-          <MenuItem onClick={handleClose}>YouTube Music</MenuItem>
-          <MenuItem onClick={handleClose}>YouTube Kids</MenuItem>
-        </Menu>
       </Toolbar>
     </AppBar>
   );

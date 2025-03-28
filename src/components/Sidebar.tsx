@@ -37,159 +37,134 @@ import {
   LiveTv as LiveIcon,
   SportsBasketball as SportsIcon,
   LightbulbOutlined as LearningIcon,
-  EmojiEvents as AwardsIcon,
-  Diamond as PremiumIcon
+  EmojiEvents as EmojiEventsIcon,
+  Diamond as DiamondIcon,
 } from '@mui/icons-material';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 interface SidebarProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-const drawerWidth = 240;
-const collapsedDrawerWidth = 72;
-
 export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
+  const [showMore, setShowMore] = useState(false);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  const navigate = useNavigate();
 
-  const mainMenuItems = [
-    { icon: <HomeIcon />, text: 'Home' },
-    { icon: <ExploreIcon />, text: 'Explore' },
-    { icon: <SubscriptionsIcon />, text: 'Subscriptions' },
-    { icon: <VideoLibraryIcon />, text: 'Library' },
+  const mainItems = [
+    { text: 'Home', icon: <HomeIcon />, path: '/' },
+    { text: 'Explore', icon: <ExploreIcon />, path: '/explore' },
+    { text: 'Subscriptions', icon: <SubscriptionsIcon />, path: '/subscriptions' },
+    { text: 'Library', icon: <VideoLibraryIcon />, path: '/library' },
+    { text: 'History', icon: <HistoryIcon />, path: '/history' },
   ];
 
-  const libraryItems = [
-    { icon: <HistoryIcon />, text: 'History' },
-    { icon: <PlayCircleIcon />, text: 'Your videos' },
-    { icon: <WatchLaterIcon />, text: 'Watch later' },
-    { icon: <ThumbUpIcon />, text: 'Liked videos' },
-  ];
-
-  const subscriptions = [
-    { name: 'Channel 1', avatar: 'C1' },
-    { name: 'Channel 2', avatar: 'C2' },
-    { name: 'Channel 3', avatar: 'C3' },
-    { name: 'Channel 4', avatar: 'C4' },
-    { name: 'Channel 5', avatar: 'C5' },
+  const secondaryItems = [
+    { text: 'Your videos', icon: <PlayCircleIcon />, path: '/your-videos' },
+    { text: 'Watch later', icon: <WatchLaterIcon />, path: '/watch-later' },
+    { text: 'Liked videos', icon: <ThumbUpIcon />, path: '/liked-videos' },
   ];
 
   const exploreItems = [
-    { icon: <TrendingIcon />, text: 'Trending' },
-    { icon: <MusicIcon />, text: 'Music' },
-    { icon: <GamingIcon />, text: 'Gaming' },
-    { icon: <MoviesIcon />, text: 'Movies' },
-    { icon: <NewsIcon />, text: 'News' },
-    { icon: <SportsIcon />, text: 'Sports' },
-    { icon: <LearningIcon />, text: 'Learning' },
-    { icon: <PremiumIcon />, text: 'Premium' },
+    { text: 'Trending', icon: <TrendingIcon />, path: '/trending' },
+    { text: 'Music', icon: <MusicIcon />, path: '/music' },
+    { text: 'Gaming', icon: <GamingIcon />, path: '/gaming' },
+    { text: 'Movies', icon: <MoviesIcon />, path: '/movies' },
+    { text: 'News', icon: <NewsIcon />, path: '/news' },
+    { text: 'Live', icon: <LiveIcon />, path: '/live' },
+    { text: 'Sports', icon: <SportsIcon />, path: '/sports' },
+    { text: 'Learning', icon: <LearningIcon />, path: '/learning' },
+  ];
+
+  const moreItems = [
+    { text: 'YouTube Premium', icon: <DiamondIcon />, path: '/premium' },
+    { text: 'YouTube Music', icon: <MusicIcon />, path: '/music' },
+    { text: 'YouTube Kids', icon: <EmojiEventsIcon />, path: '/kids' },
   ];
 
   const settingsItems = [
-    { icon: <SettingsIcon />, text: 'Settings' },
-    { icon: <HelpIcon />, text: 'Help' },
-    { icon: <FeedbackIcon />, text: 'Send feedback' },
+    { text: 'Settings', icon: <SettingsIcon />, path: '/settings' },
+    { text: 'Help', icon: <HelpIcon />, path: '/help' },
+    { text: 'Feedback', icon: <FeedbackIcon />, path: '/feedback' },
   ];
 
-  const drawer = (
-    <Box sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
-      <Box sx={{ p: 1 }}>
-        <IconButton onClick={onClose} sx={{ color: 'text.primary' }}>
-          <MenuIcon />
-        </IconButton>
-      </Box>
-      <Divider />
-      <List sx={{ flexGrow: 1, py: 0 }}>
-        {mainMenuItems.map((item) => (
-          <ListItem key={item.text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon sx={{ minWidth: isOpen ? 40 : 'auto', color: 'text.primary' }}>
-                {item.icon}
-              </ListItemIcon>
-              {isOpen && <ListItemText primary={item.text} />}
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-      <List sx={{ py: 0 }}>
-        {libraryItems.map((item) => (
-          <ListItem key={item.text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon sx={{ minWidth: isOpen ? 40 : 'auto', color: 'text.primary' }}>
-                {item.icon}
-              </ListItemIcon>
-              {isOpen && <ListItemText primary={item.text} />}
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-      <List sx={{ py: 0 }}>
-        {subscriptions.map((channel) => (
-          <ListItem key={channel.name} disablePadding>
-            <ListItemButton>
-              <ListItemIcon sx={{ minWidth: isOpen ? 40 : 'auto' }}>
-                <Avatar sx={{ width: 24, height: 24, fontSize: '0.75rem' }}>
-                  {channel.avatar}
-                </Avatar>
-              </ListItemIcon>
-              {isOpen && <ListItemText primary={channel.name} />}
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-      <List sx={{ py: 0 }}>
-        {exploreItems.map((item) => (
-          <ListItem key={item.text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon sx={{ minWidth: isOpen ? 40 : 'auto', color: 'text.primary' }}>
-                {item.icon}
-              </ListItemIcon>
-              {isOpen && <ListItemText primary={item.text} />}
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-      <Divider />
-      <List sx={{ py: 0 }}>
-        {settingsItems.map((item) => (
-          <ListItem key={item.text} disablePadding>
-            <ListItemButton>
-              <ListItemIcon sx={{ minWidth: isOpen ? 40 : 'auto', color: 'text.primary' }}>
-                {item.icon}
-              </ListItemIcon>
-              {isOpen && <ListItemText primary={item.text} />}
-            </ListItemButton>
-          </ListItem>
-        ))}
-      </List>
-      <Box sx={{ p: 2, mt: 'auto' }}>
-        <Typography variant="caption" color="text.secondary">
-          © 2024 Google LLC
+  const renderSection = (items: any[], title?: string) => (
+    <>
+      {title && (
+        <Typography
+          variant="caption"
+          sx={{
+            px: 2,
+            py: 1,
+            color: 'text.secondary',
+            display: 'block',
+          }}
+        >
+          {title}
         </Typography>
-      </Box>
-    </Box>
+      )}
+      {items.map((item) => (
+        <ListItem key={item.text} disablePadding>
+          <ListItemButton
+            onClick={() => navigate(item.path)}
+            sx={{
+              minHeight: 48,
+              px: 2.5,
+            }}
+          >
+            <ListItemIcon
+              sx={{
+                minWidth: 0,
+                mr: 3,
+                justifyContent: 'center',
+              }}
+            >
+              {item.icon}
+            </ListItemIcon>
+            <ListItemText primary={item.text} />
+          </ListItemButton>
+        </ListItem>
+      ))}
+    </>
   );
 
   return (
     <Drawer
-      variant="permanent"
+      variant={isMobile ? 'temporary' : 'persistent'}
+      anchor="left"
+      open={isOpen}
+      onClose={onClose}
       sx={{
-        width: isOpen ? drawerWidth : collapsedDrawerWidth,
+        width: 240,
         flexShrink: 0,
         '& .MuiDrawer-paper': {
-          width: isOpen ? drawerWidth : collapsedDrawerWidth,
+          width: 240,
           boxSizing: 'border-box',
-          borderRight: 'none',
-          bgcolor: 'background.paper',
+          bgcolor: 'background.default',
         },
       }}
     >
-      {drawer}
+      <Box sx={{ overflow: 'auto', height: '100%' }}>
+        {renderSection(mainItems)}
+        <Divider sx={{ my: 1 }} />
+        {renderSection(secondaryItems)}
+        <Divider sx={{ my: 1 }} />
+        {renderSection(exploreItems, 'EXPLORE')}
+        <Divider sx={{ my: 1 }} />
+        {showMore && renderSection(moreItems)}
+        <Button
+          startIcon={showMore ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+          onClick={() => setShowMore(!showMore)}
+          sx={{ width: '100%', justifyContent: 'flex-start', px: 2 }}
+        >
+          {showMore ? 'Show less' : 'Show more'}
+        </Button>
+        <Divider sx={{ my: 1 }} />
+        {renderSection(settingsItems)}
+      </Box>
     </Drawer>
   );
 };
