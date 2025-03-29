@@ -55,6 +55,10 @@ export const Navbar = ({ onSidebarToggle, isSidebarOpen, user }: NavbarProps) =>
     handleClose();
   };
 
+  const handleHomeClick = () => {
+    navigate('/');
+  };
+
   return (
     <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
       <Toolbar>
@@ -68,7 +72,24 @@ export const Navbar = ({ onSidebarToggle, isSidebarOpen, user }: NavbarProps) =>
           <MenuIcon />
         </IconButton>
 
-        <Box sx={{ display: 'flex', alignItems: 'center', cursor: 'pointer' }} onClick={() => navigate('/')}>
+        <Box 
+          sx={{ 
+            display: 'flex', 
+            alignItems: 'center', 
+            cursor: 'pointer',
+            '&:hover': {
+              opacity: 0.8,
+            }
+          }} 
+          onClick={handleHomeClick}
+          role="button"
+          tabIndex={0}
+          onKeyPress={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              handleHomeClick();
+            }
+          }}
+        >
           <YouTubeIcon sx={{ color: 'red', fontSize: 30, mr: 1 }} />
           <Typography
             variant="h6"

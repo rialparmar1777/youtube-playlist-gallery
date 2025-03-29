@@ -1,6 +1,6 @@
 import { Box, CssBaseline, ThemeProvider, createTheme } from '@mui/material';
 import { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { Navbar } from './components/Navbar';
 import { Sidebar } from './components/Sidebar';
 import { CategoryCarousel } from './components/CategoryCarousel';
@@ -105,6 +105,8 @@ const HomePage = () => {
   const [loading, setLoading] = useState(true);
   const [selectedVideo, setSelectedVideo] = useState<VideoItem | null>(null);
   const [relatedVideos, setRelatedVideos] = useState<VideoItem[]>([]);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const fetchVideos = async () => {
@@ -143,15 +145,19 @@ const HomePage = () => {
 
   const handleVideoSelect = (video: VideoItem) => {
     setSelectedVideo(video);
+    navigate(`/watch/${video.id}`, { state: { video } });
   };
 
   const handleBack = () => {
     setSelectedVideo(null);
+    navigate('/', { replace: true });
   };
 
-  return selectedVideo ? (
+  const isVideoPlayerRoute = location.pathname.startsWith('/watch/');
+
+  return isVideoPlayerRoute ? (
     <VideoPlayer
-      video={selectedVideo}
+      video={selectedVideo || location.state?.video}
       relatedVideos={relatedVideos}
       onVideoSelect={handleVideoSelect}
       onBack={handleBack}
@@ -181,6 +187,16 @@ const App = () => {
             <Route path="/login" element={<LoginPage />} />
             <Route
               path="/"
+              element={
+                <ProtectedRoute>
+                  <Layout>
+                    <HomePage />
+                  </Layout>
+                </ProtectedRoute>
+              }
+            />
+            <Route
+              path="/watch/:videoId"
               element={
                 <ProtectedRoute>
                   <Layout>
