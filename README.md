@@ -84,3 +84,2674 @@ Rial Parmar - rialparmar007@gmail.com
 - YouTube Data API
 - Material-UI team
 - React community
+
+## 📋 Prerequisites
+
+- Node.js (v16 or higher)
+- npm or yarn
+- YouTube API key
+- Firebase project
+
+## 🔧 Setup
+
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/youtube-playlist-gallery.git
+cd youtube-playlist-gallery
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Configure YouTube API:
+   - Go to the [Google Cloud Console](https://console.cloud.google.com/)
+   - Create a new project or select an existing one
+   - Enable the YouTube Data API v3
+   - Create credentials (API key)
+   - Copy your API key and playlist ID
+
+4. Update the configuration:
+   - Open `src/config/youtube.ts`
+   - Replace `YOUR_API_KEY_HERE` with your YouTube API key
+   - Replace `YOUR_PLAYLIST_ID_HERE` with your YouTube playlist ID
+
+5. Configure Firebase:
+   - Go to the [Firebase Console](https://console.firebase.google.com/)
+   - Create a new project or select an existing one
+   - Enable Firebase Authentication
+   - Create credentials (API key, authentication domain, project ID, storage bucket, messaging sender ID, and app ID)
+   - Copy your credentials and update the environment variables
+
+6. Start the development server:
+```bash
+npm run dev
+```
+
+## 💡 Usage
+
+1. The application will load the videos from your specified YouTube playlist
+2. Click on any video thumbnail to play it in the embedded player
+3. Videos will autoplay when selected
+4. The grid layout is responsive and will adjust based on screen size
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 👤 Author
+
+Rial Parmar - rialparmar007@gmail.com
+
+## 🙏 Acknowledgments
+
+- YouTube Data API
+- Material-UI team
+- React community
+
+## 📋 Prerequisites
+
+- Node.js (v16 or higher)
+- npm or yarn
+- YouTube API key
+- Firebase project
+
+## 🔧 Setup
+
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/youtube-playlist-gallery.git
+cd youtube-playlist-gallery
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Configure YouTube API:
+   - Go to the [Google Cloud Console](https://console.cloud.google.com/)
+   - Create a new project or select an existing one
+   - Enable the YouTube Data API v3
+   - Create credentials (API key)
+   - Copy your API key and playlist ID
+
+4. Update the configuration:
+   - Open `src/config/youtube.ts`
+   - Replace `YOUR_API_KEY_HERE` with your YouTube API key
+   - Replace `YOUR_PLAYLIST_ID_HERE` with your YouTube playlist ID
+
+5. Configure Firebase:
+   - Go to the [Firebase Console](https://console.firebase.google.com/)
+   - Create a new project or select an existing one
+   - Enable Firebase Authentication
+   - Create credentials (API key, authentication domain, project ID, storage bucket, messaging sender ID, and app ID)
+   - Copy your credentials and update the environment variables
+
+6. Start the development server:
+```bash
+npm run dev
+```
+
+## 💡 Usage
+
+1. The application will load the videos from your specified YouTube playlist
+2. Click on any video thumbnail to play it in the embedded player
+3. Videos will autoplay when selected
+4. The grid layout is responsive and will adjust based on screen size
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 👤 Author
+
+Rial Parmar - rialparmar007@gmail.com
+
+## 🙏 Acknowledgments
+
+- YouTube Data API
+- Material-UI team
+- React community
+
+## 📋 Prerequisites
+
+- Node.js (v16 or higher)
+- npm or yarn
+- YouTube API key
+- Firebase project
+
+## 🔧 Setup
+
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/youtube-playlist-gallery.git
+cd youtube-playlist-gallery
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Configure YouTube API:
+   - Go to the [Google Cloud Console](https://console.cloud.google.com/)
+   - Create a new project or select an existing one
+   - Enable the YouTube Data API v3
+   - Create credentials (API key)
+   - Copy your API key and playlist ID
+
+4. Update the configuration:
+   - Open `src/config/youtube.ts`
+   - Replace `YOUR_API_KEY_HERE` with your YouTube API key
+   - Replace `YOUR_PLAYLIST_ID_HERE` with your YouTube playlist ID
+
+5. Configure Firebase:
+   - Go to the [Firebase Console](https://console.firebase.google.com/)
+   - Create a new project or select an existing one
+   - Enable Firebase Authentication
+   - Create credentials (API key, authentication domain, project ID, storage bucket, messaging sender ID, and app ID)
+   - Copy your credentials and update the environment variables
+
+6. Start the development server:
+```bash
+npm run dev
+```
+
+## 💡 Usage
+
+1. The application will load the videos from your specified YouTube playlist
+2. Click on any video thumbnail to play it in the embedded player
+3. Videos will autoplay when selected
+4. The grid layout is responsive and will adjust based on screen size
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 👤 Author
+
+Rial Parmar - rialparmar007@gmail.com
+
+## 🙏 Acknowledgments
+
+- YouTube Data API
+- Material-UI team
+- React community
+
+## 📋 Prerequisites
+
+- Node.js (v16 or higher)
+- npm or yarn
+- YouTube API key
+- Firebase project
+
+## 🔧 Setup
+
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/youtube-playlist-gallery.git
+cd youtube-playlist-gallery
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Configure YouTube API:
+   - Go to the [Google Cloud Console](https://console.cloud.google.com/)
+   - Create a new project or select an existing one
+   - Enable the YouTube Data API v3
+   - Create credentials (API key)
+   - Copy your API key and playlist ID
+
+4. Update the configuration:
+   - Open `src/config/youtube.ts`
+   - Replace `YOUR_API_KEY_HERE` with your YouTube API key
+   - Replace `YOUR_PLAYLIST_ID_HERE` with your YouTube playlist ID
+
+5. Configure Firebase:
+   - Go to the [Firebase Console](https://console.firebase.google.com/)
+   - Create a new project or select an existing one
+   - Enable Firebase Authentication
+   - Create credentials (API key, authentication domain, project ID, storage bucket, messaging sender ID, and app ID)
+   - Copy your credentials and update the environment variables
+
+6. Start the development server:
+```bash
+npm run dev
+```
+
+## 💡 Usage
+
+1. The application will load the videos from your specified YouTube playlist
+2. Click on any video thumbnail to play it in the embedded player
+3. Videos will autoplay when selected
+4. The grid layout is responsive and will adjust based on screen size
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 👤 Author
+
+Rial Parmar - rialparmar007@gmail.com
+
+## 🙏 Acknowledgments
+
+- YouTube Data API
+- Material-UI team
+- React community
+
+## 📋 Prerequisites
+
+- Node.js (v16 or higher)
+- npm or yarn
+- YouTube API key
+- Firebase project
+
+## 🔧 Setup
+
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/youtube-playlist-gallery.git
+cd youtube-playlist-gallery
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Configure YouTube API:
+   - Go to the [Google Cloud Console](https://console.cloud.google.com/)
+   - Create a new project or select an existing one
+   - Enable the YouTube Data API v3
+   - Create credentials (API key)
+   - Copy your API key and playlist ID
+
+4. Update the configuration:
+   - Open `src/config/youtube.ts`
+   - Replace `YOUR_API_KEY_HERE` with your YouTube API key
+   - Replace `YOUR_PLAYLIST_ID_HERE` with your YouTube playlist ID
+
+5. Configure Firebase:
+   - Go to the [Firebase Console](https://console.firebase.google.com/)
+   - Create a new project or select an existing one
+   - Enable Firebase Authentication
+   - Create credentials (API key, authentication domain, project ID, storage bucket, messaging sender ID, and app ID)
+   - Copy your credentials and update the environment variables
+
+6. Start the development server:
+```bash
+npm run dev
+```
+
+## 💡 Usage
+
+1. The application will load the videos from your specified YouTube playlist
+2. Click on any video thumbnail to play it in the embedded player
+3. Videos will autoplay when selected
+4. The grid layout is responsive and will adjust based on screen size
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 👤 Author
+
+Rial Parmar - rialparmar007@gmail.com
+
+## 🙏 Acknowledgments
+
+- YouTube Data API
+- Material-UI team
+- React community
+
+## 📋 Prerequisites
+
+- Node.js (v16 or higher)
+- npm or yarn
+- YouTube API key
+- Firebase project
+
+## 🔧 Setup
+
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/youtube-playlist-gallery.git
+cd youtube-playlist-gallery
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Configure YouTube API:
+   - Go to the [Google Cloud Console](https://console.cloud.google.com/)
+   - Create a new project or select an existing one
+   - Enable the YouTube Data API v3
+   - Create credentials (API key)
+   - Copy your API key and playlist ID
+
+4. Update the configuration:
+   - Open `src/config/youtube.ts`
+   - Replace `YOUR_API_KEY_HERE` with your YouTube API key
+   - Replace `YOUR_PLAYLIST_ID_HERE` with your YouTube playlist ID
+
+5. Configure Firebase:
+   - Go to the [Firebase Console](https://console.firebase.google.com/)
+   - Create a new project or select an existing one
+   - Enable Firebase Authentication
+   - Create credentials (API key, authentication domain, project ID, storage bucket, messaging sender ID, and app ID)
+   - Copy your credentials and update the environment variables
+
+6. Start the development server:
+```bash
+npm run dev
+```
+
+## 💡 Usage
+
+1. The application will load the videos from your specified YouTube playlist
+2. Click on any video thumbnail to play it in the embedded player
+3. Videos will autoplay when selected
+4. The grid layout is responsive and will adjust based on screen size
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 👤 Author
+
+Rial Parmar - rialparmar007@gmail.com
+
+## 🙏 Acknowledgments
+
+- YouTube Data API
+- Material-UI team
+- React community
+
+## 📋 Prerequisites
+
+- Node.js (v16 or higher)
+- npm or yarn
+- YouTube API key
+- Firebase project
+
+## 🔧 Setup
+
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/youtube-playlist-gallery.git
+cd youtube-playlist-gallery
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Configure YouTube API:
+   - Go to the [Google Cloud Console](https://console.cloud.google.com/)
+   - Create a new project or select an existing one
+   - Enable the YouTube Data API v3
+   - Create credentials (API key)
+   - Copy your API key and playlist ID
+
+4. Update the configuration:
+   - Open `src/config/youtube.ts`
+   - Replace `YOUR_API_KEY_HERE` with your YouTube API key
+   - Replace `YOUR_PLAYLIST_ID_HERE` with your YouTube playlist ID
+
+5. Configure Firebase:
+   - Go to the [Firebase Console](https://console.firebase.google.com/)
+   - Create a new project or select an existing one
+   - Enable Firebase Authentication
+   - Create credentials (API key, authentication domain, project ID, storage bucket, messaging sender ID, and app ID)
+   - Copy your credentials and update the environment variables
+
+6. Start the development server:
+```bash
+npm run dev
+```
+
+## 💡 Usage
+
+1. The application will load the videos from your specified YouTube playlist
+2. Click on any video thumbnail to play it in the embedded player
+3. Videos will autoplay when selected
+4. The grid layout is responsive and will adjust based on screen size
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 👤 Author
+
+Rial Parmar - rialparmar007@gmail.com
+
+## 🙏 Acknowledgments
+
+- YouTube Data API
+- Material-UI team
+- React community
+
+## 📋 Prerequisites
+
+- Node.js (v16 or higher)
+- npm or yarn
+- YouTube API key
+- Firebase project
+
+## 🔧 Setup
+
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/youtube-playlist-gallery.git
+cd youtube-playlist-gallery
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Configure YouTube API:
+   - Go to the [Google Cloud Console](https://console.cloud.google.com/)
+   - Create a new project or select an existing one
+   - Enable the YouTube Data API v3
+   - Create credentials (API key)
+   - Copy your API key and playlist ID
+
+4. Update the configuration:
+   - Open `src/config/youtube.ts`
+   - Replace `YOUR_API_KEY_HERE` with your YouTube API key
+   - Replace `YOUR_PLAYLIST_ID_HERE` with your YouTube playlist ID
+
+5. Configure Firebase:
+   - Go to the [Firebase Console](https://console.firebase.google.com/)
+   - Create a new project or select an existing one
+   - Enable Firebase Authentication
+   - Create credentials (API key, authentication domain, project ID, storage bucket, messaging sender ID, and app ID)
+   - Copy your credentials and update the environment variables
+
+6. Start the development server:
+```bash
+npm run dev
+```
+
+## 💡 Usage
+
+1. The application will load the videos from your specified YouTube playlist
+2. Click on any video thumbnail to play it in the embedded player
+3. Videos will autoplay when selected
+4. The grid layout is responsive and will adjust based on screen size
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 👤 Author
+
+Rial Parmar - rialparmar007@gmail.com
+
+## 🙏 Acknowledgments
+
+- YouTube Data API
+- Material-UI team
+- React community
+
+## 📋 Prerequisites
+
+- Node.js (v16 or higher)
+- npm or yarn
+- YouTube API key
+- Firebase project
+
+## 🔧 Setup
+
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/youtube-playlist-gallery.git
+cd youtube-playlist-gallery
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Configure YouTube API:
+   - Go to the [Google Cloud Console](https://console.cloud.google.com/)
+   - Create a new project or select an existing one
+   - Enable the YouTube Data API v3
+   - Create credentials (API key)
+   - Copy your API key and playlist ID
+
+4. Update the configuration:
+   - Open `src/config/youtube.ts`
+   - Replace `YOUR_API_KEY_HERE` with your YouTube API key
+   - Replace `YOUR_PLAYLIST_ID_HERE` with your YouTube playlist ID
+
+5. Configure Firebase:
+   - Go to the [Firebase Console](https://console.firebase.google.com/)
+   - Create a new project or select an existing one
+   - Enable Firebase Authentication
+   - Create credentials (API key, authentication domain, project ID, storage bucket, messaging sender ID, and app ID)
+   - Copy your credentials and update the environment variables
+
+6. Start the development server:
+```bash
+npm run dev
+```
+
+## 💡 Usage
+
+1. The application will load the videos from your specified YouTube playlist
+2. Click on any video thumbnail to play it in the embedded player
+3. Videos will autoplay when selected
+4. The grid layout is responsive and will adjust based on screen size
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 👤 Author
+
+Rial Parmar - rialparmar007@gmail.com
+
+## 🙏 Acknowledgments
+
+- YouTube Data API
+- Material-UI team
+- React community
+
+## 📋 Prerequisites
+
+- Node.js (v16 or higher)
+- npm or yarn
+- YouTube API key
+- Firebase project
+
+## 🔧 Setup
+
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/youtube-playlist-gallery.git
+cd youtube-playlist-gallery
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Configure YouTube API:
+   - Go to the [Google Cloud Console](https://console.cloud.google.com/)
+   - Create a new project or select an existing one
+   - Enable the YouTube Data API v3
+   - Create credentials (API key)
+   - Copy your API key and playlist ID
+
+4. Update the configuration:
+   - Open `src/config/youtube.ts`
+   - Replace `YOUR_API_KEY_HERE` with your YouTube API key
+   - Replace `YOUR_PLAYLIST_ID_HERE` with your YouTube playlist ID
+
+5. Configure Firebase:
+   - Go to the [Firebase Console](https://console.firebase.google.com/)
+   - Create a new project or select an existing one
+   - Enable Firebase Authentication
+   - Create credentials (API key, authentication domain, project ID, storage bucket, messaging sender ID, and app ID)
+   - Copy your credentials and update the environment variables
+
+6. Start the development server:
+```bash
+npm run dev
+```
+
+## 💡 Usage
+
+1. The application will load the videos from your specified YouTube playlist
+2. Click on any video thumbnail to play it in the embedded player
+3. Videos will autoplay when selected
+4. The grid layout is responsive and will adjust based on screen size
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 👤 Author
+
+Rial Parmar - rialparmar007@gmail.com
+
+## 🙏 Acknowledgments
+
+- YouTube Data API
+- Material-UI team
+- React community
+
+## 📋 Prerequisites
+
+- Node.js (v16 or higher)
+- npm or yarn
+- YouTube API key
+- Firebase project
+
+## 🔧 Setup
+
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/youtube-playlist-gallery.git
+cd youtube-playlist-gallery
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Configure YouTube API:
+   - Go to the [Google Cloud Console](https://console.cloud.google.com/)
+   - Create a new project or select an existing one
+   - Enable the YouTube Data API v3
+   - Create credentials (API key)
+   - Copy your API key and playlist ID
+
+4. Update the configuration:
+   - Open `src/config/youtube.ts`
+   - Replace `YOUR_API_KEY_HERE` with your YouTube API key
+   - Replace `YOUR_PLAYLIST_ID_HERE` with your YouTube playlist ID
+
+5. Configure Firebase:
+   - Go to the [Firebase Console](https://console.firebase.google.com/)
+   - Create a new project or select an existing one
+   - Enable Firebase Authentication
+   - Create credentials (API key, authentication domain, project ID, storage bucket, messaging sender ID, and app ID)
+   - Copy your credentials and update the environment variables
+
+6. Start the development server:
+```bash
+npm run dev
+```
+
+## 💡 Usage
+
+1. The application will load the videos from your specified YouTube playlist
+2. Click on any video thumbnail to play it in the embedded player
+3. Videos will autoplay when selected
+4. The grid layout is responsive and will adjust based on screen size
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 👤 Author
+
+Rial Parmar - rialparmar007@gmail.com
+
+## 🙏 Acknowledgments
+
+- YouTube Data API
+- Material-UI team
+- React community
+
+## 📋 Prerequisites
+
+- Node.js (v16 or higher)
+- npm or yarn
+- YouTube API key
+- Firebase project
+
+## 🔧 Setup
+
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/youtube-playlist-gallery.git
+cd youtube-playlist-gallery
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Configure YouTube API:
+   - Go to the [Google Cloud Console](https://console.cloud.google.com/)
+   - Create a new project or select an existing one
+   - Enable the YouTube Data API v3
+   - Create credentials (API key)
+   - Copy your API key and playlist ID
+
+4. Update the configuration:
+   - Open `src/config/youtube.ts`
+   - Replace `YOUR_API_KEY_HERE` with your YouTube API key
+   - Replace `YOUR_PLAYLIST_ID_HERE` with your YouTube playlist ID
+
+5. Configure Firebase:
+   - Go to the [Firebase Console](https://console.firebase.google.com/)
+   - Create a new project or select an existing one
+   - Enable Firebase Authentication
+   - Create credentials (API key, authentication domain, project ID, storage bucket, messaging sender ID, and app ID)
+   - Copy your credentials and update the environment variables
+
+6. Start the development server:
+```bash
+npm run dev
+```
+
+## 💡 Usage
+
+1. The application will load the videos from your specified YouTube playlist
+2. Click on any video thumbnail to play it in the embedded player
+3. Videos will autoplay when selected
+4. The grid layout is responsive and will adjust based on screen size
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 👤 Author
+
+Rial Parmar - rialparmar007@gmail.com
+
+## 🙏 Acknowledgments
+
+- YouTube Data API
+- Material-UI team
+- React community
+
+## 📋 Prerequisites
+
+- Node.js (v16 or higher)
+- npm or yarn
+- YouTube API key
+- Firebase project
+
+## 🔧 Setup
+
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/youtube-playlist-gallery.git
+cd youtube-playlist-gallery
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Configure YouTube API:
+   - Go to the [Google Cloud Console](https://console.cloud.google.com/)
+   - Create a new project or select an existing one
+   - Enable the YouTube Data API v3
+   - Create credentials (API key)
+   - Copy your API key and playlist ID
+
+4. Update the configuration:
+   - Open `src/config/youtube.ts`
+   - Replace `YOUR_API_KEY_HERE` with your YouTube API key
+   - Replace `YOUR_PLAYLIST_ID_HERE` with your YouTube playlist ID
+
+5. Configure Firebase:
+   - Go to the [Firebase Console](https://console.firebase.google.com/)
+   - Create a new project or select an existing one
+   - Enable Firebase Authentication
+   - Create credentials (API key, authentication domain, project ID, storage bucket, messaging sender ID, and app ID)
+   - Copy your credentials and update the environment variables
+
+6. Start the development server:
+```bash
+npm run dev
+```
+
+## 💡 Usage
+
+1. The application will load the videos from your specified YouTube playlist
+2. Click on any video thumbnail to play it in the embedded player
+3. Videos will autoplay when selected
+4. The grid layout is responsive and will adjust based on screen size
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 👤 Author
+
+Rial Parmar - rialparmar007@gmail.com
+
+## 🙏 Acknowledgments
+
+- YouTube Data API
+- Material-UI team
+- React community
+
+## 📋 Prerequisites
+
+- Node.js (v16 or higher)
+- npm or yarn
+- YouTube API key
+- Firebase project
+
+## 🔧 Setup
+
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/youtube-playlist-gallery.git
+cd youtube-playlist-gallery
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Configure YouTube API:
+   - Go to the [Google Cloud Console](https://console.cloud.google.com/)
+   - Create a new project or select an existing one
+   - Enable the YouTube Data API v3
+   - Create credentials (API key)
+   - Copy your API key and playlist ID
+
+4. Update the configuration:
+   - Open `src/config/youtube.ts`
+   - Replace `YOUR_API_KEY_HERE` with your YouTube API key
+   - Replace `YOUR_PLAYLIST_ID_HERE` with your YouTube playlist ID
+
+5. Configure Firebase:
+   - Go to the [Firebase Console](https://console.firebase.google.com/)
+   - Create a new project or select an existing one
+   - Enable Firebase Authentication
+   - Create credentials (API key, authentication domain, project ID, storage bucket, messaging sender ID, and app ID)
+   - Copy your credentials and update the environment variables
+
+6. Start the development server:
+```bash
+npm run dev
+```
+
+## 💡 Usage
+
+1. The application will load the videos from your specified YouTube playlist
+2. Click on any video thumbnail to play it in the embedded player
+3. Videos will autoplay when selected
+4. The grid layout is responsive and will adjust based on screen size
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 👤 Author
+
+Rial Parmar - rialparmar007@gmail.com
+
+## 🙏 Acknowledgments
+
+- YouTube Data API
+- Material-UI team
+- React community
+
+## 📋 Prerequisites
+
+- Node.js (v16 or higher)
+- npm or yarn
+- YouTube API key
+- Firebase project
+
+## 🔧 Setup
+
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/youtube-playlist-gallery.git
+cd youtube-playlist-gallery
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Configure YouTube API:
+   - Go to the [Google Cloud Console](https://console.cloud.google.com/)
+   - Create a new project or select an existing one
+   - Enable the YouTube Data API v3
+   - Create credentials (API key)
+   - Copy your API key and playlist ID
+
+4. Update the configuration:
+   - Open `src/config/youtube.ts`
+   - Replace `YOUR_API_KEY_HERE` with your YouTube API key
+   - Replace `YOUR_PLAYLIST_ID_HERE` with your YouTube playlist ID
+
+5. Configure Firebase:
+   - Go to the [Firebase Console](https://console.firebase.google.com/)
+   - Create a new project or select an existing one
+   - Enable Firebase Authentication
+   - Create credentials (API key, authentication domain, project ID, storage bucket, messaging sender ID, and app ID)
+   - Copy your credentials and update the environment variables
+
+6. Start the development server:
+```bash
+npm run dev
+```
+
+## 💡 Usage
+
+1. The application will load the videos from your specified YouTube playlist
+2. Click on any video thumbnail to play it in the embedded player
+3. Videos will autoplay when selected
+4. The grid layout is responsive and will adjust based on screen size
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 👤 Author
+
+Rial Parmar - rialparmar007@gmail.com
+
+## 🙏 Acknowledgments
+
+- YouTube Data API
+- Material-UI team
+- React community
+
+## 📋 Prerequisites
+
+- Node.js (v16 or higher)
+- npm or yarn
+- YouTube API key
+- Firebase project
+
+## 🔧 Setup
+
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/youtube-playlist-gallery.git
+cd youtube-playlist-gallery
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Configure YouTube API:
+   - Go to the [Google Cloud Console](https://console.cloud.google.com/)
+   - Create a new project or select an existing one
+   - Enable the YouTube Data API v3
+   - Create credentials (API key)
+   - Copy your API key and playlist ID
+
+4. Update the configuration:
+   - Open `src/config/youtube.ts`
+   - Replace `YOUR_API_KEY_HERE` with your YouTube API key
+   - Replace `YOUR_PLAYLIST_ID_HERE` with your YouTube playlist ID
+
+5. Configure Firebase:
+   - Go to the [Firebase Console](https://console.firebase.google.com/)
+   - Create a new project or select an existing one
+   - Enable Firebase Authentication
+   - Create credentials (API key, authentication domain, project ID, storage bucket, messaging sender ID, and app ID)
+   - Copy your credentials and update the environment variables
+
+6. Start the development server:
+```bash
+npm run dev
+```
+
+## 💡 Usage
+
+1. The application will load the videos from your specified YouTube playlist
+2. Click on any video thumbnail to play it in the embedded player
+3. Videos will autoplay when selected
+4. The grid layout is responsive and will adjust based on screen size
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 👤 Author
+
+Rial Parmar - rialparmar007@gmail.com
+
+## 🙏 Acknowledgments
+
+- YouTube Data API
+- Material-UI team
+- React community
+
+## 📋 Prerequisites
+
+- Node.js (v16 or higher)
+- npm or yarn
+- YouTube API key
+- Firebase project
+
+## 🔧 Setup
+
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/youtube-playlist-gallery.git
+cd youtube-playlist-gallery
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Configure YouTube API:
+   - Go to the [Google Cloud Console](https://console.cloud.google.com/)
+   - Create a new project or select an existing one
+   - Enable the YouTube Data API v3
+   - Create credentials (API key)
+   - Copy your API key and playlist ID
+
+4. Update the configuration:
+   - Open `src/config/youtube.ts`
+   - Replace `YOUR_API_KEY_HERE` with your YouTube API key
+   - Replace `YOUR_PLAYLIST_ID_HERE` with your YouTube playlist ID
+
+5. Configure Firebase:
+   - Go to the [Firebase Console](https://console.firebase.google.com/)
+   - Create a new project or select an existing one
+   - Enable Firebase Authentication
+   - Create credentials (API key, authentication domain, project ID, storage bucket, messaging sender ID, and app ID)
+   - Copy your credentials and update the environment variables
+
+6. Start the development server:
+```bash
+npm run dev
+```
+
+## 💡 Usage
+
+1. The application will load the videos from your specified YouTube playlist
+2. Click on any video thumbnail to play it in the embedded player
+3. Videos will autoplay when selected
+4. The grid layout is responsive and will adjust based on screen size
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 👤 Author
+
+Rial Parmar - rialparmar007@gmail.com
+
+## 🙏 Acknowledgments
+
+- YouTube Data API
+- Material-UI team
+- React community
+
+## 📋 Prerequisites
+
+- Node.js (v16 or higher)
+- npm or yarn
+- YouTube API key
+- Firebase project
+
+## 🔧 Setup
+
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/youtube-playlist-gallery.git
+cd youtube-playlist-gallery
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Configure YouTube API:
+   - Go to the [Google Cloud Console](https://console.cloud.google.com/)
+   - Create a new project or select an existing one
+   - Enable the YouTube Data API v3
+   - Create credentials (API key)
+   - Copy your API key and playlist ID
+
+4. Update the configuration:
+   - Open `src/config/youtube.ts`
+   - Replace `YOUR_API_KEY_HERE` with your YouTube API key
+   - Replace `YOUR_PLAYLIST_ID_HERE` with your YouTube playlist ID
+
+5. Configure Firebase:
+   - Go to the [Firebase Console](https://console.firebase.google.com/)
+   - Create a new project or select an existing one
+   - Enable Firebase Authentication
+   - Create credentials (API key, authentication domain, project ID, storage bucket, messaging sender ID, and app ID)
+   - Copy your credentials and update the environment variables
+
+6. Start the development server:
+```bash
+npm run dev
+```
+
+## 💡 Usage
+
+1. The application will load the videos from your specified YouTube playlist
+2. Click on any video thumbnail to play it in the embedded player
+3. Videos will autoplay when selected
+4. The grid layout is responsive and will adjust based on screen size
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 👤 Author
+
+Rial Parmar - rialparmar007@gmail.com
+
+## 🙏 Acknowledgments
+
+- YouTube Data API
+- Material-UI team
+- React community
+
+## 📋 Prerequisites
+
+- Node.js (v16 or higher)
+- npm or yarn
+- YouTube API key
+- Firebase project
+
+## 🔧 Setup
+
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/youtube-playlist-gallery.git
+cd youtube-playlist-gallery
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Configure YouTube API:
+   - Go to the [Google Cloud Console](https://console.cloud.google.com/)
+   - Create a new project or select an existing one
+   - Enable the YouTube Data API v3
+   - Create credentials (API key)
+   - Copy your API key and playlist ID
+
+4. Update the configuration:
+   - Open `src/config/youtube.ts`
+   - Replace `YOUR_API_KEY_HERE` with your YouTube API key
+   - Replace `YOUR_PLAYLIST_ID_HERE` with your YouTube playlist ID
+
+5. Configure Firebase:
+   - Go to the [Firebase Console](https://console.firebase.google.com/)
+   - Create a new project or select an existing one
+   - Enable Firebase Authentication
+   - Create credentials (API key, authentication domain, project ID, storage bucket, messaging sender ID, and app ID)
+   - Copy your credentials and update the environment variables
+
+6. Start the development server:
+```bash
+npm run dev
+```
+
+## 💡 Usage
+
+1. The application will load the videos from your specified YouTube playlist
+2. Click on any video thumbnail to play it in the embedded player
+3. Videos will autoplay when selected
+4. The grid layout is responsive and will adjust based on screen size
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 👤 Author
+
+Rial Parmar - rialparmar007@gmail.com
+
+## 🙏 Acknowledgments
+
+- YouTube Data API
+- Material-UI team
+- React community
+
+## 📋 Prerequisites
+
+- Node.js (v16 or higher)
+- npm or yarn
+- YouTube API key
+- Firebase project
+
+## 🔧 Setup
+
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/youtube-playlist-gallery.git
+cd youtube-playlist-gallery
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Configure YouTube API:
+   - Go to the [Google Cloud Console](https://console.cloud.google.com/)
+   - Create a new project or select an existing one
+   - Enable the YouTube Data API v3
+   - Create credentials (API key)
+   - Copy your API key and playlist ID
+
+4. Update the configuration:
+   - Open `src/config/youtube.ts`
+   - Replace `YOUR_API_KEY_HERE` with your YouTube API key
+   - Replace `YOUR_PLAYLIST_ID_HERE` with your YouTube playlist ID
+
+5. Configure Firebase:
+   - Go to the [Firebase Console](https://console.firebase.google.com/)
+   - Create a new project or select an existing one
+   - Enable Firebase Authentication
+   - Create credentials (API key, authentication domain, project ID, storage bucket, messaging sender ID, and app ID)
+   - Copy your credentials and update the environment variables
+
+6. Start the development server:
+```bash
+npm run dev
+```
+
+## 💡 Usage
+
+1. The application will load the videos from your specified YouTube playlist
+2. Click on any video thumbnail to play it in the embedded player
+3. Videos will autoplay when selected
+4. The grid layout is responsive and will adjust based on screen size
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 👤 Author
+
+Rial Parmar - rialparmar007@gmail.com
+
+## 🙏 Acknowledgments
+
+- YouTube Data API
+- Material-UI team
+- React community
+
+## 📋 Prerequisites
+
+- Node.js (v16 or higher)
+- npm or yarn
+- YouTube API key
+- Firebase project
+
+## 🔧 Setup
+
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/youtube-playlist-gallery.git
+cd youtube-playlist-gallery
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Configure YouTube API:
+   - Go to the [Google Cloud Console](https://console.cloud.google.com/)
+   - Create a new project or select an existing one
+   - Enable the YouTube Data API v3
+   - Create credentials (API key)
+   - Copy your API key and playlist ID
+
+4. Update the configuration:
+   - Open `src/config/youtube.ts`
+   - Replace `YOUR_API_KEY_HERE` with your YouTube API key
+   - Replace `YOUR_PLAYLIST_ID_HERE` with your YouTube playlist ID
+
+5. Configure Firebase:
+   - Go to the [Firebase Console](https://console.firebase.google.com/)
+   - Create a new project or select an existing one
+   - Enable Firebase Authentication
+   - Create credentials (API key, authentication domain, project ID, storage bucket, messaging sender ID, and app ID)
+   - Copy your credentials and update the environment variables
+
+6. Start the development server:
+```bash
+npm run dev
+```
+
+## 💡 Usage
+
+1. The application will load the videos from your specified YouTube playlist
+2. Click on any video thumbnail to play it in the embedded player
+3. Videos will autoplay when selected
+4. The grid layout is responsive and will adjust based on screen size
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 👤 Author
+
+Rial Parmar - rialparmar007@gmail.com
+
+## 🙏 Acknowledgments
+
+- YouTube Data API
+- Material-UI team
+- React community
+
+## 📋 Prerequisites
+
+- Node.js (v16 or higher)
+- npm or yarn
+- YouTube API key
+- Firebase project
+
+## 🔧 Setup
+
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/youtube-playlist-gallery.git
+cd youtube-playlist-gallery
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Configure YouTube API:
+   - Go to the [Google Cloud Console](https://console.cloud.google.com/)
+   - Create a new project or select an existing one
+   - Enable the YouTube Data API v3
+   - Create credentials (API key)
+   - Copy your API key and playlist ID
+
+4. Update the configuration:
+   - Open `src/config/youtube.ts`
+   - Replace `YOUR_API_KEY_HERE` with your YouTube API key
+   - Replace `YOUR_PLAYLIST_ID_HERE` with your YouTube playlist ID
+
+5. Configure Firebase:
+   - Go to the [Firebase Console](https://console.firebase.google.com/)
+   - Create a new project or select an existing one
+   - Enable Firebase Authentication
+   - Create credentials (API key, authentication domain, project ID, storage bucket, messaging sender ID, and app ID)
+   - Copy your credentials and update the environment variables
+
+6. Start the development server:
+```bash
+npm run dev
+```
+
+## 💡 Usage
+
+1. The application will load the videos from your specified YouTube playlist
+2. Click on any video thumbnail to play it in the embedded player
+3. Videos will autoplay when selected
+4. The grid layout is responsive and will adjust based on screen size
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 👤 Author
+
+Rial Parmar - rialparmar007@gmail.com
+
+## 🙏 Acknowledgments
+
+- YouTube Data API
+- Material-UI team
+- React community
+
+## 📋 Prerequisites
+
+- Node.js (v16 or higher)
+- npm or yarn
+- YouTube API key
+- Firebase project
+
+## 🔧 Setup
+
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/youtube-playlist-gallery.git
+cd youtube-playlist-gallery
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Configure YouTube API:
+   - Go to the [Google Cloud Console](https://console.cloud.google.com/)
+   - Create a new project or select an existing one
+   - Enable the YouTube Data API v3
+   - Create credentials (API key)
+   - Copy your API key and playlist ID
+
+4. Update the configuration:
+   - Open `src/config/youtube.ts`
+   - Replace `YOUR_API_KEY_HERE` with your YouTube API key
+   - Replace `YOUR_PLAYLIST_ID_HERE` with your YouTube playlist ID
+
+5. Configure Firebase:
+   - Go to the [Firebase Console](https://console.firebase.google.com/)
+   - Create a new project or select an existing one
+   - Enable Firebase Authentication
+   - Create credentials (API key, authentication domain, project ID, storage bucket, messaging sender ID, and app ID)
+   - Copy your credentials and update the environment variables
+
+6. Start the development server:
+```bash
+npm run dev
+```
+
+## 💡 Usage
+
+1. The application will load the videos from your specified YouTube playlist
+2. Click on any video thumbnail to play it in the embedded player
+3. Videos will autoplay when selected
+4. The grid layout is responsive and will adjust based on screen size
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 👤 Author
+
+Rial Parmar - rialparmar007@gmail.com
+
+## 🙏 Acknowledgments
+
+- YouTube Data API
+- Material-UI team
+- React community
+
+## 📋 Prerequisites
+
+- Node.js (v16 or higher)
+- npm or yarn
+- YouTube API key
+- Firebase project
+
+## 🔧 Setup
+
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/youtube-playlist-gallery.git
+cd youtube-playlist-gallery
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Configure YouTube API:
+   - Go to the [Google Cloud Console](https://console.cloud.google.com/)
+   - Create a new project or select an existing one
+   - Enable the YouTube Data API v3
+   - Create credentials (API key)
+   - Copy your API key and playlist ID
+
+4. Update the configuration:
+   - Open `src/config/youtube.ts`
+   - Replace `YOUR_API_KEY_HERE` with your YouTube API key
+   - Replace `YOUR_PLAYLIST_ID_HERE` with your YouTube playlist ID
+
+5. Configure Firebase:
+   - Go to the [Firebase Console](https://console.firebase.google.com/)
+   - Create a new project or select an existing one
+   - Enable Firebase Authentication
+   - Create credentials (API key, authentication domain, project ID, storage bucket, messaging sender ID, and app ID)
+   - Copy your credentials and update the environment variables
+
+6. Start the development server:
+```bash
+npm run dev
+```
+
+## 💡 Usage
+
+1. The application will load the videos from your specified YouTube playlist
+2. Click on any video thumbnail to play it in the embedded player
+3. Videos will autoplay when selected
+4. The grid layout is responsive and will adjust based on screen size
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 👤 Author
+
+Rial Parmar - rialparmar007@gmail.com
+
+## 🙏 Acknowledgments
+
+- YouTube Data API
+- Material-UI team
+- React community
+
+## 📋 Prerequisites
+
+- Node.js (v16 or higher)
+- npm or yarn
+- YouTube API key
+- Firebase project
+
+## 🔧 Setup
+
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/youtube-playlist-gallery.git
+cd youtube-playlist-gallery
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Configure YouTube API:
+   - Go to the [Google Cloud Console](https://console.cloud.google.com/)
+   - Create a new project or select an existing one
+   - Enable the YouTube Data API v3
+   - Create credentials (API key)
+   - Copy your API key and playlist ID
+
+4. Update the configuration:
+   - Open `src/config/youtube.ts`
+   - Replace `YOUR_API_KEY_HERE` with your YouTube API key
+   - Replace `YOUR_PLAYLIST_ID_HERE` with your YouTube playlist ID
+
+5. Configure Firebase:
+   - Go to the [Firebase Console](https://console.firebase.google.com/)
+   - Create a new project or select an existing one
+   - Enable Firebase Authentication
+   - Create credentials (API key, authentication domain, project ID, storage bucket, messaging sender ID, and app ID)
+   - Copy your credentials and update the environment variables
+
+6. Start the development server:
+```bash
+npm run dev
+```
+
+## 💡 Usage
+
+1. The application will load the videos from your specified YouTube playlist
+2. Click on any video thumbnail to play it in the embedded player
+3. Videos will autoplay when selected
+4. The grid layout is responsive and will adjust based on screen size
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 👤 Author
+
+Rial Parmar - rialparmar007@gmail.com
+
+## 🙏 Acknowledgments
+
+- YouTube Data API
+- Material-UI team
+- React community
+
+## 📋 Prerequisites
+
+- Node.js (v16 or higher)
+- npm or yarn
+- YouTube API key
+- Firebase project
+
+## 🔧 Setup
+
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/youtube-playlist-gallery.git
+cd youtube-playlist-gallery
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Configure YouTube API:
+   - Go to the [Google Cloud Console](https://console.cloud.google.com/)
+   - Create a new project or select an existing one
+   - Enable the YouTube Data API v3
+   - Create credentials (API key)
+   - Copy your API key and playlist ID
+
+4. Update the configuration:
+   - Open `src/config/youtube.ts`
+   - Replace `YOUR_API_KEY_HERE` with your YouTube API key
+   - Replace `YOUR_PLAYLIST_ID_HERE` with your YouTube playlist ID
+
+5. Configure Firebase:
+   - Go to the [Firebase Console](https://console.firebase.google.com/)
+   - Create a new project or select an existing one
+   - Enable Firebase Authentication
+   - Create credentials (API key, authentication domain, project ID, storage bucket, messaging sender ID, and app ID)
+   - Copy your credentials and update the environment variables
+
+6. Start the development server:
+```bash
+npm run dev
+```
+
+## 💡 Usage
+
+1. The application will load the videos from your specified YouTube playlist
+2. Click on any video thumbnail to play it in the embedded player
+3. Videos will autoplay when selected
+4. The grid layout is responsive and will adjust based on screen size
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 👤 Author
+
+Rial Parmar - rialparmar007@gmail.com
+
+## 🙏 Acknowledgments
+
+- YouTube Data API
+- Material-UI team
+- React community
+
+## 📋 Prerequisites
+
+- Node.js (v16 or higher)
+- npm or yarn
+- YouTube API key
+- Firebase project
+
+## 🔧 Setup
+
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/youtube-playlist-gallery.git
+cd youtube-playlist-gallery
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Configure YouTube API:
+   - Go to the [Google Cloud Console](https://console.cloud.google.com/)
+   - Create a new project or select an existing one
+   - Enable the YouTube Data API v3
+   - Create credentials (API key)
+   - Copy your API key and playlist ID
+
+4. Update the configuration:
+   - Open `src/config/youtube.ts`
+   - Replace `YOUR_API_KEY_HERE` with your YouTube API key
+   - Replace `YOUR_PLAYLIST_ID_HERE` with your YouTube playlist ID
+
+5. Configure Firebase:
+   - Go to the [Firebase Console](https://console.firebase.google.com/)
+   - Create a new project or select an existing one
+   - Enable Firebase Authentication
+   - Create credentials (API key, authentication domain, project ID, storage bucket, messaging sender ID, and app ID)
+   - Copy your credentials and update the environment variables
+
+6. Start the development server:
+```bash
+npm run dev
+```
+
+## 💡 Usage
+
+1. The application will load the videos from your specified YouTube playlist
+2. Click on any video thumbnail to play it in the embedded player
+3. Videos will autoplay when selected
+4. The grid layout is responsive and will adjust based on screen size
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 👤 Author
+
+Rial Parmar - rialparmar007@gmail.com
+
+## 🙏 Acknowledgments
+
+- YouTube Data API
+- Material-UI team
+- React community
+
+## 📋 Prerequisites
+
+- Node.js (v16 or higher)
+- npm or yarn
+- YouTube API key
+- Firebase project
+
+## 🔧 Setup
+
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/youtube-playlist-gallery.git
+cd youtube-playlist-gallery
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Configure YouTube API:
+   - Go to the [Google Cloud Console](https://console.cloud.google.com/)
+   - Create a new project or select an existing one
+   - Enable the YouTube Data API v3
+   - Create credentials (API key)
+   - Copy your API key and playlist ID
+
+4. Update the configuration:
+   - Open `src/config/youtube.ts`
+   - Replace `YOUR_API_KEY_HERE` with your YouTube API key
+   - Replace `YOUR_PLAYLIST_ID_HERE` with your YouTube playlist ID
+
+5. Configure Firebase:
+   - Go to the [Firebase Console](https://console.firebase.google.com/)
+   - Create a new project or select an existing one
+   - Enable Firebase Authentication
+   - Create credentials (API key, authentication domain, project ID, storage bucket, messaging sender ID, and app ID)
+   - Copy your credentials and update the environment variables
+
+6. Start the development server:
+```bash
+npm run dev
+```
+
+## 💡 Usage
+
+1. The application will load the videos from your specified YouTube playlist
+2. Click on any video thumbnail to play it in the embedded player
+3. Videos will autoplay when selected
+4. The grid layout is responsive and will adjust based on screen size
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 👤 Author
+
+Rial Parmar - rialparmar007@gmail.com
+
+## 🙏 Acknowledgments
+
+- YouTube Data API
+- Material-UI team
+- React community
+
+## 📋 Prerequisites
+
+- Node.js (v16 or higher)
+- npm or yarn
+- YouTube API key
+- Firebase project
+
+## 🔧 Setup
+
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/youtube-playlist-gallery.git
+cd youtube-playlist-gallery
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Configure YouTube API:
+   - Go to the [Google Cloud Console](https://console.cloud.google.com/)
+   - Create a new project or select an existing one
+   - Enable the YouTube Data API v3
+   - Create credentials (API key)
+   - Copy your API key and playlist ID
+
+4. Update the configuration:
+   - Open `src/config/youtube.ts`
+   - Replace `YOUR_API_KEY_HERE` with your YouTube API key
+   - Replace `YOUR_PLAYLIST_ID_HERE` with your YouTube playlist ID
+
+5. Configure Firebase:
+   - Go to the [Firebase Console](https://console.firebase.google.com/)
+   - Create a new project or select an existing one
+   - Enable Firebase Authentication
+   - Create credentials (API key, authentication domain, project ID, storage bucket, messaging sender ID, and app ID)
+   - Copy your credentials and update the environment variables
+
+6. Start the development server:
+```bash
+npm run dev
+```
+
+## 💡 Usage
+
+1. The application will load the videos from your specified YouTube playlist
+2. Click on any video thumbnail to play it in the embedded player
+3. Videos will autoplay when selected
+4. The grid layout is responsive and will adjust based on screen size
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 👤 Author
+
+Rial Parmar - rialparmar007@gmail.com
+
+## 🙏 Acknowledgments
+
+- YouTube Data API
+- Material-UI team
+- React community
+
+## 📋 Prerequisites
+
+- Node.js (v16 or higher)
+- npm or yarn
+- YouTube API key
+- Firebase project
+
+## 🔧 Setup
+
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/youtube-playlist-gallery.git
+cd youtube-playlist-gallery
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Configure YouTube API:
+   - Go to the [Google Cloud Console](https://console.cloud.google.com/)
+   - Create a new project or select an existing one
+   - Enable the YouTube Data API v3
+   - Create credentials (API key)
+   - Copy your API key and playlist ID
+
+4. Update the configuration:
+   - Open `src/config/youtube.ts`
+   - Replace `YOUR_API_KEY_HERE` with your YouTube API key
+   - Replace `YOUR_PLAYLIST_ID_HERE` with your YouTube playlist ID
+
+5. Configure Firebase:
+   - Go to the [Firebase Console](https://console.firebase.google.com/)
+   - Create a new project or select an existing one
+   - Enable Firebase Authentication
+   - Create credentials (API key, authentication domain, project ID, storage bucket, messaging sender ID, and app ID)
+   - Copy your credentials and update the environment variables
+
+6. Start the development server:
+```bash
+npm run dev
+```
+
+## 💡 Usage
+
+1. The application will load the videos from your specified YouTube playlist
+2. Click on any video thumbnail to play it in the embedded player
+3. Videos will autoplay when selected
+4. The grid layout is responsive and will adjust based on screen size
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 👤 Author
+
+Rial Parmar - rialparmar007@gmail.com
+
+## 🙏 Acknowledgments
+
+- YouTube Data API
+- Material-UI team
+- React community
+
+## 📋 Prerequisites
+
+- Node.js (v16 or higher)
+- npm or yarn
+- YouTube API key
+- Firebase project
+
+## 🔧 Setup
+
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/youtube-playlist-gallery.git
+cd youtube-playlist-gallery
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Configure YouTube API:
+   - Go to the [Google Cloud Console](https://console.cloud.google.com/)
+   - Create a new project or select an existing one
+   - Enable the YouTube Data API v3
+   - Create credentials (API key)
+   - Copy your API key and playlist ID
+
+4. Update the configuration:
+   - Open `src/config/youtube.ts`
+   - Replace `YOUR_API_KEY_HERE` with your YouTube API key
+   - Replace `YOUR_PLAYLIST_ID_HERE` with your YouTube playlist ID
+
+5. Configure Firebase:
+   - Go to the [Firebase Console](https://console.firebase.google.com/)
+   - Create a new project or select an existing one
+   - Enable Firebase Authentication
+   - Create credentials (API key, authentication domain, project ID, storage bucket, messaging sender ID, and app ID)
+   - Copy your credentials and update the environment variables
+
+6. Start the development server:
+```bash
+npm run dev
+```
+
+## 💡 Usage
+
+1. The application will load the videos from your specified YouTube playlist
+2. Click on any video thumbnail to play it in the embedded player
+3. Videos will autoplay when selected
+4. The grid layout is responsive and will adjust based on screen size
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 👤 Author
+
+Rial Parmar - rialparmar007@gmail.com
+
+## 🙏 Acknowledgments
+
+- YouTube Data API
+- Material-UI team
+- React community
+
+## 📋 Prerequisites
+
+- Node.js (v16 or higher)
+- npm or yarn
+- YouTube API key
+- Firebase project
+
+## 🔧 Setup
+
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/youtube-playlist-gallery.git
+cd youtube-playlist-gallery
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Configure YouTube API:
+   - Go to the [Google Cloud Console](https://console.cloud.google.com/)
+   - Create a new project or select an existing one
+   - Enable the YouTube Data API v3
+   - Create credentials (API key)
+   - Copy your API key and playlist ID
+
+4. Update the configuration:
+   - Open `src/config/youtube.ts`
+   - Replace `YOUR_API_KEY_HERE` with your YouTube API key
+   - Replace `YOUR_PLAYLIST_ID_HERE` with your YouTube playlist ID
+
+5. Configure Firebase:
+   - Go to the [Firebase Console](https://console.firebase.google.com/)
+   - Create a new project or select an existing one
+   - Enable Firebase Authentication
+   - Create credentials (API key, authentication domain, project ID, storage bucket, messaging sender ID, and app ID)
+   - Copy your credentials and update the environment variables
+
+6. Start the development server:
+```bash
+npm run dev
+```
+
+## 💡 Usage
+
+1. The application will load the videos from your specified YouTube playlist
+2. Click on any video thumbnail to play it in the embedded player
+3. Videos will autoplay when selected
+4. The grid layout is responsive and will adjust based on screen size
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 👤 Author
+
+Rial Parmar - rialparmar007@gmail.com
+
+## 🙏 Acknowledgments
+
+- YouTube Data API
+- Material-UI team
+- React community
+
+## 📋 Prerequisites
+
+- Node.js (v16 or higher)
+- npm or yarn
+- YouTube API key
+- Firebase project
+
+## 🔧 Setup
+
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/youtube-playlist-gallery.git
+cd youtube-playlist-gallery
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Configure YouTube API:
+   - Go to the [Google Cloud Console](https://console.cloud.google.com/)
+   - Create a new project or select an existing one
+   - Enable the YouTube Data API v3
+   - Create credentials (API key)
+   - Copy your API key and playlist ID
+
+4. Update the configuration:
+   - Open `src/config/youtube.ts`
+   - Replace `YOUR_API_KEY_HERE` with your YouTube API key
+   - Replace `YOUR_PLAYLIST_ID_HERE` with your YouTube playlist ID
+
+5. Configure Firebase:
+   - Go to the [Firebase Console](https://console.firebase.google.com/)
+   - Create a new project or select an existing one
+   - Enable Firebase Authentication
+   - Create credentials (API key, authentication domain, project ID, storage bucket, messaging sender ID, and app ID)
+   - Copy your credentials and update the environment variables
+
+6. Start the development server:
+```bash
+npm run dev
+```
+
+## 💡 Usage
+
+1. The application will load the videos from your specified YouTube playlist
+2. Click on any video thumbnail to play it in the embedded player
+3. Videos will autoplay when selected
+4. The grid layout is responsive and will adjust based on screen size
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 👤 Author
+
+Rial Parmar - rialparmar007@gmail.com
+
+## 🙏 Acknowledgments
+
+- YouTube Data API
+- Material-UI team
+- React community
+
+## 📋 Prerequisites
+
+- Node.js (v16 or higher)
+- npm or yarn
+- YouTube API key
+- Firebase project
+
+## 🔧 Setup
+
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/youtube-playlist-gallery.git
+cd youtube-playlist-gallery
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Configure YouTube API:
+   - Go to the [Google Cloud Console](https://console.cloud.google.com/)
+   - Create a new project or select an existing one
+   - Enable the YouTube Data API v3
+   - Create credentials (API key)
+   - Copy your API key and playlist ID
+
+4. Update the configuration:
+   - Open `src/config/youtube.ts`
+   - Replace `YOUR_API_KEY_HERE` with your YouTube API key
+   - Replace `YOUR_PLAYLIST_ID_HERE` with your YouTube playlist ID
+
+5. Configure Firebase:
+   - Go to the [Firebase Console](https://console.firebase.google.com/)
+   - Create a new project or select an existing one
+   - Enable Firebase Authentication
+   - Create credentials (API key, authentication domain, project ID, storage bucket, messaging sender ID, and app ID)
+   - Copy your credentials and update the environment variables
+
+6. Start the development server:
+```bash
+npm run dev
+```
+
+## 💡 Usage
+
+1. The application will load the videos from your specified YouTube playlist
+2. Click on any video thumbnail to play it in the embedded player
+3. Videos will autoplay when selected
+4. The grid layout is responsive and will adjust based on screen size
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 👤 Author
+
+Rial Parmar - rialparmar007@gmail.com
+
+## 🙏 Acknowledgments
+
+- YouTube Data API
+- Material-UI team
+- React community
+
+## 📋 Prerequisites
+
+- Node.js (v16 or higher)
+- npm or yarn
+- YouTube API key
+- Firebase project
+
+## 🔧 Setup
+
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/youtube-playlist-gallery.git
+cd youtube-playlist-gallery
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Configure YouTube API:
+   - Go to the [Google Cloud Console](https://console.cloud.google.com/)
+   - Create a new project or select an existing one
+   - Enable the YouTube Data API v3
+   - Create credentials (API key)
+   - Copy your API key and playlist ID
+
+4. Update the configuration:
+   - Open `src/config/youtube.ts`
+   - Replace `YOUR_API_KEY_HERE` with your YouTube API key
+   - Replace `YOUR_PLAYLIST_ID_HERE` with your YouTube playlist ID
+
+5. Configure Firebase:
+   - Go to the [Firebase Console](https://console.firebase.google.com/)
+   - Create a new project or select an existing one
+   - Enable Firebase Authentication
+   - Create credentials (API key, authentication domain, project ID, storage bucket, messaging sender ID, and app ID)
+   - Copy your credentials and update the environment variables
+
+6. Start the development server:
+```bash
+npm run dev
+```
+
+## 💡 Usage
+
+1. The application will load the videos from your specified YouTube playlist
+2. Click on any video thumbnail to play it in the embedded player
+3. Videos will autoplay when selected
+4. The grid layout is responsive and will adjust based on screen size
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 👤 Author
+
+Rial Parmar - rialparmar007@gmail.com
+
+## 🙏 Acknowledgments
+
+- YouTube Data API
+- Material-UI team
+- React community
+
+## 📋 Prerequisites
+
+- Node.js (v16 or higher)
+- npm or yarn
+- YouTube API key
+- Firebase project
+
+## 🔧 Setup
+
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/youtube-playlist-gallery.git
+cd youtube-playlist-gallery
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Configure YouTube API:
+   - Go to the [Google Cloud Console](https://console.cloud.google.com/)
+   - Create a new project or select an existing one
+   - Enable the YouTube Data API v3
+   - Create credentials (API key)
+   - Copy your API key and playlist ID
+
+4. Update the configuration:
+   - Open `src/config/youtube.ts`
+   - Replace `YOUR_API_KEY_HERE` with your YouTube API key
+   - Replace `YOUR_PLAYLIST_ID_HERE` with your YouTube playlist ID
+
+5. Configure Firebase:
+   - Go to the [Firebase Console](https://console.firebase.google.com/)
+   - Create a new project or select an existing one
+   - Enable Firebase Authentication
+   - Create credentials (API key, authentication domain, project ID, storage bucket, messaging sender ID, and app ID)
+   - Copy your credentials and update the environment variables
+
+6. Start the development server:
+```bash
+npm run dev
+```
+
+## 💡 Usage
+
+1. The application will load the videos from your specified YouTube playlist
+2. Click on any video thumbnail to play it in the embedded player
+3. Videos will autoplay when selected
+4. The grid layout is responsive and will adjust based on screen size
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 👤 Author
+
+Rial Parmar - rialparmar007@gmail.com
+
+## 🙏 Acknowledgments
+
+- YouTube Data API
+- Material-UI team
+- React community
+
+## 📋 Prerequisites
+
+- Node.js (v16 or higher)
+- npm or yarn
+- YouTube API key
+- Firebase project
+
+## 🔧 Setup
+
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/youtube-playlist-gallery.git
+cd youtube-playlist-gallery
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Configure YouTube API:
+   - Go to the [Google Cloud Console](https://console.cloud.google.com/)
+   - Create a new project or select an existing one
+   - Enable the YouTube Data API v3
+   - Create credentials (API key)
+   - Copy your API key and playlist ID
+
+4. Update the configuration:
+   - Open `src/config/youtube.ts`
+   - Replace `YOUR_API_KEY_HERE` with your YouTube API key
+   - Replace `YOUR_PLAYLIST_ID_HERE` with your YouTube playlist ID
+
+5. Configure Firebase:
+   - Go to the [Firebase Console](https://console.firebase.google.com/)
+   - Create a new project or select an existing one
+   - Enable Firebase Authentication
+   - Create credentials (API key, authentication domain, project ID, storage bucket, messaging sender ID, and app ID)
+   - Copy your credentials and update the environment variables
+
+6. Start the development server:
+```bash
+npm run dev
+```
+
+## 💡 Usage
+
+1. The application will load the videos from your specified YouTube playlist
+2. Click on any video thumbnail to play it in the embedded player
+3. Videos will autoplay when selected
+4. The grid layout is responsive and will adjust based on screen size
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 👤 Author
+
+Rial Parmar - rialparmar007@gmail.com
+
+## 🙏 Acknowledgments
+
+- YouTube Data API
+- Material-UI team
+- React community
+
+## 📋 Prerequisites
+
+- Node.js (v16 or higher)
+- npm or yarn
+- YouTube API key
+- Firebase project
+
+## 🔧 Setup
+
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/youtube-playlist-gallery.git
+cd youtube-playlist-gallery
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Configure YouTube API:
+   - Go to the [Google Cloud Console](https://console.cloud.google.com/)
+   - Create a new project or select an existing one
+   - Enable the YouTube Data API v3
+   - Create credentials (API key)
+   - Copy your API key and playlist ID
+
+4. Update the configuration:
+   - Open `src/config/youtube.ts`
+   - Replace `YOUR_API_KEY_HERE` with your YouTube API key
+   - Replace `YOUR_PLAYLIST_ID_HERE` with your YouTube playlist ID
+
+5. Configure Firebase:
+   - Go to the [Firebase Console](https://console.firebase.google.com/)
+   - Create a new project or select an existing one
+   - Enable Firebase Authentication
+   - Create credentials (API key, authentication domain, project ID, storage bucket, messaging sender ID, and app ID)
+   - Copy your credentials and update the environment variables
+
+6. Start the development server:
+```bash
+npm run dev
+```
+
+## 💡 Usage
+
+1. The application will load the videos from your specified YouTube playlist
+2. Click on any video thumbnail to play it in the embedded player
+3. Videos will autoplay when selected
+4. The grid layout is responsive and will adjust based on screen size
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## 📝 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 👤 Author
+
+Rial Parmar - rialparmar007@gmail.com
+
+## 🙏 Acknowledgments
+
+- YouTube Data API
+- Material-UI team
+- React community
+
+## 📋 Prerequisites
+
+- Node.js (v16 or higher)
+- npm or yarn
+- YouTube API key
+- Firebase project
+
+## 🔧 Setup
+
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/youtube-playlist-gallery.git
+cd youtube-playlist-gallery
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+3. Configure YouTube API:
+   - Go to the [Google Cloud Console](https://console.cloud.google.com/)
+   - Create a new project or select an existing one
+   - Enable the YouTube Data API v3
+   - Create credentials (API key)
+   - Copy your API key and playlist ID
+
+4. Update the configuration:
+   - Open `src/config/youtube.ts`
+   - Replace `YOUR_API_KEY_HERE` with your YouTube API key
+   - Replace `YOUR_PLAYLIST_ID_HERE` with your YouTube playlist ID
+
+5. Configure Firebase:
+   - Go to the [Firebase Console](https://console.firebase.google.com/)
+   - Create a new project or select an existing one
+   - Enable Firebase Authentication
+   - Create credentials (API key, authentication domain, project ID, storage bucket, messaging sender ID, and app ID)
+   - Copy your credentials and update the environment variables
+
+6. Start the development server:
+```bash
+npm run dev
+```
+
+## 💡 Usage
+
+1. The application will load the videos from your specified YouTube playlist
+2. Click on any video thumbnail to play it in the embedded player

@@ -1,6 +1,10 @@
 import axios from 'axios';
 import { YOUTUBE_API_KEY, YOUTUBE_API_BASE_URL, VIDEO_CATEGORIES, SEARCH_PARAMS } from '../config/youtube';
 
+// Cache implementation
+const cache = new Map();
+const CACHE_DURATION = 1000 * 60 * 30; // 30 minutes
+
 export interface VideoItem {
   id: string;
   title: string;
@@ -15,9 +19,30 @@ export interface VideoItem {
   duration?: string;
 }
 
+const getFromCache = (key: string) => {
+  const cached = cache.get(key);
+  if (cached && Date.now() - cached.timestamp < CACHE_DURATION) {
+    return cached.data;
+  }
+  return null;
+};
+
+const setCache = (key: string, data: any) => {
+  cache.set(key, {
+    data,
+    timestamp: Date.now()
+  });
+};
+
 export const youtubeService = {
   async getRandomVideos(): Promise<VideoItem[]> {
     try {
+      const cacheKey = 'randomVideos';
+      const cached = getFromCache(cacheKey);
+      if (cached) {
+        return cached;
+      }
+
       console.log('Fetching random videos...');
       
       // Get a random category
@@ -51,7 +76,7 @@ export const youtubeService = {
       });
 
       // Combine search results with video statistics
-      return response.data.items.map((item: any) => {
+      const videos = response.data.items.map((item: any) => {
         const videoStats = statsResponse.data.items.find(
           (stat: any) => stat.id === item.id.videoId
         );
@@ -70,6 +95,9 @@ export const youtubeService = {
           duration: videoStats?.contentDetails?.duration,
         };
       });
+
+      setCache(cacheKey, videos);
+      return videos;
     } catch (error: any) {
       console.error('Error fetching videos:', error);
       console.error('Error Response:', error.response?.data);
@@ -90,27 +118,57 @@ export const youtubeService = {
 
   async getRelatedVideos(videoId: string): Promise<VideoItem[]> {
     try {
-      const response = await fetch(
-        `https://www.googleapis.com/youtube/v3/search?part=snippet&relatedToVideoId=${videoId}&type=video&maxResults=20&key=${YOUTUBE_API_KEY}`
-      );
-      const data = await response.json();
+      const cacheKey = `relatedVideos-${videoId}`;
+      const cached = getFromCache(cacheKey);
+      if (cached) {
+        return cached;
+      }
 
-      if (!data.items) {
+      const response = await axios.get(`${YOUTUBE_API_BASE_URL}/search`, {
+        params: {
+          part: 'snippet',
+          relatedToVideoId: videoId,
+          key: YOUTUBE_API_KEY,
+          ...SEARCH_PARAMS
+        }
+      });
+
+      if (!response.data.items) {
         return [];
       }
 
-      return data.items.map((item: any) => ({
-        id: item.id.videoId,
-        title: item.snippet.title,
-        description: item.snippet.description,
-        thumbnailUrl: item.snippet.thumbnails.high.url,
-        channelTitle: item.snippet.channelTitle,
-        channelThumbnail: item.snippet.channelThumbnails?.default?.url || '',
-        viewCount: Math.floor(Math.random() * 1000000).toString(), // Mock data
-        publishedAt: item.snippet.publishedAt,
-        likeCount: Math.floor(Math.random() * 1000000).toString(), // Mock data
-        subscriberCount: Math.floor(Math.random() * 1000000).toString(), // Mock data
-      }));
+      // Get video statistics for related videos
+      const videoIds = response.data.items.map((item: any) => item.id.videoId).join(',');
+      const statsResponse = await axios.get(`${YOUTUBE_API_BASE_URL}/videos`, {
+        params: {
+          part: 'statistics,contentDetails,snippet',
+          id: videoIds,
+          key: YOUTUBE_API_KEY,
+        },
+      });
+
+      const relatedVideos = response.data.items.map((item: any) => {
+        const videoStats = statsResponse.data.items.find(
+          (stat: any) => stat.id === item.id.videoId
+        );
+
+        return {
+          id: item.id.videoId,
+          title: item.snippet.title,
+          description: item.snippet.description,
+          thumbnailUrl: item.snippet.thumbnails.high.url,
+          channelTitle: item.snippet.channelTitle,
+          channelThumbnail: item.snippet.thumbnails.default.url,
+          viewCount: videoStats?.statistics?.viewCount || '0',
+          publishedAt: item.snippet.publishedAt,
+          likeCount: videoStats?.statistics?.likeCount,
+          subscriberCount: videoStats?.statistics?.subscriberCount,
+          duration: videoStats?.contentDetails?.duration,
+        };
+      });
+
+      setCache(cacheKey, relatedVideos);
+      return relatedVideos;
     } catch (error) {
       console.error('Error fetching related videos:', error);
       return [];
