@@ -1,6 +1,5 @@
 import {
   Drawer,
-  List,
   ListItem,
   ListItemButton,
   ListItemIcon,
@@ -10,9 +9,8 @@ import {
   Typography,
   useTheme,
   useMediaQuery,
-  Avatar,
   Button,
-  IconButton,
+  Avatar,
 } from '@mui/material';
 import {
   Home as HomeIcon,
@@ -28,7 +26,6 @@ import {
   Settings as SettingsIcon,
   Help as HelpIcon,
   Feedback as FeedbackIcon,
-  Menu as MenuIcon,
   WhatshotOutlined as TrendingIcon,
   MusicNote as MusicIcon,
   SportsEsports as GamingIcon,
@@ -42,13 +39,15 @@ import {
 } from '@mui/icons-material';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { User } from '../types';
 
 interface SidebarProps {
   isOpen: boolean;
   onClose: () => void;
+  user: User | null;
 }
 
-export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
+export const Sidebar = ({ isOpen, onClose, user }: SidebarProps) => {
   const [showMore, setShowMore] = useState(false);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
@@ -131,6 +130,26 @@ export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
     </>
   );
 
+  const renderUserSection = () => {
+    if (!user) return null;
+    
+    return (
+      <Box sx={{ p: 2, display: 'flex', alignItems: 'center', gap: 2 }}>
+        <Avatar
+          alt={user.name}
+          src={user.avatar}
+          sx={{ width: 32, height: 32 }}
+        />
+        <Box>
+          <Typography variant="body2">{user.name}</Typography>
+          <Typography variant="caption" color="text.secondary">
+            {user.email}
+          </Typography>
+        </Box>
+      </Box>
+    );
+  };
+
   return (
     <Drawer
       variant={isMobile ? 'temporary' : 'persistent'}
@@ -148,6 +167,7 @@ export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
       }}
     >
       <Box sx={{ overflow: 'auto', height: '100%' }}>
+        {renderUserSection()}
         {renderSection(mainItems)}
         <Divider sx={{ my: 1 }} />
         {renderSection(secondaryItems)}

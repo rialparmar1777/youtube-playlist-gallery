@@ -7,7 +7,6 @@ import {
   Avatar,
   Menu,
   MenuItem,
-  Button,
 } from '@mui/material';
 import {
   Menu as MenuIcon,
@@ -20,14 +19,14 @@ import {
 import { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { useNavigate } from 'react-router-dom';
+import { User } from '../types';
 
 interface NavbarProps {
   onSidebarToggle: () => void;
-  isSidebarOpen: boolean;
-  user: any;
+  user: User | null;
 }
 
-export const Navbar = ({ onSidebarToggle, isSidebarOpen, user }: NavbarProps) => {
+export const Navbar = ({ onSidebarToggle, user }: NavbarProps) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const { logout } = useAuth();
   const navigate = useNavigate();
@@ -137,8 +136,8 @@ export const Navbar = ({ onSidebarToggle, isSidebarOpen, user }: NavbarProps) =>
             sx={{ ml: 2 }}
           >
             <Avatar
-              alt={user?.displayName || 'User'}
-              src={user?.photoURL}
+              alt={user?.name || 'User'}
+              src={user?.avatar}
               sx={{ width: 32, height: 32 }}
             />
           </IconButton>
@@ -157,12 +156,12 @@ export const Navbar = ({ onSidebarToggle, isSidebarOpen, user }: NavbarProps) =>
           >
             <MenuItem onClick={handleProfile}>
               <Avatar
-                alt={user?.displayName || 'User'}
-                src={user?.photoURL}
+                alt={user?.name || 'User'}
+                src={user?.avatar}
                 sx={{ width: 32, height: 32, mr: 2 }}
               />
               <Box>
-                <Typography variant="body2">{user?.displayName}</Typography>
+                <Typography variant="body2">{user?.name}</Typography>
                 <Typography variant="caption" color="text.secondary">
                   {user?.email}
                 </Typography>

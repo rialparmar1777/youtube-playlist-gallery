@@ -8,8 +8,11 @@ import { VideoGrid } from './components/VideoGrid';
 import { VideoPlayer } from './components/VideoPlayer';
 import { LoginPage } from './pages/LoginPage';
 import { ProtectedRoute } from './components/ProtectedRoute';
-import { AuthProvider, useAuth } from './contexts/AuthContext';
+import { AuthProvider } from './contexts/AuthContext';
 import { youtubeService, VideoItem } from './services/youtubeService';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from './firebase';
+import { User } from './types';
 
 const theme = createTheme({
   palette: {
@@ -40,73 +43,16 @@ const theme = createTheme({
   },
 });
 
-const Layout = ({ children }: { children: React.ReactNode }) => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-  const { user } = useAuth();
-  const location = useLocation();
-
-  const handleSidebarToggle = () => {
-    setIsSidebarOpen(!isSidebarOpen);
-  };
-
-  return (
-    <Box sx={{ display: 'flex', height: '100%', width: '100%' }}>
-      <Navbar 
-        onSidebarToggle={handleSidebarToggle}
-        isSidebarOpen={isSidebarOpen}
-        user={user}
-      />
-      <Sidebar 
-        isOpen={isSidebarOpen}
-        onClose={() => setIsSidebarOpen(false)}
-      />
-      <Box
-        component="main"
-        sx={{
-          flexGrow: 1,
-          height: '100%',
-          overflow: 'auto',
-          transition: theme.transitions.create('margin', {
-            easing: theme.transitions.easing.sharp,
-            duration: theme.transitions.duration.leavingScreen,
-          }),
-          '&::-webkit-scrollbar': {
-            width: '8px',
-          },
-          '&::-webkit-scrollbar-track': {
-            background: 'transparent',
-          },
-          '&::-webkit-scrollbar-thumb': {
-            background: '#888',
-            borderRadius: '4px',
-            '&:hover': {
-              background: '#555',
-            },
-          },
-        }}
-      >
-        <Box sx={{ 
-          display: 'flex', 
-          flexDirection: 'column', 
-          height: '100%',
-          pt: '56px', // Account for navbar height
-          width: '100%',
-        }}>
-          {children}
-        </Box>
-      </Box>
-    </Box>
-  );
-};
-
-const HomePage = () => {
+const AppContent = () => {
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [videos, setVideos] = useState<VideoItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedVideo, setSelectedVideo] = useState<VideoItem | null>(null);
   const [relatedVideos, setRelatedVideos] = useState<VideoItem[]>([]);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const navigate = useNavigate();
   const location = useLocation();
+  const [user, setUser] = useState<User | null>(null);
 
   useEffect(() => {
     const fetchVideos = async () => {
@@ -139,6 +85,23 @@ const HomePage = () => {
     fetchRelatedVideos();
   }, [selectedVideo]);
 
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (firebaseUser) => {
+      if (firebaseUser) {
+        setUser({
+          id: firebaseUser.uid,
+          email: firebaseUser.email || '',
+          name: firebaseUser.displayName || '',
+          avatar: firebaseUser.photoURL || undefined
+        });
+      } else {
+        setUser(null);
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
+
   const handleCategorySelect = (category: string) => {
     setSelectedCategory(category);
   };
@@ -155,25 +118,49 @@ const HomePage = () => {
 
   const isVideoPlayerRoute = location.pathname.startsWith('/watch/');
 
-  return isVideoPlayerRoute ? (
-    <VideoPlayer
-      video={selectedVideo || location.state?.video}
-      relatedVideos={relatedVideos}
-      onVideoSelect={handleVideoSelect}
-      onBack={handleBack}
-    />
-  ) : (
-    <>
-      <CategoryCarousel
-        selectedCategory={selectedCategory}
-        onCategorySelect={handleCategorySelect}
+  return (
+    <Box sx={{ display: 'flex' }}>
+      <Navbar
+        onSidebarToggle={() => setIsSidebarOpen(!isSidebarOpen)}
+        user={user}
       />
-      <VideoGrid 
-        videos={videos} 
-        loading={loading} 
-        onVideoSelect={handleVideoSelect}
+      <Sidebar
+        isOpen={isSidebarOpen}
+        onClose={() => setIsSidebarOpen(false)}
+        user={user}
       />
-    </>
+      <Box
+        component="main"
+        sx={{
+          flexGrow: 1,
+          p: 3,
+          width: { sm: `calc(100% - ${isSidebarOpen ? 240 : 0}px)` },
+          ml: { sm: isSidebarOpen ? '240px' : 0 },
+          mt: '64px',
+        }}
+      >
+        {isVideoPlayerRoute ? (
+          <VideoPlayer
+            video={selectedVideo || location.state?.video}
+            relatedVideos={relatedVideos}
+            onVideoSelect={handleVideoSelect}
+            onBack={handleBack}
+          />
+        ) : (
+          <>
+            <CategoryCarousel
+              selectedCategory={selectedCategory}
+              onCategorySelect={handleCategorySelect}
+            />
+            <VideoGrid 
+              videos={videos} 
+              loading={loading} 
+              onVideoSelect={handleVideoSelect}
+            />
+          </>
+        )}
+      </Box>
+    </Box>
   );
 };
 
@@ -189,9 +176,7 @@ const App = () => {
               path="/"
               element={
                 <ProtectedRoute>
-                  <Layout>
-                    <HomePage />
-                  </Layout>
+                  <AppContent />
                 </ProtectedRoute>
               }
             />
@@ -199,9 +184,7 @@ const App = () => {
               path="/watch/:videoId"
               element={
                 <ProtectedRoute>
-                  <Layout>
-                    <HomePage />
-                  </Layout>
+                  <AppContent />
                 </ProtectedRoute>
               }
             />
@@ -209,9 +192,7 @@ const App = () => {
               path="/explore"
               element={
                 <ProtectedRoute>
-                  <Layout>
-                    <div>Explore Page</div>
-                  </Layout>
+                  <AppContent />
                 </ProtectedRoute>
               }
             />
@@ -219,9 +200,7 @@ const App = () => {
               path="/subscriptions"
               element={
                 <ProtectedRoute>
-                  <Layout>
-                    <div>Subscriptions Page</div>
-                  </Layout>
+                  <AppContent />
                 </ProtectedRoute>
               }
             />
@@ -229,9 +208,7 @@ const App = () => {
               path="/library"
               element={
                 <ProtectedRoute>
-                  <Layout>
-                    <div>Library Page</div>
-                  </Layout>
+                  <AppContent />
                 </ProtectedRoute>
               }
             />
@@ -239,9 +216,7 @@ const App = () => {
               path="/history"
               element={
                 <ProtectedRoute>
-                  <Layout>
-                    <div>History Page</div>
-                  </Layout>
+                  <AppContent />
                 </ProtectedRoute>
               }
             />
@@ -249,9 +224,7 @@ const App = () => {
               path="/your-videos"
               element={
                 <ProtectedRoute>
-                  <Layout>
-                    <div>Your Videos Page</div>
-                  </Layout>
+                  <AppContent />
                 </ProtectedRoute>
               }
             />
@@ -259,9 +232,7 @@ const App = () => {
               path="/watch-later"
               element={
                 <ProtectedRoute>
-                  <Layout>
-                    <div>Watch Later Page</div>
-                  </Layout>
+                  <AppContent />
                 </ProtectedRoute>
               }
             />
@@ -269,9 +240,7 @@ const App = () => {
               path="/liked-videos"
               element={
                 <ProtectedRoute>
-                  <Layout>
-                    <div>Liked Videos Page</div>
-                  </Layout>
+                  <AppContent />
                 </ProtectedRoute>
               }
             />
@@ -279,9 +248,7 @@ const App = () => {
               path="/channel"
               element={
                 <ProtectedRoute>
-                  <Layout>
-                    <div>Channel Page</div>
-                  </Layout>
+                  <AppContent />
                 </ProtectedRoute>
               }
             />
@@ -289,9 +256,7 @@ const App = () => {
               path="/settings"
               element={
                 <ProtectedRoute>
-                  <Layout>
-                    <div>Settings Page</div>
-                  </Layout>
+                  <AppContent />
                 </ProtectedRoute>
               }
             />
@@ -299,9 +264,7 @@ const App = () => {
               path="/help"
               element={
                 <ProtectedRoute>
-                  <Layout>
-                    <div>Help Page</div>
-                  </Layout>
+                  <AppContent />
                 </ProtectedRoute>
               }
             />
@@ -309,9 +272,7 @@ const App = () => {
               path="/feedback"
               element={
                 <ProtectedRoute>
-                  <Layout>
-                    <div>Feedback Page</div>
-                  </Layout>
+                  <AppContent />
                 </ProtectedRoute>
               }
             />

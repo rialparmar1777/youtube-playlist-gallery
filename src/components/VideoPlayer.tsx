@@ -3,28 +3,26 @@ import {
   Typography, 
   IconButton, 
   Button, 
-  Divider, 
   Avatar, 
   Tooltip,
   Collapse,
   Menu,
   MenuItem,
   ButtonBase,
-  Paper
+  Paper,
 } from '@mui/material';
 import YouTube, { YouTubeProps } from 'react-youtube';
 import { VideoItem } from '../services/youtubeService';
 import { youtubeService } from '../services/youtubeService';
 import { 
-  ThumbUpOutlined, 
-  ThumbDownOutlined, 
-  ShareOutlined, 
-  MoreHoriz,
-  PlaylistAddOutlined,
-  WatchLaterOutlined,
-  NotificationsNoneOutlined,
-  NotificationsActiveOutlined,
-  SubscriptionsOutlined,
+  ThumbUp, 
+  ThumbDown, 
+  Share, 
+  MoreVert,
+  PlaylistAdd,
+  Notifications,
+  Subscriptions,
+  WatchLater,
   ArrowBack,
   ExpandLess,
   ExpandMore
@@ -34,7 +32,17 @@ import { formatDistanceToNow } from 'date-fns';
 import { VideoCard } from './VideoCard';
 
 interface VideoPlayerProps {
-  video: VideoItem;
+  video: {
+    id: string;
+    title: string;
+    channelTitle: string;
+    viewCount: string;
+    publishedAt: string;
+    description: string;
+    likeCount: string;
+    channelThumbnail: string;
+    subscriberCount: string;
+  };
   relatedVideos: VideoItem[];
   onVideoSelect: (video: VideoItem) => void;
   onBack: () => void;
@@ -46,13 +54,9 @@ export const VideoPlayer = ({
   onVideoSelect,
   onBack
 }: VideoPlayerProps) => {
-  // State management
-  const [player, setPlayer] = useState<any>(null);
   const [isSubscribed, setIsSubscribed] = useState(false);
   const [showDescription, setShowDescription] = useState(false);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-  const [currentTime, setCurrentTime] = useState(0);
-  const [duration, setDuration] = useState(0);
   const progressInterval = useRef<ReturnType<typeof setInterval> | undefined>(undefined);
 
   // YouTube player configuration
@@ -70,13 +74,10 @@ export const VideoPlayer = ({
 
   // Event handlers
   const onPlayerReady: YouTubeProps['onReady'] = (event) => {
+    // The event parameter contains the YouTube player instance
+    // We can use it to control the player if needed
     const player = event.target;
-    setPlayer(player);
-    setDuration(player.getDuration());
-    
-    progressInterval.current = setInterval(() => {
-      setCurrentTime(player.getCurrentTime());
-    }, 1000);
+    console.log('Player is ready', player);
   };
 
   const handleMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
@@ -93,18 +94,6 @@ export const VideoPlayer = ({
 
   const handleVideoSelect = (selectedVideo: VideoItem) => {
     onVideoSelect(selectedVideo);
-  };
-
-  const handleProgressClick = (event: React.MouseEvent<HTMLDivElement>) => {
-    if (!player) return;
-    
-    const progressBar = event.currentTarget;
-    const rect = progressBar.getBoundingClientRect();
-    const x = event.clientX - rect.left;
-    const percentage = x / rect.width;
-    const newTime = percentage * duration;
-    
-    player.seekTo(newTime, true);
   };
 
   // Cleanup effect
@@ -158,7 +147,7 @@ export const VideoPlayer = ({
       <Box sx={{ display: 'flex', gap: 1, ml: 'auto' }}>
         <Tooltip title="Like">
           <Button
-            startIcon={<ThumbUpOutlined />}
+            startIcon={<ThumbUp />}
             variant="text"
             size="small"
             sx={{ 
@@ -167,13 +156,13 @@ export const VideoPlayer = ({
               '& .MuiButton-startIcon': { mr: 0.5 }
             }}
           >
-            {youtubeService.formatViewCount(video.likeCount?.toString() || '0')}
+            {youtubeService.formatViewCount(video.likeCount || '0')}
           </Button>
         </Tooltip>
         
         <Tooltip title="Dislike">
           <Button
-            startIcon={<ThumbDownOutlined />}
+            startIcon={<ThumbDown />}
             variant="text"
             size="small"
             sx={{ 
@@ -186,7 +175,7 @@ export const VideoPlayer = ({
         
         <Tooltip title="Share">
           <Button
-            startIcon={<ShareOutlined />}
+            startIcon={<Share />}
             variant="text"
             size="small"
             sx={{ 
@@ -205,7 +194,7 @@ export const VideoPlayer = ({
             onClick={handleMenuOpen}
             sx={{ color: 'text.primary' }}
           >
-            <MoreHoriz />
+            <MoreVert />
           </IconButton>
         </Tooltip>
       </Box>
@@ -237,7 +226,7 @@ export const VideoPlayer = ({
             {video.channelTitle}
           </Typography>
           <Typography variant="body2" color="text.secondary" sx={{ fontSize: '0.8rem' }}>
-            {youtubeService.formatViewCount(video.subscriberCount?.toString() || '0')} subscribers
+            {youtubeService.formatViewCount(video.subscriberCount || '0')} subscribers
           </Typography>
         </Box>
       </Box>
@@ -245,7 +234,7 @@ export const VideoPlayer = ({
       <Button 
         variant={isSubscribed ? 'outlined' : 'contained'}
         color={isSubscribed ? 'inherit' : 'error'}
-        startIcon={isSubscribed ? <NotificationsActiveOutlined /> : <SubscriptionsOutlined />}
+        startIcon={isSubscribed ? <Notifications /> : <Subscriptions />}
         onClick={handleSubscribe}
         sx={{ 
           borderRadius: '18px',
@@ -398,11 +387,11 @@ export const VideoPlayer = ({
         }}
       >
         <MenuItem onClick={handleMenuClose} sx={{ py: 1 }}>
-          <PlaylistAddOutlined sx={{ mr: 1.5, fontSize: '1.2rem' }} />
+          <PlaylistAdd sx={{ mr: 1.5, fontSize: '1.2rem' }} />
           <Typography variant="body2">Save to playlist</Typography>
         </MenuItem>
         <MenuItem onClick={handleMenuClose} sx={{ py: 1 }}>
-          <WatchLaterOutlined sx={{ mr: 1.5, fontSize: '1.2rem' }} />
+          <WatchLater sx={{ mr: 1.5, fontSize: '1.2rem' }} />
           <Typography variant="body2">Save to Watch later</Typography>
         </MenuItem>
       </Menu>
