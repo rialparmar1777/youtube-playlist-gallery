@@ -11,10 +11,13 @@ A modern, responsive web application that transforms YouTube playlists into beau
 - **Error Handling**: Graceful error states and loading indicators
 - **Performance Optimized**: Efficient video loading and state management
 
+<<<<<<< HEAD
 ## 🚀 Live Demo
 
 [View Live Demo](https://youtube-playlist-gallery-1spb.vercel.app/)
 
+=======
+>>>>>>> e3fbb3a (Update README to reflect changes in prerequisites and setup instructions; remove outdated sections, add Firebase authentication details, and clarify deployment process on Vercel.)
 ## 🛠️ Tech Stack
 
 - **Frontend Framework**: React 18 with TypeScript
@@ -23,12 +26,15 @@ A modern, responsive web application that transforms YouTube playlists into beau
 - **Video Integration**: react-youtube
 - **API Client**: Axios
 - **Styling**: Emotion (CSS-in-JS)
+- **Authentication**: Firebase
+- **Deployment**: Vercel
 
 ## 📋 Prerequisites
 
-- Node.js (v14 or higher)
+- Node.js (v16 or higher)
 - npm or yarn
 - YouTube Data API key
+- Firebase project (for authentication)
 
 ## 🔧 Setup
 
@@ -50,12 +56,25 @@ npm install
    - Create credentials (API key)
    - Copy your API key and playlist ID
 
-4. Update the configuration:
-   - Open `src/config/youtube.ts`
-   - Replace `YOUR_API_KEY_HERE` with your YouTube API key
-   - Replace `YOUR_PLAYLIST_ID_HERE` with your YouTube playlist ID
+4. Configure Firebase:
+   - Go to the [Firebase Console](https://console.firebase.google.com/)
+   - Create a new project or select an existing one
+   - Enable Firebase Authentication
+   - Create credentials (API key, authentication domain, project ID, storage bucket, messaging sender ID, and app ID)
 
-5. Start the development server:
+5. Create a `.env` file in the root directory with the following variables:
+```env
+VITE_YOUTUBE_API_KEY=your_youtube_api_key
+VITE_PLAYLIST_ID=your_playlist_id
+VITE_FIREBASE_API_KEY=your_firebase_api_key
+VITE_FIREBASE_AUTH_DOMAIN=your_firebase_auth_domain
+VITE_FIREBASE_PROJECT_ID=your_firebase_project_id
+VITE_FIREBASE_STORAGE_BUCKET=your_firebase_storage_bucket
+VITE_FIREBASE_MESSAGING_SENDER_ID=your_firebase_messaging_sender_id
+VITE_FIREBASE_APP_ID=your_firebase_app_id
+```
+
+6. Start the development server:
 ```bash
 npm run dev
 ```
@@ -67,9 +86,13 @@ npm run dev
 3. Videos will autoplay when selected
 4. The grid layout is responsive and will adjust based on screen size
 
+## 🚀 Deployment
+
+The application is configured for deployment on Vercel. Simply push your changes to the main branch, and Vercel will automatically deploy them.
+
 ## 🤝 Contributing
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+Contributions are welcome! Please feel free to submit a Pull Request. For major changes, please open an issue first to discuss what you would like to change.
 
 ## 📝 License
 
@@ -84,6 +107,7 @@ Rial Parmar - rialparmar007@gmail.com
 - YouTube Data API
 - Material-UI team
 - React community
+<<<<<<< HEAD
 
 ## 📋 Prerequisites
 
@@ -2755,3 +2779,6 @@ npm run dev
 
 1. The application will load the videos from your specified YouTube playlist
 2. Click on any video thumbnail to play it in the embedded player
+=======
+- Firebase team
+>>>>>>> e3fbb3a (Update README to reflect changes in prerequisites and setup instructions; remove outdated sections, add Firebase authentication details, and clarify deployment process on Vercel.)
